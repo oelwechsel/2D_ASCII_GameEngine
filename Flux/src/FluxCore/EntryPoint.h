@@ -6,7 +6,10 @@ extern Flux::Application* Flux::CreateApplication();
 
 int main(int argc, char** argv) 
 {
-	std::cout << "test" << std::endl;
+	Flux::Log::Init();
+	FX_CORE_WARN("Initialized Log!");
+	FX_INFO("Initialized Log!");
+
 	auto app = Flux::CreateApplication();
 	app->Run();
 	delete app;
