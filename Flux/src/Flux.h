@@ -2,10 +2,10 @@
 
 //Include File for Applications/Games who use the Flux Engine
 
-#include "FluxCore/Application.h"
-#include "FluxCore/Log.h"
+#include "Flux/Application.h"
+#include "Flux/Log.h"
 
 
 //-------------------------Entrypoint-------------------------
-#include "FluxCore/EntryPoint.h"
+#include "Flux/EntryPoint.h"
 //-------------------------Entrypoint-------------------------

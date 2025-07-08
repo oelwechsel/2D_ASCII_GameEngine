@@ -150,14 +150,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Flux.h" />
-    <ClInclude Include="src\FluxCore\Application.h" />
-    <ClInclude Include="src\FluxCore\Core.h" />
-    <ClInclude Include="src\FluxCore\EntryPoint.h" />
-    <ClInclude Include="src\FluxCore\Log.h" />
+    <ClInclude Include="src\Flux\Application.h" />
+    <ClInclude Include="src\Flux\Core.h" />
+    <ClInclude Include="src\Flux\EntryPoint.h" />
+    <ClInclude Include="src\Flux\Log.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\FluxCore\Application.cpp" />
-    <ClCompile Include="src\FluxCore\Log.cpp" />
+    <ClCompile Include="src\Flux\Application.cpp" />
+    <ClCompile Include="src\Flux\Log.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
