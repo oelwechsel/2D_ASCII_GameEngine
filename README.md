@@ -1,4 +1,4 @@
-# Flux Game Engine - @venture
+# Flux Game Engine - start your @venture!
 
 ```
                  _                   _____________O
