@@ -29,5 +29,20 @@ student project:
 - [@Jalan-Gaby](https://github.com/Jalan-Gaby) - Contributor
 
 ## Wiki
-for more Documentation pls refer to our wiki page, 
-Enjoy 
+
+For further documentation, please refer to our [📚Wiki](https://github.com/oelwechsel/2D_ASCII_GameEngine/wiki),
+
+Enjoy!
+
+```
+	       /\   /\            .-´‾‾)
+	      / ´‾‾‾` \          / /´‾‾
+	     =  o x o  =         ) )
+	     (`-------´\________( (
+	     (                  `\,\
+              ;___          (‾‾\   ))
+	     (____`,   ,-´‾‾    \./´
+```
+
+
+
