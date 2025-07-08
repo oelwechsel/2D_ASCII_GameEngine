@@ -1,2 +1,2 @@
-# 2D_ASCII_GameEngine
+# Flux Game Engine - @venture
 Game Engine in order to build a 2D ASCII Game
