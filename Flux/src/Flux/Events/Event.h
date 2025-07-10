@@ -1,9 +1,9 @@
 #pragma once
 
+
+#include "fxpch.h"
 #include "Flux/Core.h"
 
-#include <string>
-#include <functional>
 
 namespace Flux 
 {

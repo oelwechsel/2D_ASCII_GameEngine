@@ -18,6 +18,9 @@ project "Flux"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "fxpch.h"
+	pchsource "Flux/src/fxpch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",

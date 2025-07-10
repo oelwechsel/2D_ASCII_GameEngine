@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace Flux
 {
 	class FLUX_API MouseMovedEvent : public Event

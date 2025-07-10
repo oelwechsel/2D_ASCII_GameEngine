@@ -1,46 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="FluxCore">
-      <UniqueIdentifier>{ADD3D2A8-99A0-2DB4-C2B9-1B5CAEE56242}</UniqueIdentifier>
+    <Filter Include="Flux">
+      <UniqueIdentifier>{044D857C-F083-860D-9970-6C108586020F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="FluxCore\Events">
-      <UniqueIdentifier>{a1b05ced-c135-43e4-aeda-7b1712ade636}</UniqueIdentifier>
+    <Filter Include="Flux\Events">
+      <UniqueIdentifier>{68AC69DE-D461-E2D3-5D56-DCAAC90AD9D7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Flux.h" />
     <ClInclude Include="src\Flux\Application.h">
-      <Filter>FluxCore</Filter>
+      <Filter>Flux</Filter>
     </ClInclude>
     <ClInclude Include="src\Flux\Core.h">
-      <Filter>FluxCore</Filter>
+      <Filter>Flux</Filter>
     </ClInclude>
     <ClInclude Include="src\Flux\EntryPoint.h">
-      <Filter>FluxCore</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Flux\Log.h">
-      <Filter>FluxCore</Filter>
+      <Filter>Flux</Filter>
     </ClInclude>
     <ClInclude Include="src\Flux\Events\ApplicationEvent.h">
-      <Filter>FluxCore\Events</Filter>
+      <Filter>Flux\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Flux\Events\Event.h">
-      <Filter>FluxCore\Events</Filter>
+      <Filter>Flux\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Flux\Events\KeyEvent.h">
-      <Filter>FluxCore\Events</Filter>
+      <Filter>Flux\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Flux\Events\MouseEvent.h">
-      <Filter>FluxCore\Events</Filter>
+      <Filter>Flux\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Flux\Log.h">
+      <Filter>Flux</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fxpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flux\Application.cpp">
-      <Filter>FluxCore</Filter>
+      <Filter>Flux</Filter>
     </ClCompile>
     <ClCompile Include="src\Flux\Log.cpp">
-      <Filter>FluxCore</Filter>
+      <Filter>Flux</Filter>
     </ClCompile>
+    <ClCompile Include="src\fxpch.cpp" />
   </ItemGroup>
 </Project>

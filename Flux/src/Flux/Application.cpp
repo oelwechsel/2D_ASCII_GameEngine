@@ -1,3 +1,4 @@
+#include "fxpch.h"
 #include "Application.h"
 
 #include "Flux/Events/ApplicationEvent.h"
