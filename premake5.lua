@@ -26,13 +26,14 @@ project "Flux"
 
 	includedirs
 	{
+		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include"
 	}
 
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
-		systemversion "10.0.22621.0"
+		systemversion "latest"
 		buildoptions { "/utf-8" }
 
 		defines
@@ -84,7 +85,7 @@ project "@venture"
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
-		systemversion "10.0.22621.0"
+		systemversion "latest"
 		buildoptions { "/utf-8" }
 
 		defines
