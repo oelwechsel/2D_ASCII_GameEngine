@@ -4,6 +4,9 @@
     <Filter Include="FluxCore">
       <UniqueIdentifier>{ADD3D2A8-99A0-2DB4-C2B9-1B5CAEE56242}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FluxCore\Events">
+      <UniqueIdentifier>{a1b05ced-c135-43e4-aeda-7b1712ade636}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Flux.h" />
@@ -18,6 +21,18 @@
     </ClInclude>
     <ClInclude Include="src\Flux\Log.h">
       <Filter>FluxCore</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flux\Events\ApplicationEvent.h">
+      <Filter>FluxCore\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flux\Events\Event.h">
+      <Filter>FluxCore\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flux\Events\KeyEvent.h">
+      <Filter>FluxCore\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flux\Events\MouseEvent.h">
+      <Filter>FluxCore\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
