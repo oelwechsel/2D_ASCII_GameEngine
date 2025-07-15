@@ -31,23 +31,26 @@ project "Flux"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{prj.name}/vendor/GLFW/include"
+		"%{prj.name}/vendor/GLFW/include",
+		"%{prj.name}/vendor/GLEW/include"
 	}
 
 	libdirs 
 	{
-        "%{prj.name}/vendor/GLFW/lib-vc2022"
+        "%{prj.name}/vendor/GLFW/lib-vc2022",
+		"%{prj.name}/vendor/GLEW/lib"
     }
 
 	links 
 	{
         "glfw3_mt",
+		"glew32s.lib",
         "opengl32.lib"
     }
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
+		staticruntime "Off" -- On? 
 		systemversion "latest"
 		buildoptions { "/utf-8" }
 
@@ -55,7 +58,8 @@ project "Flux"
 		{
 			"FX_PLATFORM_WINDOWS",
 			"FX_BUILD_DLL",
-			"GLFW_STATIC"  
+			"GLFW_STATIC",
+			"GLEW_STATIC" 
 		}
 
 		postbuildcommands
@@ -66,14 +70,17 @@ project "Flux"
 
 	filter "configurations:Debug"
 		defines "FX_DEBUG"
+		-- buildoptions "/MDd"
 		symbols "On"
 		
 	filter "configurations:Release"
 		defines "FX_RELEASE"
+		-- buildoptions "/MD"
 		optimize "On"
 		
 	filter "configurations:Dist"
 		defines "FX_DIST"
+		-- buildoptions "/MD"
 		optimize "On"
 
 
@@ -96,12 +103,13 @@ project "@venture"
 	{
 		"Flux/vendor/spdlog/include",
 		"Flux/vendor/GLFW/include",
+		"Flux/vendor/GLEW/include",
 		"Flux/src"
 	}
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
+		staticruntime "Off" -- On? 
 		systemversion "latest"
 		buildoptions { "/utf-8" }
 
@@ -117,12 +125,15 @@ project "@venture"
 
 	filter "configurations:Debug"
 		defines "FX_DEBUG"
+		-- buildoptions "/MDd"
 		symbols "On"
 		
 	filter "configurations:Release"
 		defines "FX_RELEASE"
+		-- buildoptions "/MD"
 		optimize "On"
 		
 	filter "configurations:Dist"
 		defines "FX_DIST"
+		-- buildoptions "/MD"
 		optimize "On"

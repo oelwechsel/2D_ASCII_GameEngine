@@ -6,6 +6,7 @@
 #include "Flux/Events/MouseEvent.h"
 #include "Flux/Events/KeyEvent.h"
 
+
 namespace Flux {
 
 	static bool s_GLFWInitialized = false;
@@ -47,6 +48,10 @@ namespace Flux {
 
 		m_Window = glfwCreateWindow((int)_props.Width, (int)_props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+
+		GLenum err = glewInit();
+		FX_CORE_ASSERT(err != GLEW_OK, "Could not initialize GLEW!")
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
