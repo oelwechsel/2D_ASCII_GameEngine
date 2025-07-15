@@ -34,6 +34,9 @@
     <ClInclude Include="src\Flux\Log.h">
       <Filter>Flux</Filter>
     </ClInclude>
+    <ClInclude Include="src\Flux\Window.h">
+      <Filter>Flux</Filter>
+    </ClInclude>
     <ClInclude Include="src\fxpch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +44,9 @@
       <Filter>Flux</Filter>
     </ClCompile>
     <ClCompile Include="src\Flux\Log.cpp">
+      <Filter>Flux</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Flux\Window.cpp">
       <Filter>Flux</Filter>
     </ClCompile>
     <ClCompile Include="src\fxpch.cpp" />

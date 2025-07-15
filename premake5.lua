@@ -30,8 +30,20 @@ project "Flux"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{prj.name}/vendor/GLFW/include"
 	}
+
+	libdirs 
+	{
+        "%{prj.name}/vendor/GLFW/lib-vc2022"
+    }
+
+	links 
+	{
+        "glfw3_mt",
+        "opengl32.lib"
+    }
 
 	filter "system:windows"
 		cppdialect "C++17"
@@ -43,6 +55,7 @@ project "Flux"
 		{
 			"FX_PLATFORM_WINDOWS",
 			"FX_BUILD_DLL",
+			"GLFW_STATIC"  
 		}
 
 		postbuildcommands
@@ -82,6 +95,7 @@ project "@venture"
 	includedirs
 	{
 		"Flux/vendor/spdlog/include",
+		"Flux/vendor/GLFW/include",
 		"Flux/src"
 	}
 
