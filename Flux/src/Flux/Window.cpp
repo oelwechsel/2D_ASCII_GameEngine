@@ -97,7 +97,7 @@ namespace Flux {
 			}
 		});
 
-		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int button, int scancode, int action, int mods)
+		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
