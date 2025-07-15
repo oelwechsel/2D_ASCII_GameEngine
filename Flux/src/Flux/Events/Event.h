@@ -78,8 +78,7 @@ namespace Flux
         Event& m_Event;
     };
 
-    inline std::ostream& operator<<(std::ostream& _os, const Event& _e)
-    {
-        return _os << _e.ToString();
+    inline std::string format_as(const Event& e) {
+        return e.ToString();
     }
 }
