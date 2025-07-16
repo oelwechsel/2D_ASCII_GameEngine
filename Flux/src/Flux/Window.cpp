@@ -6,6 +6,8 @@
 #include "Flux/Events/MouseEvent.h"
 #include "Flux/Events/KeyEvent.h"
 
+#include "GL/glew.h"
+
 
 namespace Flux {
 

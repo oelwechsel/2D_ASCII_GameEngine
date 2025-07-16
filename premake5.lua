@@ -59,7 +59,8 @@ project "Flux"
 			"FX_PLATFORM_WINDOWS",
 			"FX_BUILD_DLL",
 			"GLFW_STATIC",
-			"GLEW_STATIC" 
+			"GLEW_STATIC",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands

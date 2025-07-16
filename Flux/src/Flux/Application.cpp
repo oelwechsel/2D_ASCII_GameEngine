@@ -3,7 +3,7 @@
 
 
 #include "Flux/Log.h"
-#include <GLFW/glfw3.h>
+#include <GL/glew.h>
 
 namespace Flux 
 {
