@@ -24,15 +24,30 @@ project "Flux"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+
+		"%{prj.name}/vendor/imgui/*.h",
+	    "%{prj.name}/vendor/imgui/*.cpp",
+
+		"%{prj.name}/vendor/imgui/backends/imgui_impl_glfw.cpp",
+		"%{prj.name}/vendor/imgui/backends/imgui_impl_glfw.h",
+		"%{prj.name}/vendor/imgui/backends/imgui_impl_opengl3.cpp",
+		"%{prj.name}/vendor/imgui/backends/imgui_impl_opengl3.h"
 	}
+
+	filter { "files:**/vendor/imgui/**.cpp" }
+		flags { "NoPCH" }
+
+	filter {}
 
 	includedirs
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{prj.name}/vendor/GLFW/include",
-		"%{prj.name}/vendor/GLEW/include"
+		"%{prj.name}/vendor/GLEW/include",
+		"%{prj.name}/vendor/imgui",
+	    "%{prj.name}/vendor/imgui/backends"
 	}
 
 	libdirs 
@@ -60,7 +75,8 @@ project "Flux"
 			"FX_BUILD_DLL",
 			"GLFW_STATIC",
 			"GLEW_STATIC",
-			"GLFW_INCLUDE_NONE"
+			"GLFW_INCLUDE_NONE",
+			"IMGUI_IMPL_OPENGL_LOADER_GLEW"
 		}
 
 		postbuildcommands
