@@ -37,8 +37,6 @@ namespace Flux
 		unsigned int GetWidth() const { return m_Data.Width;}
 		unsigned int GetHeight() const { return m_Data.Height; }
 
-		void* GetNativeWindow() const { return m_Window; }
-
 		//Window attributes
 		void SetEventCallback(const EventCallbackFn& _callback) { m_Data.EventCallback = _callback; }
 		void SetVSync(bool _enabled);

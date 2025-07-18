@@ -13,39 +13,31 @@ namespace Flux
 {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
+	Application* Application::s_Instance = nullptr;
+
 	Application::Application()
 	{
+		FX_CORE_ASSERT(s_Instance, "Application already exists!");
+		s_Instance = this;
+
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
-
-		//ImGui
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
-
-		ImGui::StyleColorsDark();
-
-		GLFWwindow* window = static_cast<GLFWwindow*>(m_Window->GetNativeWindow());
-		ImGui_ImplGlfw_InitForOpenGL(window, true);
-		ImGui_ImplOpenGL3_Init("#version 130"); 
-
 	}
 
 	Application::~Application()
 	{
-		ImGui_ImplOpenGL3_Shutdown();
-		ImGui_ImplGlfw_Shutdown();
-		ImGui::DestroyContext();
 	}
 
 	void Application::PushLayer(Layer* _layer)
 	{
 		m_LayerStack.PushLayer(_layer);
+		_layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* _overlay)
 	{
 		m_LayerStack.PushOverlay(_overlay);
+		_overlay->OnAttach();
 	}
 
 	void Application::OnEvent(Event& _e)
@@ -72,7 +64,7 @@ namespace Flux
 				layer->OnUpdate();
 
 			// ImGui
-			ImGui_ImplOpenGL3_NewFrame();
+			/*ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 
@@ -80,7 +72,7 @@ namespace Flux
 			ImGui::ShowDemoWindow(&show);
 
 			ImGui::Render();
-			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());*/
 
 			m_Window->OnUpdate();
 		}

@@ -5,6 +5,7 @@
 #include "Flux/Application.h"
 #include "Flux/Layer.h"
 #include "Flux/Log.h"
+#include "Flux/ImGui/ImGuiLayer.h"
 
 
 //-------------------------Entrypoint-------------------------

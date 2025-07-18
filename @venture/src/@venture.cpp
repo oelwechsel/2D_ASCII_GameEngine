@@ -16,6 +16,7 @@ public:
 	ATventure()
 	{
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Flux::ImGuiLayer());
 	}
 	~ATventure()
 	{
