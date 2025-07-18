@@ -38,12 +38,27 @@ namespace Flux
 		ImGui::DestroyContext();
 	}
 
+	void Application::PushLayer(Layer* _layer)
+	{
+		m_LayerStack.PushLayer(_layer);
+	}
+
+	void Application::PushOverlay(Layer* _overlay)
+	{
+		m_LayerStack.PushOverlay(_overlay);
+	}
+
 	void Application::OnEvent(Event& _e)
 	{
 		EventDispatcher dispatcher(_e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
-		FX_CORE_TRACE("{0}", _e);
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+		{
+			(*--it)->OnEvent(_e);
+			if (_e.IsHandled())
+				break;
+		}
 	}
 
 	void Application::Run() 
@@ -52,6 +67,9 @@ namespace Flux
 		{
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			for (Layer* layer : m_LayerStack)
+				layer->OnUpdate();
 
 			// ImGui
 			ImGui_ImplOpenGL3_NewFrame();
@@ -66,7 +84,6 @@ namespace Flux
 
 			m_Window->OnUpdate();
 		}
-
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)

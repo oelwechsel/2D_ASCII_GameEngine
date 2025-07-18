@@ -3,6 +3,7 @@
 //Include File for Applications/Games who use the Flux Engine
 
 #include "Flux/Application.h"
+#include "Flux/Layer.h"
 #include "Flux/Log.h"
 
 

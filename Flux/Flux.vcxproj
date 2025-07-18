@@ -166,6 +166,8 @@
     <ClInclude Include="src\Flux\Events\Event.h" />
     <ClInclude Include="src\Flux\Events\KeyEvent.h" />
     <ClInclude Include="src\Flux\Events\MouseEvent.h" />
+    <ClInclude Include="src\Flux\Layer.h" />
+    <ClInclude Include="src\Flux\LayerStack.h" />
     <ClInclude Include="src\Flux\Log.h" />
     <ClInclude Include="src\Flux\Window.h" />
     <ClInclude Include="src\fxpch.h" />
@@ -180,6 +182,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flux\Application.cpp" />
+    <ClCompile Include="src\Flux\Layer.cpp" />
+    <ClCompile Include="src\Flux\LayerStack.cpp" />
     <ClCompile Include="src\Flux\Log.cpp" />
     <ClCompile Include="src\Flux\Window.cpp" />
     <ClCompile Include="src\fxpch.cpp">
