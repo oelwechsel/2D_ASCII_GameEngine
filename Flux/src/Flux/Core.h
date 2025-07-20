@@ -19,3 +19,5 @@
 #endif
 
 #define BIT(x) (1 << x) //Bitfield -> Event can have multiple Categories (e.g. MouseButtonEvent is also a MouseEvent)
+
+#define FX_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)

@@ -5,7 +5,7 @@ class ExampleLayer : public Flux::Layer
 public:
 	ExampleLayer(): Layer("Example"){}
 
-	void OnUpdate() override { FX_INFO("ExampleLayer::Update"); }
+	void OnUpdate() override { }
 
 	void OnEvent(Flux::Event& _event) override { FX_TRACE("{0}", _event); }
 };
