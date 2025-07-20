@@ -82,6 +82,8 @@
     <ClInclude Include="src\Flux\LayerStack.h" />
     <ClInclude Include="src\Flux\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Flux\Input.h" />
+    <ClInclude Include="src\Flux\KeyCodes.h" />
+    <ClInclude Include="src\Flux\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flux\Application.cpp">
