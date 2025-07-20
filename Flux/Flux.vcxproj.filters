@@ -81,6 +81,7 @@
     <ClInclude Include="src\Flux\Layer.h" />
     <ClInclude Include="src\Flux\LayerStack.h" />
     <ClInclude Include="src\Flux\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Flux\Input.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flux\Application.cpp">
@@ -119,5 +120,6 @@
     <ClCompile Include="src\Flux\Layer.cpp" />
     <ClCompile Include="src\Flux\LayerStack.cpp" />
     <ClCompile Include="src\Flux\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Flux\Input.cpp" />
   </ItemGroup>
 </Project>

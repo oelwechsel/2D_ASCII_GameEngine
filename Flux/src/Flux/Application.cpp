@@ -9,6 +9,8 @@
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 
+#include "Input.h"
+
 namespace Flux 
 {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -63,16 +65,8 @@ namespace Flux
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
-			// ImGui
-			/*ImGui_ImplOpenGL3_NewFrame();
-			ImGui_ImplGlfw_NewFrame();
-			ImGui::NewFrame();
-
-			static bool show = true;
-			ImGui::ShowDemoWindow(&show);
-
-			ImGui::Render();
-			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());*/
+			auto [x, y] = Input::GetMousePosition();
+			FX_CORE_TRACE("{0}, {1}", x, y);
 
 			m_Window->OnUpdate();
 		}
