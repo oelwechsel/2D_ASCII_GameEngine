@@ -26,6 +26,8 @@ namespace Flux
 
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
+		float GetDeltaTime() const { return m_DeltaTime; }
+
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 
@@ -36,6 +38,7 @@ namespace Flux
 		LayerStack m_LayerStack;
 	private:
 		static Application* s_Instance;
+		float m_DeltaTime;
 	};
 
 	// To be defined in CLIENT

@@ -166,7 +166,9 @@
     <ClInclude Include="src\Flux\Events\Event.h" />
     <ClInclude Include="src\Flux\Events\KeyEvent.h" />
     <ClInclude Include="src\Flux\Events\MouseEvent.h" />
+    <ClInclude Include="src\Flux\IScript.h" />
     <ClInclude Include="src\Flux\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Flux\ImGui\ImGuiWrapper.h" />
     <ClInclude Include="src\Flux\Input.h" />
     <ClInclude Include="src\Flux\KeyCodes.h" />
     <ClInclude Include="src\Flux\Layer.h" />
@@ -186,7 +188,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flux\Application.cpp" />
+    <ClCompile Include="src\Flux\IScript.cpp" />
     <ClCompile Include="src\Flux\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Flux\ImGui\ImGuiWrapper.cpp" />
     <ClCompile Include="src\Flux\Input.cpp" />
     <ClCompile Include="src\Flux\Layer.cpp" />
     <ClCompile Include="src\Flux\LayerStack.cpp" />

@@ -10,6 +10,8 @@
 #include "Flux/KeyCodes.h"
 #include "Flux/ImGui/ImGuiLayer.h"
 
+#include "Flux/IScript.h"
+#include "Flux/ImGui/ImGuiWrapper.h"
 
 //-------------------------Entrypoint-------------------------
 #include "Flux/EntryPoint.h"

@@ -17,6 +17,14 @@ namespace Flux
 
 	Application* Application::s_Instance = nullptr;
 
+
+	static float GetTime()
+	{
+		return (float)glfwGetTime();
+	}
+
+	float lastFrameTime = GetTime();
+
 	Application::Application()
 	{
 		FX_CORE_ASSERT(s_Instance, "Application already exists!");
@@ -58,6 +66,7 @@ namespace Flux
 		}
 	}
 
+
 	void Application::Run() 
 	{
 		while (m_Running)
@@ -77,6 +86,11 @@ namespace Flux
 			FX_CORE_TRACE("{0}, {1}", x, y);
 
 			m_Window->OnUpdate();
+
+			//Delta Time
+			float time = GetTime();
+			m_DeltaTime = time - lastFrameTime;
+			lastFrameTime = time;
 		}
 	}
 

@@ -137,6 +137,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\TestScript.h" />
+    <ClInclude Include="src\internal\ScriptManagerLayer.h" />
+    <ClInclude Include="src\internal\ScriptRegistry.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="src\@venture.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,10 @@
-#include <Flux.h>
 
-class ExampleLayer : public Flux::Layer
+#include "fxpch.h"
+#include <Flux.h>
+#include "internal/ScriptManagerLayer.h"
+#include "TestScript.h" //damit es überhaupt kompiliert
+
+/*class ExampleLayer : public Flux::Layer
 {
 public:
 	ExampleLayer(): Layer("Example"){}
@@ -12,22 +16,29 @@ public:
 	}
 
 	void OnEvent(Flux::Event& _event) override { FX_TRACE("{0}", _event); }
-};
+};*/
 
 class ATventure : public Flux::Application
 {
 public:
 	ATventure()
 	{
-		PushLayer(new ExampleLayer());
+		PushLayer(new ScriptManagerLayer());
 	}
-	~ATventure()
-	{
-
-	}
+	~ATventure() override = default;
 };
 
 Flux::Application* Flux::CreateApplication()
 {
 	return new ATventure();
+}
+
+int main(int argc, char** argv) {
+	Flux::Log::Init();
+	FX_CORE_WARN("Initialized Log!");
+	FX_INFO("Initialized Log!");
+
+	auto app = Flux::CreateApplication();
+	app->Run();
+	delete app;
 }

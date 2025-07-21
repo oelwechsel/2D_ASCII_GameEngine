@@ -48,7 +48,13 @@
     <ClInclude Include="src\Flux\Events\MouseEvent.h">
       <Filter>src\Flux\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Flux\IScript.h">
+      <Filter>src\Flux</Filter>
+    </ClInclude>
     <ClInclude Include="src\Flux\ImGui\ImGuiLayer.h">
+      <Filter>src\Flux\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flux\ImGui\ImGuiWrapper.h">
       <Filter>src\Flux\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="src\Flux\Input.h">
@@ -104,7 +110,13 @@
     <ClCompile Include="src\Flux\Application.cpp">
       <Filter>src\Flux</Filter>
     </ClCompile>
+    <ClCompile Include="src\Flux\IScript.cpp">
+      <Filter>src\Flux</Filter>
+    </ClCompile>
     <ClCompile Include="src\Flux\ImGui\ImGuiLayer.cpp">
+      <Filter>src\Flux\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Flux\ImGui\ImGuiWrapper.cpp">
       <Filter>src\Flux\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Flux\Input.cpp">
