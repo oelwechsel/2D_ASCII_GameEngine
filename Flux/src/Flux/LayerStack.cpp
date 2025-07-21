@@ -5,7 +5,6 @@ namespace Flux
 {
 	LayerStack::LayerStack()
 	{
-		m_LayerInsert = m_Layers.begin();
 	}
 
 	LayerStack::~LayerStack()
@@ -16,7 +15,8 @@ namespace Flux
 
 	void LayerStack::PushLayer(Layer* _layer) 
 	{
-		m_LayerInsert = m_Layers.emplace(m_LayerInsert, _layer);
+		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, _layer);
+		m_LayerInsertIndex++;
 	}
 
 	void LayerStack::PushOverlay(Layer* _overlay)
@@ -30,7 +30,7 @@ namespace Flux
 		if (it != m_Layers.end())
 		{
 			m_Layers.erase(it);
-			m_LayerInsert--;
+			m_LayerInsertIndex--;
 		}
 	}
 

@@ -10,6 +10,9 @@
     <Filter Include="src\Flux\Events">
       <UniqueIdentifier>{FFDF43F6-6B6B-B1BA-747C-34AFE0860DBB}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Flux\ImGui">
+      <UniqueIdentifier>{E511832E-D1DF-7634-BA73-E75AA6E05299}</UniqueIdentifier>
+    </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
     </Filter>
@@ -45,7 +48,25 @@
     <ClInclude Include="src\Flux\Events\MouseEvent.h">
       <Filter>src\Flux\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Flux\ImGui\ImGuiLayer.h">
+      <Filter>src\Flux\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flux\Input.h">
+      <Filter>src\Flux</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flux\KeyCodes.h">
+      <Filter>src\Flux</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flux\Layer.h">
+      <Filter>src\Flux</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flux\LayerStack.h">
+      <Filter>src\Flux</Filter>
+    </ClInclude>
     <ClInclude Include="src\Flux\Log.h">
+      <Filter>src\Flux</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flux\MouseButtonCodes.h">
       <Filter>src\Flux</Filter>
     </ClInclude>
     <ClInclude Include="src\Flux\Window.h">
@@ -78,15 +99,21 @@
     <ClInclude Include="vendor\imgui\imstb_truetype.h">
       <Filter>vendor\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Flux\Layer.h" />
-    <ClInclude Include="src\Flux\LayerStack.h" />
-    <ClInclude Include="src\Flux\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="src\Flux\Input.h" />
-    <ClInclude Include="src\Flux\KeyCodes.h" />
-    <ClInclude Include="src\Flux\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flux\Application.cpp">
+      <Filter>src\Flux</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Flux\ImGui\ImGuiLayer.cpp">
+      <Filter>src\Flux\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Flux\Input.cpp">
+      <Filter>src\Flux</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Flux\Layer.cpp">
+      <Filter>src\Flux</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Flux\LayerStack.cpp">
       <Filter>src\Flux</Filter>
     </ClCompile>
     <ClCompile Include="src\Flux\Log.cpp">
@@ -119,9 +146,5 @@
     <ClCompile Include="vendor\imgui\imgui_widgets.cpp">
       <Filter>vendor\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Flux\Layer.cpp" />
-    <ClCompile Include="src\Flux\LayerStack.cpp" />
-    <ClCompile Include="src\Flux\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\Flux\Input.cpp" />
   </ItemGroup>
 </Project>

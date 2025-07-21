@@ -6,6 +6,8 @@
 #include "Flux/Events/Event.h"
 #include "Flux/Events/ApplicationEvent.h"
 
+#include "Flux/ImGui/ImGuiLayer.h"
+
 
 namespace Flux
 {
@@ -28,6 +30,7 @@ namespace Flux
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		
 		LayerStack m_LayerStack;
