@@ -18,7 +18,9 @@ public:
 
 	void OnImGuiRender() override
 	{
-		Flux::ImGuiWrapper::Begin("Test-Fenster");
+
+
+		Flux::ImGuiWrapper::Begin("Test-Fenster",ImVec2(1000,100), ImVec2(100, 100), ImGuiWindowFlags_AlwaysVerticalScrollbar);
 		Flux::ImGuiWrapper::Text("Hello from TextWindowScript!");
 		Flux::ImGuiWrapper::End();
 	}

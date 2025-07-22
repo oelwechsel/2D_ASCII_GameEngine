@@ -75,6 +75,12 @@
     <ClInclude Include="src\Flux\MouseButtonCodes.h">
       <Filter>src\Flux</Filter>
     </ClInclude>
+    <ClInclude Include="src\Flux\ScriptManagerLayer.h">
+      <Filter>src\Flux</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flux\ScriptRegistry.h">
+      <Filter>src\Flux</Filter>
+    </ClInclude>
     <ClInclude Include="src\Flux\Window.h">
       <Filter>src\Flux</Filter>
     </ClInclude>
@@ -105,8 +111,6 @@
     <ClInclude Include="vendor\imgui\imstb_truetype.h">
       <Filter>vendor\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Flux\ScriptManagerLayer.h" />
-    <ClInclude Include="src\Flux\ScriptRegistry.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flux\Application.cpp">

@@ -9,6 +9,8 @@
     <ClInclude Include="src\TestScript.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\internal\%40venture.cpp" />
+    <ClCompile Include="src\internal\@venture.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

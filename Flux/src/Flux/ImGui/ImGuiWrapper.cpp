@@ -1,22 +1,21 @@
 #include "fxpch.h"
 #include "ImGuiWrapper.h"
-#include "imgui.h"
+
 
 namespace Flux::ImGuiWrapper 
 {
 
-	void Begin(
-		const char* _name,
-		ImGuiWindowFlags _flags = 0,
-		ImVec2* _size = nullptr,
-		ImVec2* _pos = nullptr,
-		ImGuiCond _posCond = ImGuiCond_Once,
-		ImGuiCond _sizeCond = ImGuiCond_Once)
+	void Begin(const char* _name,
+		const ImVec2& _size,
+		const ImVec2& _pos,
+		ImGuiWindowFlags _flags,
+		ImGuiCond _posCond,
+		ImGuiCond _sizeCond)
 	{
-		if (_pos)
-			ImGui::SetNextWindowPos(*_pos, _posCond);
-		if (_size)
-			ImGui::SetNextWindowSize(*_size, _sizeCond);
+		if (_pos.x != 0 || _pos.y != 0)
+			ImGui::SetNextWindowPos(_pos, _posCond);
+		if (_size.x != 0 || _size.y != 0)
+			ImGui::SetNextWindowSize(_size, _sizeCond);
 
 		ImGui::Begin(_name, nullptr, _flags);
 	}
