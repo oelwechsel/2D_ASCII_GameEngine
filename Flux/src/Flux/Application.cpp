@@ -33,8 +33,12 @@ namespace Flux
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
+		m_ScriptManagerLayer = new ScriptManagerLayer();
+		PushLayer(m_ScriptManagerLayer);
+
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
+
 	}
 
 	Application::~Application()
@@ -71,11 +75,17 @@ namespace Flux
 	{
 		while (m_Running)
 		{
+
+			//Delta Time
+			float time = GetTime();
+			m_DeltaTime = time - lastFrameTime;
+			lastFrameTime = time;
+
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
+				layer->OnUpdate(m_DeltaTime);
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
@@ -87,10 +97,6 @@ namespace Flux
 
 			m_Window->OnUpdate();
 
-			//Delta Time
-			float time = GetTime();
-			m_DeltaTime = time - lastFrameTime;
-			lastFrameTime = time;
 		}
 	}
 

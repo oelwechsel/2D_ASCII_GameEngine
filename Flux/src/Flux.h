@@ -13,6 +13,9 @@
 #include "Flux/IScript.h"
 #include "Flux/ImGui/ImGuiWrapper.h"
 
+#include "Flux/ScriptManagerLayer.h"
+#include "Flux/ScriptRegistry.h"
+
 //-------------------------Entrypoint-------------------------
 #include "Flux/EntryPoint.h"
 //-------------------------Entrypoint-------------------------

@@ -1,8 +1,7 @@
 
 #include "fxpch.h"
 #include <Flux.h>
-#include "internal/ScriptManagerLayer.h"
-#include "TestScript.h" //damit es überhaupt kompiliert
+#include "../TestScript.h" //damit es überhaupt kompiliert
 
 /*class ExampleLayer : public Flux::Layer
 {
@@ -23,7 +22,7 @@ class ATventure : public Flux::Application
 public:
 	ATventure()
 	{
-		PushLayer(new ScriptManagerLayer());
+		//PushLayer(new ScriptManagerLayer());
 	}
 	~ATventure() override = default;
 };

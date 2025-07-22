@@ -7,14 +7,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\TestScript.h" />
-    <ClInclude Include="src\internal\ScriptManagerLayer.h">
-      <Filter>internal</Filter>
-    </ClInclude>
-    <ClInclude Include="src\internal\ScriptRegistry.h">
-      <Filter>internal</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\@venture.cpp" />
+    <ClCompile Include="src\internal\%40venture.cpp" />
   </ItemGroup>
 </Project>

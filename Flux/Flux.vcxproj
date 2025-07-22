@@ -175,6 +175,8 @@
     <ClInclude Include="src\Flux\LayerStack.h" />
     <ClInclude Include="src\Flux\Log.h" />
     <ClInclude Include="src\Flux\MouseButtonCodes.h" />
+    <ClInclude Include="src\Flux\ScriptManagerLayer.h" />
+    <ClInclude Include="src\Flux\ScriptRegistry.h" />
     <ClInclude Include="src\Flux\Window.h" />
     <ClInclude Include="src\fxpch.h" />
     <ClInclude Include="vendor\imgui\backends\imgui_impl_glfw.h" />

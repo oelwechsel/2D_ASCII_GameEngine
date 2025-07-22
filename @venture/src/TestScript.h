@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Flux.h>
-#include "internal/ScriptRegistry.h"
 
 class TestScript : public Flux::IScript 
 {
@@ -24,5 +23,6 @@ public:
 		Flux::ImGuiWrapper::End();
 	}
 };
+
 
 REGISTER_SCRIPT(TestScript);

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <Flux.h>
 #include "Events/Event.h"
 
 namespace Flux {
