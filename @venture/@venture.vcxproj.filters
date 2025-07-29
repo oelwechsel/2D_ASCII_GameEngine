@@ -18,6 +18,9 @@
     <ClInclude Include="src\Generated\ScriptIncludes.gen.h">
       <Filter>Generated</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scripts\@ventureSkript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
     <ClInclude Include="src\Scripts\TestScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
@@ -26,7 +29,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\internal\@venture.cpp">
+    <ClCompile Include="src\internal\main.cpp">
       <Filter>internal</Filter>
     </ClCompile>
   </ItemGroup>

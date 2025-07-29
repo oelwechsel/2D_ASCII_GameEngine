@@ -138,11 +138,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Generated\ScriptIncludes.gen.h" />
+    <ClInclude Include="src\Scripts\@ventureSkript.h" />
     <ClInclude Include="src\Scripts\TestScript.h" />
     <ClInclude Include="src\internal\generated\ScriptIncludes.gen.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\internal\@venture.cpp" />
+    <ClCompile Include="src\internal\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Flux\Flux.vcxproj">

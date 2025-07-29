@@ -9,17 +9,17 @@
 #endif
 
 
-class ATventure : public Flux::Application
+class NewAtventure : public Flux::Application
 {
 public:
-	ATventure()
+	NewAtventure()
 	{}
-	~ATventure() override = default;
+	~NewAtventure() override = default;
 };
 
 Flux::Application* Flux::CreateApplication()
 {
-	return new ATventure();
+	return new NewAtventure();
 }
 
 int main(int argc, char** argv) {
