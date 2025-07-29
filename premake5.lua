@@ -16,7 +16,6 @@ function generateScriptIncludes()
     f:close()
 end
 
-
 workspace "Flux"
 	architecture "x64"
 
@@ -100,7 +99,8 @@ project "Flux"
 
 		postbuildcommands
 		{
-			'{COPYFILE} "%{cfg.buildtarget.relpath}" "../bin/' .. outputdir .. '/@venture/"'
+		'{MKDIR} "../bin/' .. outputdir .. '/@venture/"',
+		'{COPYFILE} "%{cfg.buildtarget.relpath}" "../bin/' .. outputdir .. '/@venture/"'
 		}
 
 

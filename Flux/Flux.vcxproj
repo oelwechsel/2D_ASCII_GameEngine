@@ -96,7 +96,8 @@
       <ImportLibrary>..\bin\Debug-windows-x86_64\Flux\Flux.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>copy /B /Y "..\bin\Debug-windows-x86_64\Flux\Flux.dll" "..\bin\Debug-windows-x86_64\@venture\"</Command>
+      <Command>IF NOT EXIST "..\bin\Debug-windows-x86_64\@venture\" (mkdir "..\bin\Debug-windows-x86_64\@venture\")
+copy /B /Y "..\bin\Debug-windows-x86_64\Flux\Flux.dll" "..\bin\Debug-windows-x86_64\@venture\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -125,7 +126,8 @@
       <ImportLibrary>..\bin\Release-windows-x86_64\Flux\Flux.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>copy /B /Y "..\bin\Release-windows-x86_64\Flux\Flux.dll" "..\bin\Release-windows-x86_64\@venture\"</Command>
+      <Command>IF NOT EXIST "..\bin\Release-windows-x86_64\@venture\" (mkdir "..\bin\Release-windows-x86_64\@venture\")
+copy /B /Y "..\bin\Release-windows-x86_64\Flux\Flux.dll" "..\bin\Release-windows-x86_64\@venture\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -154,7 +156,8 @@
       <ImportLibrary>..\bin\Dist-windows-x86_64\Flux\Flux.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>copy /B /Y "..\bin\Dist-windows-x86_64\Flux\Flux.dll" "..\bin\Dist-windows-x86_64\@venture\"</Command>
+      <Command>IF NOT EXIST "..\bin\Dist-windows-x86_64\@venture\" (mkdir "..\bin\Dist-windows-x86_64\@venture\")
+copy /B /Y "..\bin\Dist-windows-x86_64\Flux\Flux.dll" "..\bin\Dist-windows-x86_64\@venture\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

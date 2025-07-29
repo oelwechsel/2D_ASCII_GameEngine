@@ -406,7 +406,8 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-imgui.ini
+**/imgui.ini
+
 
 
 
