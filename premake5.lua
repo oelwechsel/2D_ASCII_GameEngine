@@ -4,7 +4,7 @@ function generateScriptIncludes()
     local outputDir = "@venture/src/internal/generated/"
     local outputFile = outputDir .. "ScriptIncludes.gen.h"
 
-    for _, file in ipairs(os.matchfiles(scriptDir .. "*.h")) do
+    for _, file in ipairs(os.matchfiles(scriptDir .. "**.h")) do
         local relativePath = path.getrelative("@venture/src", file)
         output = output .. "#include \"" .. relativePath .. "\"\n"
     end
@@ -15,6 +15,7 @@ function generateScriptIncludes()
     f:write(output)
     f:close()
 end
+
 
 workspace "Flux"
 	architecture "x64"

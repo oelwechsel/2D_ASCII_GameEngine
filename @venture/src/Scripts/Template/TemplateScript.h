@@ -1,9 +1,9 @@
 #pragma once
 #include <Flux.h>
 
-class AtventureSkript : public Flux::IScript
+class TemplateScript : public Flux::IScript
 {
-public:
+public: 
 	void Start() override
 	{
 		FX_INFO("TestScript started");
@@ -17,11 +17,11 @@ public:
 
 	void OnImGuiRender() override
 	{
-		Flux::ImGuiWrapper::Begin("Test-Fenster", ImVec2(1000, 100), ImVec2(100, 100), ImGuiWindowFlags_AlwaysVerticalScrollbar);
+		Flux::ImGuiWrapper::Begin("Test-Fenster",ImVec2(1000,100), ImVec2(100, 100), ImGuiWindowFlags_AlwaysVerticalScrollbar);
 		Flux::ImGuiWrapper::Text("Hello from TextWindowScript!");
 		Flux::ImGuiWrapper::End();
 	}
 };
 
 
-REGISTER_SCRIPT(AtventureSkript);
+//REGISTER_SCRIPT(TemplateScript);

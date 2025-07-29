@@ -138,8 +138,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Generated\ScriptIncludes.gen.h" />
-    <ClInclude Include="src\Scripts\@ventureSkript.h" />
-    <ClInclude Include="src\Scripts\TestScript.h" />
+    <ClInclude Include="src\Scripts\@ventureScript.h" />
+    <ClInclude Include="src\Scripts\Template\TemplateScript.h" />
     <ClInclude Include="src\internal\generated\ScriptIncludes.gen.h" />
   </ItemGroup>
   <ItemGroup>

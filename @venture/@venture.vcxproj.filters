@@ -7,6 +7,9 @@
     <Filter Include="Scripts">
       <UniqueIdentifier>{4D6F1AE8-B94E-9983-C266-245A2EC5FFE4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\Template">
+      <UniqueIdentifier>{F8700BBF-E469-2A11-0D9C-0F96F9F3091D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="internal">
       <UniqueIdentifier>{222D348C-0EFA-8E97-3713-7D3F233FC425}</UniqueIdentifier>
     </Filter>
@@ -18,11 +21,11 @@
     <ClInclude Include="src\Generated\ScriptIncludes.gen.h">
       <Filter>Generated</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scripts\@ventureSkript.h">
+    <ClInclude Include="src\Scripts\@ventureScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scripts\TestScript.h">
-      <Filter>Scripts</Filter>
+    <ClInclude Include="src\Scripts\Template\TemplateScript.h">
+      <Filter>Scripts\Template</Filter>
     </ClInclude>
     <ClInclude Include="src\internal\generated\ScriptIncludes.gen.h">
       <Filter>internal\generated</Filter>
