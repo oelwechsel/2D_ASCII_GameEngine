@@ -1,29 +1,19 @@
 
 #include "fxpch.h"
 #include <Flux.h>
-#include "../TestScript.h" //damit es überhaupt kompiliert
 
-/*class ExampleLayer : public Flux::Layer
-{
-public:
-	ExampleLayer(): Layer("Example"){}
+#ifdef __has_include
+#  if __has_include("generated/ScriptIncludes.gen.h")
+#    include "generated/ScriptIncludes.gen.h"
+#  endif
+#endif
 
-	void OnUpdate() override 
-	{ 
-		if (Flux::Input::IsKeyPressed(FX_KEY_TAB))
-			FX_INFO("Tab pressed");
-	}
-
-	void OnEvent(Flux::Event& _event) override { FX_TRACE("{0}", _event); }
-};*/
 
 class ATventure : public Flux::Application
 {
 public:
 	ATventure()
-	{
-		//PushLayer(new ScriptManagerLayer());
-	}
+	{}
 	~ATventure() override = default;
 };
 

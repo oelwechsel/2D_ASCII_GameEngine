@@ -16,6 +16,13 @@
 #include "Flux/ScriptManagerLayer.h"
 #include "Flux/ScriptRegistry.h"
 
+#ifdef __has_include
+#  if __has_include("Generated/ScriptIncludes.gen.h")
+#    include "Generated/ScriptIncludes.gen.h"
+#  endif
+#endif
+
+
 //-------------------------Entrypoint-------------------------
 #include "Flux/EntryPoint.h"
 //-------------------------Entrypoint-------------------------

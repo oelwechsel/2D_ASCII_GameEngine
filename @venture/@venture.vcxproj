@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>FX_PLATFORM_WINDOWS;FX_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Flux\vendor\spdlog\include;..\Flux\vendor\GLFW\include;..\Flux\vendor\GLEW\include;..\Flux\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Flux\vendor\spdlog\include;..\Flux\vendor\GLFW\include;..\Flux\vendor\GLEW\include;..\Flux\src;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -97,7 +97,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>FX_PLATFORM_WINDOWS;FX_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Flux\vendor\spdlog\include;..\Flux\vendor\GLFW\include;..\Flux\vendor\GLEW\include;..\Flux\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Flux\vendor\spdlog\include;..\Flux\vendor\GLFW\include;..\Flux\vendor\GLEW\include;..\Flux\src;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -119,7 +119,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>FX_PLATFORM_WINDOWS;FX_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Flux\vendor\spdlog\include;..\Flux\vendor\GLFW\include;..\Flux\vendor\GLEW\include;..\Flux\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Flux\vendor\spdlog\include;..\Flux\vendor\GLFW\include;..\Flux\vendor\GLEW\include;..\Flux\src;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -137,7 +137,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\TestScript.h" />
+    <ClInclude Include="src\Generated\ScriptIncludes.gen.h" />
+    <ClInclude Include="src\Scripts\TestScript.h" />
+    <ClInclude Include="src\internal\generated\ScriptIncludes.gen.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\internal\@venture.cpp" />

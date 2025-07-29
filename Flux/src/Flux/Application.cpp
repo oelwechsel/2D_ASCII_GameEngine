@@ -92,11 +92,7 @@ namespace Flux
 				layer->OnImGuiRender();  //Render all ImGuiWindows
 			m_ImGuiLayer->End();
 
-			auto [x, y] = Input::GetMousePosition();
-			FX_CORE_TRACE("{0}, {1}", x, y);
-
 			m_Window->OnUpdate();
-
 		}
 	}
 

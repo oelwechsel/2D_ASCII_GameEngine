@@ -18,8 +18,8 @@ namespace Flux
 		unsigned int Height;
 
 		WindowProps(const std::string& _title = "Flux Engine",
-			unsigned int _width = 1280,
-			unsigned int _height = 720)
+			unsigned int _width = 1,
+			unsigned int _height = 1)
 			: Title(_title), Width(_width), Height(_height) 
 		{
 		}

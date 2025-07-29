@@ -1,5 +1,4 @@
 #pragma once
-
 #include <Flux.h>
 
 class TestScript : public Flux::IScript 
