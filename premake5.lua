@@ -66,7 +66,9 @@ project "Flux"
 		"%{prj.name}/vendor/GLFW/include",
 		"%{prj.name}/vendor/GLEW/include",
 		"%{prj.name}/vendor/imgui",
-	    "%{prj.name}/vendor/imgui/backends"
+	    "%{prj.name}/vendor/imgui/backends",
+		"%{prj.name}/vendor/stb"
+
 	}
 
 	libdirs 
@@ -143,7 +145,8 @@ project "@venture"
 		"Flux/vendor/GLFW/include",
 		"Flux/vendor/GLEW/include",
 		"Flux/src",
-		"@venture/src"
+		"%{prj.name}/src",
+		"Flux/vendor/stb"
 	}
 
 	filter "system:windows"

@@ -16,12 +16,14 @@
 #include "Flux/ScriptManagerLayer.h"
 #include "Flux/ScriptRegistry.h"
 
+#include "stb_image.h"
+#include "Flux/FileLoader.h"
+
 #ifdef __has_include
 #  if __has_include("Generated/ScriptIncludes.gen.h")
 #    include "Generated/ScriptIncludes.gen.h"
 #  endif
 #endif
-
 
 //-------------------------Entrypoint-------------------------
 #include "Flux/EntryPoint.h"

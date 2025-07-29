@@ -75,7 +75,6 @@ namespace Flux
 	{
 		while (m_Running)
 		{
-
 			//Delta Time
 			float time = GetTime();
 			m_DeltaTime = time - lastFrameTime;

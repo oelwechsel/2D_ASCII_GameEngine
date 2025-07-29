@@ -6,7 +6,18 @@ class AtventureScript : public Flux::IScript
 public:
 	void Start() override
 	{
-		FX_INFO("TestScript started");
+		const char* image = "testbild.png"; 
+		int width, height, channels;
+
+		unsigned char* data = Flux::FileLoader::LoadImageFromFile(image, &width, &height, &channels, 0);
+
+		FX_INFO("Trying to load image: {0}", image);
+
+		if (data)
+		{
+			FX_INFO("Image loaded successfully!");
+			Flux::FileLoader::FreeImage(data);
+		}
 	}
 
 	void Update(float deltaTime) override
