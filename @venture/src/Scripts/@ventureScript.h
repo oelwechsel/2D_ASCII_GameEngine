@@ -8,6 +8,8 @@ public:
 	bool success;
 	std::vector<std::string> lines;
 
+	
+
 	void Start() override
 	{
 		const char* image = "testbild.png"; 
@@ -29,6 +31,31 @@ public:
 		{
 			for (const auto& line : lines)
 				std::cout << line << "\n";
+		}*/
+
+		 /*bool ok;
+		auto frames = Flux::FileLoader::LoadAsciiFrames("EQUA_Animation.txt", &ok);
+		if (!ok) return;
+
+		for (size_t frameIndex = 0; frameIndex < frames.size(); ++frameIndex)
+		{
+			std::cout << "=== FRAME " << frameIndex << " ===\n";
+
+			const auto& frame = frames[frameIndex];
+			for (size_t layerIndex = 0; layerIndex < frame.size(); ++layerIndex)
+			{
+				std::cout << "--- LAYER " << layerIndex << " ---\n";
+
+				const auto& layer = frame[layerIndex];
+				for (const auto& line : layer)
+				{
+					std::cout << line << "\n";
+				}
+
+				std::cout << "\n";
+			}
+
+			std::cout << "\n";
 		}*/
 
 	}

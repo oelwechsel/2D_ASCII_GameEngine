@@ -87,4 +87,74 @@ namespace Flux
     {
         stbi_image_free(data);
     }
+
+    std::vector<std::vector<std::vector<std::string>>> FileLoader::LoadAsciiFrames(const std::string& filename, bool* success)
+    {
+        std::string resolvedPath = filename;
+
+        if (!std::filesystem::exists(filename))
+        {
+            resolvedPath = FindFileInRes(filename);
+            if (resolvedPath.empty())
+            {
+                FX_CORE_WARN("AsciiFrame file not found: {}", filename);
+                if (success) *success = false;
+                return {};
+            }
+        }
+
+        std::ifstream file(resolvedPath);
+        if (!file.is_open())
+        {
+            FX_CORE_WARN("Failed to open AsciiFrame file: {}", resolvedPath);
+            if (success) *success = false;
+            return {};
+        }
+
+        FX_CORE_INFO("Loading AsciiFrames from: {}", resolvedPath);
+
+        using Frame = std::vector<std::vector<std::string>>;
+        using Layer = std::vector<std::string>;
+
+        std::vector<Frame> frames;
+        Frame  currentFrame;
+        Layer  currentLayer;
+
+        std::string line;
+        while (std::getline(file, line))
+        {
+            if (!line.empty() && line.back() == '\r') line.pop_back();
+
+            if (line == "---FRAME---")
+            {
+                if (!currentLayer.empty()) {
+                    currentFrame.push_back(currentLayer);
+                    currentLayer.clear();
+                }
+                if (!currentFrame.empty()) {
+                    frames.push_back(currentFrame);
+                    currentFrame.clear();
+                }
+            }
+            else if (line == "---LAYER---")
+            {
+                if (!currentLayer.empty()) {
+                    currentFrame.push_back(currentLayer);
+                    currentLayer.clear();
+                }
+            }
+            else
+            {
+                currentLayer.push_back(line);
+            }
+        }
+
+        if (!currentLayer.empty()) currentFrame.push_back(currentLayer);
+        if (!currentFrame.empty()) frames.push_back(currentFrame);
+
+        if (success) *success = true;
+        return frames;
+    }
+
+
 }

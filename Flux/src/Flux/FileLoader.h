@@ -14,5 +14,7 @@ namespace Flux
         static std::vector<std::string> LoadTextFileLines(const std::string& filename, bool* success);
 
         static void FreeImage(unsigned char* data);
+
+        static std::vector<std::vector<std::vector<std::string>>> FileLoader::LoadAsciiFrames(const std::string& filename, bool* success);
     };
 }
