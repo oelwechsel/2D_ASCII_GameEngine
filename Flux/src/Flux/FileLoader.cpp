@@ -6,6 +6,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
+#include "GL/glew.h"
+
+
 namespace Flux
 {
     namespace fs = std::filesystem;
@@ -156,5 +159,41 @@ namespace Flux
         return frames;
     }
 
+    TextureID FileLoader::LoadTileset(const std::string& filename, int tileSize) {
+        int width, height, channels;
+        std::string resolvedPath = filename;
+
+        if (!fs::exists(filename)) {
+            resolvedPath = FindFileInRes(filename);
+            if (resolvedPath.empty()) {
+                std::cerr << "Tileset file not found: " << filename << std::endl;
+                return 0; // Fehler
+            }
+        }
+
+        unsigned char* data = stbi_load(resolvedPath.c_str(), &width, &height, &channels, 4);
+        if (!data) {
+            std::cerr << "Failed to load tileset image: " << resolvedPath << std::endl;
+            return 0;
+        }
+
+        /*this->tileSize = tileSize;
+        tilesetWidth = width;
+        tilesetHeight = height;
+        tilesPerRow = tilesetWidth / tileSize;*/
+
+        GLuint textureID;
+        glGenTextures(1, &textureID);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+        stbi_image_free(data);
+
+        return textureID;
+    }
 
 }

@@ -58,6 +58,14 @@ public:
 			std::cout << "\n";
 		}*/
 
+		TextureID tex = Flux::FileLoader::LoadTileset("tileset.png", 14);
+		if (tex == 0) {
+			std::cerr << "Fehler beim Laden" << std::endl;
+		}
+		else {
+			std::cout << "Textur geladen, ID: " << tex << std::endl;
+		}
+
 	}
 
 	void Update(float deltaTime) override

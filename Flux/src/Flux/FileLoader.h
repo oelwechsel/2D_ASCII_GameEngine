@@ -3,6 +3,8 @@
 #include "Flux/Core.h"
 #include "Flux/Log.h"
 
+using TextureID = unsigned int;
+
 namespace Flux
 {
     class FLUX_API FileLoader
@@ -15,6 +17,8 @@ namespace Flux
 
         static void FreeImage(unsigned char* data);
 
-        static std::vector<std::vector<std::vector<std::string>>> FileLoader::LoadAsciiFrames(const std::string& filename, bool* success);
+        static std::vector<std::vector<std::vector<std::string>>> LoadAsciiFrames(const std::string& filename, bool* success);
+
+        static TextureID LoadTileset(const std::string& filename, int tileSize);
     };
 }
