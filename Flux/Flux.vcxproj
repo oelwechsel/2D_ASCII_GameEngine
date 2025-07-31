@@ -181,6 +181,7 @@ copy /B /Y "..\bin\Dist-windows-x86_64\Flux\Flux.dll" "..\bin\Dist-windows-x86_6
     <ClInclude Include="src\Flux\MouseButtonCodes.h" />
     <ClInclude Include="src\Flux\ScriptManagerLayer.h" />
     <ClInclude Include="src\Flux\ScriptRegistry.h" />
+    <ClInclude Include="src\Flux\TileRenderer.h" />
     <ClInclude Include="src\Flux\Window.h" />
     <ClInclude Include="src\fxpch.h" />
     <ClInclude Include="vendor\imgui\backends\imgui_impl_glfw.h" />
@@ -202,6 +203,7 @@ copy /B /Y "..\bin\Dist-windows-x86_64\Flux\Flux.dll" "..\bin\Dist-windows-x86_6
     <ClCompile Include="src\Flux\Layer.cpp" />
     <ClCompile Include="src\Flux\LayerStack.cpp" />
     <ClCompile Include="src\Flux\Log.cpp" />
+    <ClCompile Include="src\Flux\TileRenderer.cpp" />
     <ClCompile Include="src\Flux\Window.cpp" />
     <ClCompile Include="src\fxpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

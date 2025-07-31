@@ -19,6 +19,7 @@ namespace Flux::ImGuiWrapper
     FLUX_API void Text(const std::vector<std::string>& lines);
 	FLUX_API void End();
 	FLUX_API void Button(const char* _buttonName);
+    FLUX_API void Image(unsigned int textureID, ImVec2 size);
 }
 
 

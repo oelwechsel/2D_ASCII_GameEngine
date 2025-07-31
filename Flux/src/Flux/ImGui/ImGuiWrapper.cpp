@@ -4,7 +4,6 @@
 
 namespace Flux::ImGuiWrapper 
 {
-
 	void Begin(const char* _name,
 		const ImVec2& _size,
 		const ImVec2& _pos,
@@ -51,5 +50,11 @@ namespace Flux::ImGuiWrapper
 	void Button(const char* _buttonName)
 	{
 		ImGui::Button(_buttonName);
+	}
+
+	void Image(unsigned int textureID, ImVec2 size)
+	{
+		ImGui::Image(static_cast<ImTextureID>(static_cast<uintptr_t>(textureID)), size);
+		//Error, wont work
 	}
 }

@@ -137,15 +137,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Scripts\ASCIIBlockDictionary.h" />
     <ClInclude Include="src\Generated\ScriptIncludes.gen.h" />
     <ClInclude Include="src\Scripts\@ventureScript.h" />
+    <ClInclude Include="src\Scripts\ASCIIBlockDictionary.h" />
     <ClInclude Include="src\Scripts\BlockData.h" />
+    <ClInclude Include="src\Scripts\MapToRenderTiles.h" />
     <ClInclude Include="src\Scripts\Template\TemplateScript.h" />
     <ClInclude Include="src\internal\generated\ScriptIncludes.gen.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Scripts\ASCIIBlockDictionary.cpp" />
+    <ClCompile Include="src\Scripts\MapToRenderTiles.cpp" />
     <ClCompile Include="src\internal\main.cpp" />
   </ItemGroup>
   <ItemGroup>

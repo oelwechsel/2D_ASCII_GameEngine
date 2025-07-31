@@ -2,4 +2,7 @@
 #pragma once
 
 #include "Scripts/@ventureScript.h"
+#include "Scripts/ASCIIBlockDictionary.h"
+#include "Scripts/BlockData.h"
+#include "Scripts/MapToRenderTiles.h"
 #include "Scripts/Template/TemplateScript.h"

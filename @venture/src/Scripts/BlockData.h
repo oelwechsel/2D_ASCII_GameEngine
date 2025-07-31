@@ -16,6 +16,8 @@ enum class BlockColor {
     Pink
 };
 
+// RGB instead of glcolor4
+
 struct RGBA {
     float r, g, b, a;
 };

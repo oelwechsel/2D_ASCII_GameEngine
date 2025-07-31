@@ -28,7 +28,7 @@ namespace Flux
         return ""; 
     }
 
-    std::vector<std::string> FileLoader::LoadTextFileLines(const std::string& filename, bool* success)
+    std::vector<std::string> FileLoader::LoadTextFile(const std::string& filename, bool* success)
     {
         std::string resolvedPath = filename;
 
@@ -167,7 +167,7 @@ namespace Flux
             resolvedPath = FindFileInRes(filename);
             if (resolvedPath.empty()) {
                 std::cerr << "Tileset file not found: " << filename << std::endl;
-                return 0; // Fehler
+                return 0;
             }
         }
 
@@ -180,7 +180,7 @@ namespace Flux
         /*this->tileSize = tileSize;
         tilesetWidth = width;
         tilesetHeight = height;
-        tilesPerRow = tilesetWidth / tileSize;*/
+        tilesPerRow = tilesetWidth / tileSize;*/ //Was in TileRenderer in Prototyp (was used in RenderToTexture Function in Prototype)
 
         GLuint textureID;
         glGenTextures(1, &textureID);

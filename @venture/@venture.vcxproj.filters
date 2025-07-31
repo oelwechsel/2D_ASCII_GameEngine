@@ -24,19 +24,31 @@
     <ClInclude Include="src\Scripts\@ventureScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scripts\ASCIIBlockDictionary.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scripts\BlockData.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scripts\MapToRenderTiles.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
     <ClInclude Include="src\Scripts\Template\TemplateScript.h">
       <Filter>Scripts\Template</Filter>
     </ClInclude>
     <ClInclude Include="src\internal\generated\ScriptIncludes.gen.h">
       <Filter>internal\generated</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scripts\BlockData.h" />
-    <ClInclude Include="src\Scripts\ASCIIBlockDictionary.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Scripts\ASCIIBlockDictionary.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scripts\MapToRenderTiles.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
     <ClCompile Include="src\internal\main.cpp">
       <Filter>internal</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scripts\ASCIIBlockDictionary.cpp" />
   </ItemGroup>
 </Project>

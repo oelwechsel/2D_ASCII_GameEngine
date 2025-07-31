@@ -13,7 +13,7 @@ namespace Flux
 
         static unsigned char* LoadImageFromFile(const std::string& filename, int* width, int* height, int* channels, int desiredChannels = 0);
 
-        static std::vector<std::string> LoadTextFileLines(const std::string& filename, bool* success);
+        static std::vector<std::string> LoadTextFile(const std::string& filename, bool* success);
 
         static void FreeImage(unsigned char* data);
 
