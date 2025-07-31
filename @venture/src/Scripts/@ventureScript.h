@@ -4,6 +4,10 @@
 class AtventureScript : public Flux::IScript
 {
 public:
+
+	bool success;
+	std::vector<std::string> lines;
+
 	void Start() override
 	{
 		const char* image = "testbild.png"; 
@@ -18,6 +22,15 @@ public:
 			FX_INFO("Image loaded successfully!");
 			Flux::FileLoader::FreeImage(data);
 		}
+
+		lines = Flux::FileLoader::LoadTextFileLines("map.txt", &success);
+
+		/*if (success)
+		{
+			for (const auto& line : lines)
+				std::cout << line << "\n";
+		}*/
+
 	}
 
 	void Update(float deltaTime) override
@@ -29,7 +42,11 @@ public:
 	void OnImGuiRender() override
 	{
 		Flux::ImGuiWrapper::Begin("@venture", ImVec2(1000, 100), ImVec2(100, 100), ImGuiWindowFlags_AlwaysVerticalScrollbar);
-		Flux::ImGuiWrapper::Text("Hello from @venture!");
+		if (success)
+		{
+			Flux::ImGuiWrapper::Text(lines);
+		}
+		//Flux::ImGuiWrapper::Text("Hello from @venture!");
 		Flux::ImGuiWrapper::End();
 	}
 };

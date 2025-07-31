@@ -15,6 +15,8 @@ namespace Flux::ImGuiWrapper
         ImGuiCond _sizeCond = ImGuiCond_Once);
 
 	FLUX_API void Text(const char* fmt, ...);
+    FLUX_API void Text(const std::string& str);
+    FLUX_API void Text(const std::vector<std::string>& lines);
 	FLUX_API void End();
 	FLUX_API void Button(const char* _buttonName);
 }

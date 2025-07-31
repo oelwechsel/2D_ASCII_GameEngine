@@ -27,6 +27,21 @@ namespace Flux::ImGuiWrapper
 		ImGui::TextV(fmt, args);
 		va_end(args);
 	}
+	
+	// String
+	void Text(const std::string& str)
+	{
+		ImGui::TextUnformatted(str.c_str());
+	}
+
+	// vector<string>
+	void Text(const std::vector<std::string>& lines)
+	{
+		for (const auto& line : lines)
+		{
+			ImGui::TextUnformatted(line.c_str());
+		}
+	}
 
 	void End() 
 	{ 
