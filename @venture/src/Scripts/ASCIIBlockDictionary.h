@@ -1,5 +1,5 @@
 #pragma once
-#include "BlockData.h"
+#include "internal/BlockData.h"
 
 class ASCIIBlockDictionary {
 public:

@@ -4,7 +4,13 @@
 namespace Flux {
 
 	IScript::IScript() = default;
-	IScript::~IScript() = default;
+
+    IScript::~IScript()
+    {
+        OnDestroy();
+    }
 
 	void IScript::OnEvent(Event& event) {}
+
+    void IScript::OnDestroy() {}
 }

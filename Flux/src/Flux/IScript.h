@@ -14,6 +14,7 @@ namespace Flux {
         virtual void Update(float deltaTime) = 0;
         virtual void OnImGuiRender() {}
         virtual void OnEvent(Event& event);
+        virtual void OnDestroy();
     };
 
 }

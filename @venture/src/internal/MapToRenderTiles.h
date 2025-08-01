@@ -1,7 +1,11 @@
-#include "MapToRenderTiles.h"
+#pragma once
+
+#include <Flux.h>
+#include "../Scripts/ASCIIBlockDictionary.h"
 
 std::vector<Flux::RenderTile> CreateRenderTiles(const std::vector<std::string>& map,
-    ASCIIBlockDictionary& dictionary) {
+    ASCIIBlockDictionary& dictionary)
+{
     std::vector<Flux::RenderTile> tiles;
 
     int height = (int)map.size();
