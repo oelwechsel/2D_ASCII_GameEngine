@@ -10,9 +10,9 @@ namespace Flux
 		inline static bool IsKeyPressed(int _keycode);
 
 		inline static bool IsMouseButtonPressed(int _button);
-		inline static std::pair<float,float> GetMousePosition();
-		inline static bool GetMouseX();
-		inline static bool GetMouseY();
+		inline static std::pair<float, float> GetMousePosition();
+		inline static float GetMouseX();
+		inline static float GetMouseY();
 
 	private:
 		static Input* s_Instance;

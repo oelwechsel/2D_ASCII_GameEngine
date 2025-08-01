@@ -77,6 +77,9 @@ public:
 		if (Flux::Input::IsKeyPressed(FX_KEY_W))
 			FX_INFO("W pressed");
 
+		if (Flux::Input::IsMouseButtonPressed(FX_MOUSE_BUTTON_1))
+			FX_INFO("Mouse Left pressed");
+
 
 		auto [x, y] = Flux::Input::GetMousePosition();
 		FX_CORE_TRACE("{0}, {1}", x, y);
