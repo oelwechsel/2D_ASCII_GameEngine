@@ -45,7 +45,7 @@ namespace Flux {
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_fboTexture, 0);
 
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-            std::cerr << "Framebuffer not complete!" << std::endl;
+            FX_CORE_ASSERT("Framebuffer not complete!");
         }
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -71,7 +71,7 @@ namespace Flux {
         glMatrixMode(GL_PROJECTION);
         glPushMatrix();
         glLoadIdentity();
-        glOrtho(0, fboWidth, fboHeight, 0, -1, 1);
+        glOrtho(0, fboWidth, 0, fboHeight, -1, 1); // invert cause ImGui interprets UV inverted to OpenGl
 
         glMatrixMode(GL_MODELVIEW);
         glPushMatrix();
@@ -84,8 +84,8 @@ namespace Flux {
         glBindTexture(GL_TEXTURE_2D, m_tilesetTexture);
 
         // Constants for parallax
-        const float layerOffsetFactorX = 0.5f;
-        const float layerOffsetFactorY = 0.5f;
+        const float layerOffsetFactorX = 0.0f;
+        const float layerOffsetFactorY = 0.0f;
 
         // Draw all tiles
         for (const auto& tile : tiles) {
@@ -127,6 +127,10 @@ namespace Flux {
         glPopMatrix();
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        GLenum err = glGetError();
+        if (err != GL_NO_ERROR)
+            std::cerr << "OpenGL error after rendering to FBO: " << err << std::endl;
 
         return m_fboTexture;
     }

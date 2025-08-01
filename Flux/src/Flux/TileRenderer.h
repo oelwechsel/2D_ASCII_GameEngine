@@ -1,4 +1,7 @@
 #pragma once
+#include "Flux/Core.h"
+
+
 namespace Flux {
 
     struct RenderTile {
@@ -9,7 +12,7 @@ namespace Flux {
         float r, g, b, a;
     };
 
-    class TileRenderer {
+    class  FLUX_API TileRenderer {
     public:
         TileRenderer();
         ~TileRenderer();

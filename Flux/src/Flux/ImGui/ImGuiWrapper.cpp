@@ -54,7 +54,7 @@ namespace Flux::ImGuiWrapper
 
 	void Image(unsigned int textureID, ImVec2 size)
 	{
-		ImGui::Image(static_cast<ImTextureID>(static_cast<uintptr_t>(textureID)), size);
-		//Error, wont work
+		ImGui::Image((ImTextureID)textureID, size);
 	}
+
 }
