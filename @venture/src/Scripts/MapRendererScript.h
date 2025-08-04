@@ -61,7 +61,7 @@ public:
 
 	const std::vector<std::string>& GetMap() const { return m_map; }
 	
-	bool MapRendererScript::IsBlockedTile(int x, int y) const
+	bool MapRendererScript::IsTileBlocked(int x, int y) const
 	{
 		static const std::unordered_set<char> blockedTiles = { '#', '|', '-', '8', 'O', '=', '+' };
 
