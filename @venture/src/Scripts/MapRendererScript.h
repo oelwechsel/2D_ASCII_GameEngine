@@ -63,7 +63,7 @@ private:
 		}
 
 		m_renderer.SetTileset(tex, m_tileSize, m_tileSetWidth, m_tileSetHeight); 
-		m_tiles = CreateRenderTiles(m_map, m_asciiDictionary);
+		m_tiles = CreateRenderTiles(m_map, m_asciiDictionary, GameManagerScript::Instance().entities);
 
 
 		// TODO: REMOVE 1,1 WITH PLAYER COORDINATES

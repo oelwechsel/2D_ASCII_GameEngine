@@ -6,12 +6,6 @@ class CloseAllWindowsScript : public Flux::IScript
 
 private:
 
-public:
-
-public:
-
-private:
-
 	void Start() override
 	{
 		
