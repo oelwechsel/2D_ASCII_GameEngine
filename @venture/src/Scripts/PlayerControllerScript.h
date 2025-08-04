@@ -11,6 +11,9 @@ class PlayerControllerScript : public Flux::IScript
 private:
 	// define your private Variables here
 
+    double moveCooldown = 0.08; // Sekunden zwischen Bewegungen
+    double moveTimer = 0.0;     // Zeit seit letzter Bewegung
+
 public:
 	// define your public Variables here
 
@@ -33,50 +36,42 @@ private:
 
 	}
 
-    float m_inputCooldown = 0.0f;
-    float m_inputDelay = 0.1f; 
-
     void Update(float deltaTime) override
     {
-        m_inputCooldown -= deltaTime;
-        if (m_inputCooldown > 0.0f)
+        moveTimer += deltaTime;
+        if (moveTimer < moveCooldown)
             return; 
 
         if (Flux::Input::IsKeyPressed(FX_KEY_W))
         {
             GameManagerScript::Instance().entities[0].y--;
-            m_inputCooldown = m_inputDelay;
+            
+            moveTimer = 0;
             if (MapRendererScript::Get())
                 MapRendererScript::Get()->UpdateRenderTiles();
-            return;
         }
-        else if (Flux::Input::IsKeyPressed(FX_KEY_A))
+        if (Flux::Input::IsKeyPressed(FX_KEY_A))
         {
             GameManagerScript::Instance().entities[0].x--;
-            m_inputCooldown = m_inputDelay;
+            moveTimer = 0;
             if (MapRendererScript::Get())
                 MapRendererScript::Get()->UpdateRenderTiles();
-            return;
         }
-        else if (Flux::Input::IsKeyPressed(FX_KEY_S))
+        if (Flux::Input::IsKeyPressed(FX_KEY_S))
         {
             GameManagerScript::Instance().entities[0].y++;
-            m_inputCooldown = m_inputDelay;
+            moveTimer = 0;
             if (MapRendererScript::Get())
                 MapRendererScript::Get()->UpdateRenderTiles();
-            return;
         }
-        else if (Flux::Input::IsKeyPressed(FX_KEY_D))
+        if (Flux::Input::IsKeyPressed(FX_KEY_D))
         {
             GameManagerScript::Instance().entities[0].x++;
-            m_inputCooldown = m_inputDelay;
+            moveTimer = 0;
             if (MapRendererScript::Get())
                 MapRendererScript::Get()->UpdateRenderTiles();
-            return;
         }
-
     }
-
 };
 
 
