@@ -33,6 +33,8 @@ private:
 
 	float m_timeAccumulator = 0.0f;
 	float m_updateInterval = 1.0f / 10.0f;
+
+	float m_deltaTime;
 	
 	//-------------------------------------------//
 	//----------------Functions------------------//
@@ -95,6 +97,7 @@ private:
 
 	void Update(float deltaTime) override
 	{
+		m_deltaTime = deltaTime;
 		m_timeAccumulator += deltaTime;
 
 		if (m_timeAccumulator >= m_updateInterval)
@@ -114,6 +117,10 @@ private:
 		// TODO: Add Camera and PLayer Dependencies!
 		Flux::ImGuiWrapper::Begin("@venture", ImVec2(m_MapSize.x+15, m_MapSize.y+35), ImVec2(300, 300), ImGuiWindowFlags_NoCollapse);
 		Flux::ImGuiWrapper::Image(m_texture, m_MapSize);
+
+		double fps = 1.0 / m_deltaTime;
+		Flux::ImGuiWrapper::Text("FPS: %.1f", fps);
+
 		Flux::ImGuiWrapper::End();
 	}
 
