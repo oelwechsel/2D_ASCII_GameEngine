@@ -40,38 +40,55 @@ private:
     {
         moveTimer += deltaTime;
         if (moveTimer < moveCooldown)
-            return; 
+            return;
 
-        if (Flux::Input::IsKeyPressed(FX_KEY_W))
+        int dx = 0, dy = 0;
+
+        if (Flux::Input::IsKeyPressed(FX_KEY_W)) dy = -1;
+        else if (Flux::Input::IsKeyPressed(FX_KEY_S)) dy = 1;
+        else if (Flux::Input::IsKeyPressed(FX_KEY_A)) dx = -1;
+        else if (Flux::Input::IsKeyPressed(FX_KEY_D)) dx = 1;
+        else
+            return;
+
+        auto& entities = GameManagerScript::Instance().entities;
+        auto& player = entities[0];
+
+        int targetX = player.x + dx;
+        int targetY = player.y + dy;
+
+        // EnitiyCollision
+        for (size_t i = 1; i < entities.size(); ++i)
         {
-            GameManagerScript::Instance().entities[0].y--;
-            
-            moveTimer = 0;
-            if (MapRendererScript::Get())
-                MapRendererScript::Get()->UpdateRenderTiles();
+            if (entities[i].x == targetX && entities[i].y == targetY)
+                return;
         }
-        if (Flux::Input::IsKeyPressed(FX_KEY_A))
-        {
-            GameManagerScript::Instance().entities[0].x--;
-            moveTimer = 0;
-            if (MapRendererScript::Get())
-                MapRendererScript::Get()->UpdateRenderTiles();
-        }
-        if (Flux::Input::IsKeyPressed(FX_KEY_S))
-        {
-            GameManagerScript::Instance().entities[0].y++;
-            moveTimer = 0;
-            if (MapRendererScript::Get())
-                MapRendererScript::Get()->UpdateRenderTiles();
-        }
-        if (Flux::Input::IsKeyPressed(FX_KEY_D))
-        {
-            GameManagerScript::Instance().entities[0].x++;
-            moveTimer = 0;
-            if (MapRendererScript::Get())
-                MapRendererScript::Get()->UpdateRenderTiles();
-        }
+
+        // TileCollision
+        auto mapScript = MapRendererScript::Get();
+        if (!mapScript)
+            return;
+
+        const auto& map = mapScript->GetMap();
+
+        // Map Bounds
+        if (targetY < 0 || targetY >= static_cast<int>(map.size()) || targetX < 0 || targetX >= static_cast<int>(map[0].size()))
+            return;
+
+        char tile = map[targetY][targetX];
+        static const std::unordered_set<char> blockedTiles = { '#', '|', '-', '8', 'O', '=', '+' };
+
+        if (blockedTiles.count(tile))
+            return;
+
+        player.x = targetX;
+        player.y = targetY;
+        moveTimer = 0.0;
+
+        mapScript->UpdateRenderTiles();
     }
+
+
 };
 
 

@@ -59,6 +59,8 @@ public:
 		return *s_Instance;
 	}
 
+	const std::vector<std::string>& GetMap() const { return m_map; }
+
 private:
 	// define your private Functions here
 	bool m_needsUpdate = true;

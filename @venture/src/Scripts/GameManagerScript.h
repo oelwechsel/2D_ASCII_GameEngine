@@ -29,6 +29,9 @@ public:
 
         Entity player(14, 14, '@', "@", true);
         entities.push_back(player);
+
+        Entity questionNPC(33, 32, '?', "?", false);
+        entities.push_back(questionNPC);
     }
 
     void Update(float deltaTime) override {}
