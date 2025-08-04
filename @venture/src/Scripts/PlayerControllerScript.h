@@ -69,16 +69,7 @@ private:
         if (!mapScript)
             return;
 
-        const auto& map = mapScript->GetMap();
-
-        // Map Bounds
-        if (targetY < 0 || targetY >= static_cast<int>(map.size()) || targetX < 0 || targetX >= static_cast<int>(map[0].size()))
-            return;
-
-        char tile = map[targetY][targetX];
-        static const std::unordered_set<char> blockedTiles = { '#', '|', '-', '8', 'O', '=', '+' };
-
-        if (blockedTiles.count(tile))
+        if (mapScript->IsBlockedTile(targetX, targetY))
             return;
 
         player.x = targetX;

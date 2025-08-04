@@ -60,6 +60,17 @@ public:
 	}
 
 	const std::vector<std::string>& GetMap() const { return m_map; }
+	
+	bool MapRendererScript::IsBlockedTile(int x, int y) const
+	{
+		static const std::unordered_set<char> blockedTiles = { '#', '|', '-', '8', 'O', '=', '+' };
+
+		if (y < 0 || y >= static_cast<int>(m_map.size()) || x < 0 || x >= static_cast<int>(m_map[y].size()))
+			return true;
+
+		char tile = m_map[y][x];
+		return blockedTiles.count(tile) > 0;
+	}
 
 private:
 	// define your private Functions here
