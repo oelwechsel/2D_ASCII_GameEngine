@@ -71,11 +71,9 @@ private:
         }
 
         if (Flux::Input::IsKeyPressed(FX_KEY_W)) dy = -1;
-        else if (Flux::Input::IsKeyPressed(FX_KEY_S)) dy = 1;
-        else if (Flux::Input::IsKeyPressed(FX_KEY_A)) dx = -1;
-        else if (Flux::Input::IsKeyPressed(FX_KEY_D)) dx = 1;
-        else
-            return;
+        if (Flux::Input::IsKeyPressed(FX_KEY_S)) dy = 1;
+        if (Flux::Input::IsKeyPressed(FX_KEY_A)) dx = -1;
+        if (Flux::Input::IsKeyPressed(FX_KEY_D)) dx = 1;
 
         auto& entities = GameManagerScript::Instance().entities;
         auto& player = entities[0];
