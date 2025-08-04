@@ -3,6 +3,15 @@
 
 #include <GL/glew.h> 
 
+namespace std {
+    template <>
+    struct hash<std::pair<int, int>> {
+        std::size_t operator()(const std::pair<int, int>& p) const noexcept {
+            return std::hash<int>{}(p.first) ^ (std::hash<int>{}(p.second) << 1);
+        }
+    };
+}
+
 
 namespace Flux {
 
@@ -51,6 +60,9 @@ namespace Flux {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
+
+
+    // TODO: add ENTITY dependencies! -> Entities immer Opacity 1.0f!
     unsigned int TileRenderer::RenderToTexture(const std::vector<RenderTile>& tiles,
         int mapWidth,
         int mapHeight,
@@ -71,7 +83,7 @@ namespace Flux {
         glMatrixMode(GL_PROJECTION);
         glPushMatrix();
         glLoadIdentity();
-        glOrtho(0, fboWidth, 0, fboHeight, -1, 1); // invert cause ImGui interprets UV inverted to OpenGl
+        glOrtho(0, fboWidth, 0, fboHeight, -1, 1); // ImGui-kompatible UVs
 
         glMatrixMode(GL_MODELVIEW);
         glPushMatrix();
@@ -83,40 +95,95 @@ namespace Flux {
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, m_tilesetTexture);
 
-        // Constants for parallax
-        const float layerOffsetFactorX = 0.0f;
-        const float layerOffsetFactorY = 0.0f;
+        // === Parallax & Fading constants ===
+        const float layerOffsetFactorX = 0.45f;
+        const float layerOffsetFactorY = 0.35f;
+        const float minAlpha = 0.35f;
+        const float maxAlpha = 0.9f;
+        const float darkenOverlayAlpha = 0.45f;
 
-        // Draw all tiles
+        // === Gruppiere Tiles nach Layer ===
+        std::unordered_map<int, std::vector<const RenderTile*>> layerMap;
+        int maxLayer = 0;
+
         for (const auto& tile : tiles) {
-            int relX = tile.x - playerX;
-            int relY = tile.y - playerY;
-
-            float diffX = relX * layerOffsetFactorX * tile.layer;
-            float diffY = relY * layerOffsetFactorY * tile.layer;
-
-            float px = tile.x * m_tileSize + diffX;
-            float py = tile.y * m_tileSize + diffY;
-
-            int tileIndex = static_cast<int>(tile.tileChar) - 32;
-            int tx = tileIndex % m_tilesPerRow;
-            int ty = tileIndex / m_tilesPerRow;
-
-            float u0 = tx * (float)m_tileSize / m_tilesetWidth;
-            float v0 = ty * (float)m_tileSize / m_tilesetHeight;
-            float u1 = u0 + (float)m_tileSize / m_tilesetWidth;
-            float v1 = v0 + (float)m_tileSize / m_tilesetHeight;
-
-            glColor4f(tile.r, tile.g, tile.b, tile.a);
-
-            glBegin(GL_QUADS);
-            glTexCoord2f(u0, v0); glVertex2f(px, py);
-            glTexCoord2f(u1, v0); glVertex2f(px + m_tileSize, py);
-            glTexCoord2f(u1, v1); glVertex2f(px + m_tileSize, py + m_tileSize);
-            glTexCoord2f(u0, v1); glVertex2f(px, py + m_tileSize);
-            glEnd();
+            layerMap[tile.layer].push_back(&tile);
+            if (tile.layer > maxLayer) maxLayer = tile.layer;
         }
 
+        // === Maximaler Layer pro Position (x,y) ermitteln ===
+        std::unordered_map<std::pair<int, int>, int, std::hash<std::pair<int, int>>> maxLayerMap;
+        for (const auto& tile : tiles) {
+            std::pair<int, int> key = { tile.x, tile.y };
+            auto it = maxLayerMap.find(key);
+            if (it == maxLayerMap.end() || tile.layer > it->second) {
+                maxLayerMap[key] = tile.layer;
+            }
+        }
+
+        // === Render layerweise (unten -> oben) ===
+        for (int layer = 0; layer <= maxLayer; ++layer) {
+            auto it = layerMap.find(layer);
+            if (it == layerMap.end()) continue;
+
+            for (const RenderTile* tile : it->second) {
+                std::pair<int, int> key = { tile->x, tile->y };
+                int localMaxLayer = maxLayerMap[key];
+
+                // relative Helligkeit je Tile basierend auf seiner Layer im Vergleich zur max Layer an der Position
+                float relative = (localMaxLayer == tile->layer) ? 1.0f : (float)tile->layer / (float)localMaxLayer;
+
+                // Alpha: bei nur einem Layer höher, sonst interpoliert
+                float alpha = (localMaxLayer <= 1)
+                    ? 0.8f
+                    : minAlpha + (maxAlpha - minAlpha) * pow(relative, 0.9f);
+
+                int relX = tile->x - playerX;
+                int relY = tile->y - playerY;
+
+                float diffX = relX * layerOffsetFactorX * tile->layer;
+                float diffY = relY * layerOffsetFactorY * tile->layer;
+
+                float px = tile->x * m_tileSize + diffX;
+                float py = tile->y * m_tileSize + diffY;
+
+                int tileIndex = static_cast<int>(tile->tileChar) - 32;
+                int tx = tileIndex % m_tilesPerRow;
+                int ty = tileIndex / m_tilesPerRow;
+
+                float u0 = tx * (float)m_tileSize / m_tilesetWidth;
+                float v0 = ty * (float)m_tileSize / m_tilesetHeight;
+                float u1 = u0 + (float)m_tileSize / m_tilesetWidth;
+                float v1 = v0 + (float)m_tileSize / m_tilesetHeight;
+
+                glColor4f(tile->r, tile->g, tile->b, alpha);
+
+                glBegin(GL_QUADS);
+                glTexCoord2f(u0, v0); glVertex2f(px, py);
+                glTexCoord2f(u1, v0); glVertex2f(px + m_tileSize, py);
+                glTexCoord2f(u1, v1); glVertex2f(px + m_tileSize, py + m_tileSize);
+                glTexCoord2f(u0, v1); glVertex2f(px, py + m_tileSize);
+                glEnd();
+
+                // === Dunkelheits-Overlay für Tiles unter der höchsten Layer an der Position ===
+                if (tile->layer < localMaxLayer) {
+                    // Je tiefer die Layer, desto stärker die Abdunklung (Alpha proportional zur Layer-Distanz)
+                    float overlayAlpha = darkenOverlayAlpha * (1.0f - relative);
+
+                    glDisable(GL_TEXTURE_2D);
+                    glColor4f(0.0f, 0.0f, 0.0f, overlayAlpha);
+                    glBegin(GL_QUADS);
+                    glVertex2f(px, py);
+                    glVertex2f(px + m_tileSize, py);
+                    glVertex2f(px + m_tileSize, py + m_tileSize);
+                    glVertex2f(px, py + m_tileSize);
+                    glEnd();
+                    glEnable(GL_TEXTURE_2D);
+                }
+            }
+        }
+
+        // === Cleanup ===
         glDisable(GL_TEXTURE_2D);
         glDisable(GL_BLEND);
 
@@ -134,6 +201,9 @@ namespace Flux {
 
         return m_fboTexture;
     }
+
+
+
 
 } 
 
