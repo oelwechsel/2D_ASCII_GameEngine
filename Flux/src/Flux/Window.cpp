@@ -89,7 +89,7 @@ namespace Flux {
 
 		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				/*WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
 				switch (action)
 				{
@@ -111,16 +111,18 @@ namespace Flux {
 					data.EventCallback(event);
 					break;
 				}
-				}
+				}*/
+				
 			});
 
 		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode)
 			{
+				/*
 				ImGui_ImplGlfw_CharCallback(window, keycode);
 
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 				KeyTypedEvent event(keycode);
-				data.EventCallback(event);
+				data.EventCallback(event);*/
 			});
 
 

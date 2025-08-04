@@ -12,8 +12,6 @@ class MapRendererScript : public Flux::IScript
 
 private:
 	
-	
-
 	Flux::TileRenderer m_renderer;
 	std::vector<std::string> m_map;
 
@@ -30,18 +28,38 @@ private:
 	int m_mapHeight = 40;
 
 	ImVec2 m_MapSize;
+
+	inline static MapRendererScript* s_Instance = nullptr;
+
+	float m_timeAccumulator = 0.0f;
+	float m_updateInterval = 1.0f / 10.0f;
 	
 	//-------------------------------------------//
 	//----------------Functions------------------//
 	//-------------------------------------------//
 
 public:
-	// define your public Functions here
 	
+	void UpdateRenderTiles()
+	{
+
+		m_tiles = CreateRenderTiles(m_map, m_asciiDictionary, GameManagerScript::Instance().entities);
+		m_needsUpdate = true;
+	}
+
+	static MapRendererScript* Get()
+	{
+		return s_Instance;
+	}
+
+	static MapRendererScript& Instance()
+	{
+		return *s_Instance;
+	}
 
 private:
 	// define your private Functions here
-	
+	bool m_needsUpdate = true;
 
 	//---------------------------------------------------------------//
 	//----------------predefined override functions------------------//
@@ -49,6 +67,8 @@ private:
 
 	void Start() override
 	{
+		s_Instance = this;
+
 		m_asciiDictionary = ASCIIBlockDictionary();
 
 		m_map = Flux::FileLoader::LoadTextFile("map.txt", &success);
@@ -75,6 +95,18 @@ private:
 
 	void Update(float deltaTime) override
 	{
+		m_timeAccumulator += deltaTime;
+
+		if (m_timeAccumulator >= m_updateInterval)
+		{
+			m_tiles = CreateRenderTiles(m_map, m_asciiDictionary, GameManagerScript::Instance().entities);
+			m_timeAccumulator = 0.0f;
+		}
+
+		m_texture = m_renderer.RenderToTexture(
+			m_tiles, m_mapWidth, m_mapHeight,
+			GameManagerScript::Instance().entities[0].x,
+			GameManagerScript::Instance().entities[0].y);
 	}
 
 	void OnImGuiRender() override
@@ -83,6 +115,11 @@ private:
 		Flux::ImGuiWrapper::Begin("@venture", ImVec2(m_MapSize.x+15, m_MapSize.y+35), ImVec2(300, 300), ImGuiWindowFlags_NoCollapse);
 		Flux::ImGuiWrapper::Image(m_texture, m_MapSize);
 		Flux::ImGuiWrapper::End();
+	}
+
+	void OnDestroy() override
+	{
+		s_Instance = nullptr;
 	}
 };
 
