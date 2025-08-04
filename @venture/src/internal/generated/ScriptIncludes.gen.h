@@ -2,7 +2,11 @@
 #pragma once
 
 #include "Scripts/ASCIIBlockDictionary.h"
+#include "Scripts/CloseAllWindowsScript.h"
+#include "Scripts/GameManagerScript.h"
 #include "Scripts/MapRendererScript.h"
+#include "Scripts/PlayerControllerScript.h"
 #include "Scripts/Template/TemplateScript.h"
 #include "internal/BlockData.h"
+#include "internal/Entity.h"
 #include "internal/MapToRenderTiles.h"

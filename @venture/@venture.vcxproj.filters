@@ -24,13 +24,25 @@
     <ClInclude Include="src\Scripts\ASCIIBlockDictionary.h">
       <Filter>Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scripts\CloseAllWindowsScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scripts\GameManagerScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
     <ClInclude Include="src\Scripts\MapRendererScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scripts\PlayerControllerScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\Scripts\Template\TemplateScript.h">
       <Filter>Scripts\Template</Filter>
     </ClInclude>
     <ClInclude Include="src\internal\BlockData.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\internal\Entity.h">
       <Filter>internal</Filter>
     </ClInclude>
     <ClInclude Include="src\internal\MapToRenderTiles.h">

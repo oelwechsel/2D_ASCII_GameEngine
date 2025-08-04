@@ -39,6 +39,7 @@ namespace Flux
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
+		Application::s_Instance = this;
 	}
 
 	Application::~Application()
@@ -99,5 +100,10 @@ namespace Flux
 	{
 		m_Running = false;
 		return true;
+	}
+
+	void Application::CloseApplication()
+	{
+		m_Running = false;
 	}
 }

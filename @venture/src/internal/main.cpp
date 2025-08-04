@@ -17,12 +17,14 @@ public:
 	~NewAtventure() override = default;
 };
 
+
 Flux::Application* Flux::CreateApplication()
 {
 	return new NewAtventure();
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
 	Flux::Log::Init();
 	FX_CORE_WARN("Initialized Log!");
 	FX_INFO("Initialized Log!");
@@ -31,3 +33,4 @@ int main(int argc, char** argv) {
 	app->Run();
 	delete app;
 }
+

@@ -138,13 +138,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Generated\ScriptIncludes.gen.h" />
-    <ClInclude Include="src\internal\Entity.h" />
     <ClInclude Include="src\Scripts\ASCIIBlockDictionary.h" />
+    <ClInclude Include="src\Scripts\CloseAllWindowsScript.h" />
     <ClInclude Include="src\Scripts\GameManagerScript.h" />
     <ClInclude Include="src\Scripts\MapRendererScript.h" />
     <ClInclude Include="src\Scripts\PlayerControllerScript.h" />
     <ClInclude Include="src\Scripts\Template\TemplateScript.h" />
     <ClInclude Include="src\internal\BlockData.h" />
+    <ClInclude Include="src\internal\Entity.h" />
     <ClInclude Include="src\internal\MapToRenderTiles.h" />
     <ClInclude Include="src\internal\generated\ScriptIncludes.gen.h" />
   </ItemGroup>

@@ -47,9 +47,9 @@ namespace Flux::ImGuiWrapper
 		ImGui::End(); 
 	}
 
-	void Button(const char* _buttonName)
+	bool Button(const char* _buttonName)
 	{
-		ImGui::Button(_buttonName);
+		return ImGui::Button(_buttonName);
 	}
 
 	void Image(unsigned int textureID, ImVec2 size)

@@ -29,15 +29,18 @@ namespace Flux
 		inline Window& GetWindow() { return *m_Window; }
 		float GetDeltaTime() const { return m_DeltaTime; }
 
+		void CloseApplication();
+
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		ScriptManagerLayer* m_ScriptManagerLayer;
-		bool m_Running = true;
 		
 		LayerStack m_LayerStack;
+	protected:
+		bool m_Running = true;
 	private:
 		static Application* s_Instance;
 		float m_DeltaTime;
