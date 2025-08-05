@@ -35,6 +35,10 @@ private:
 	float m_updateInterval = 1.0f / 10.0f;
 
 	float m_deltaTime;
+
+	int m_cameraWidth = 30; 
+	int m_cameraHeight = 20; 
+
 	
 	//-------------------------------------------//
 	//----------------Functions------------------//
@@ -119,11 +123,36 @@ private:
 			m_timeAccumulator = 0.0f;
 		}
 
+		// --- Kamera berechnen ---
+		int playerX = GameManagerScript::Instance().entities[0].x;
+		int playerY = GameManagerScript::Instance().entities[0].y;
+
+		int startX = playerX - m_cameraWidth / 2;
+		int startY = playerY - m_cameraHeight / 2;
+
+		// --- Nur sichtbare Tiles herausfiltern ---
+		std::vector<Flux::RenderTile> visibleTiles;
+		for (const auto& tile : m_tiles)
+		{
+			if (tile.x >= startX && tile.x < startX + m_cameraWidth &&
+				tile.y >= startY && tile.y < startY + m_cameraHeight)
+			{
+				visibleTiles.push_back(tile);
+			}
+		}
+
+		// --- Texture neu rendern ---
 		m_texture = m_renderer.RenderToTexture(
-			m_tiles, m_mapWidth, m_mapHeight,
-			GameManagerScript::Instance().entities[0].x,
-			GameManagerScript::Instance().entities[0].y);
+			visibleTiles,
+			m_cameraWidth,
+			m_cameraHeight,
+			startX,
+			startY
+		);
+
+		m_MapSize = ImVec2(m_cameraWidth * m_tileSize, m_cameraHeight * m_tileSize);
 	}
+
 
 	void OnImGuiRender() override
 	{

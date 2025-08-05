@@ -1,6 +1,6 @@
 #pragma once
 #include <Flux.h>
-#include "internal/Entity.h"
+
 
 class GameManagerScript : public Flux::IScript
 {
@@ -9,7 +9,7 @@ public:
 
     GameManagerScript() = default;
 
-    std::vector<Entity> entities;
+    std::vector<Flux::Entity> entities;
 
     bool m_playerIsInteracting = false;
 
@@ -29,10 +29,10 @@ public:
     {
         s_Instance = this;
 
-        Entity player(14, 14, '@', "@", true);
+        Flux::Entity player(14, 14, '@', "@", true);
         entities.push_back(player);
 
-        Entity questionNPC(33, 32, '?', "?", false);
+        Flux::Entity questionNPC(33, 32, '?', "?", false);
         entities.push_back(questionNPC);
     }
 

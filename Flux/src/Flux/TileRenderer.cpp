@@ -63,14 +63,15 @@ namespace Flux {
 
 
     // TODO: add ENTITY dependencies! -> Entities immer Opacity 1.0f!
-    unsigned int TileRenderer::RenderToTexture(const std::vector<RenderTile>& tiles,
-        int mapWidth,
-        int mapHeight,
-        int playerX,
-        int playerY)
+    unsigned int TileRenderer::RenderToTexture(
+        const std::vector<RenderTile>& tiles,
+        int viewWidth,
+        int viewHeight,
+        int startX,
+        int startY)
     {
-        int fboWidth = mapWidth * m_tileSize;
-        int fboHeight = mapHeight * m_tileSize;
+        int fboWidth = viewWidth * m_tileSize;
+        int fboHeight = viewHeight * m_tileSize;
 
         InitFBO(fboWidth, fboHeight);
 
@@ -96,8 +97,8 @@ namespace Flux {
         glBindTexture(GL_TEXTURE_2D, m_tilesetTexture);
 
         // === Parallax & Fading constants ===
-        const float layerOffsetFactorX = 0.45f;
-        const float layerOffsetFactorY = 0.35f;
+        const float layerOffsetFactorX = 0.8f;
+        const float layerOffsetFactorY = 0.8f;
         const float minAlpha = 0.35f;
         const float maxAlpha = 0.9f;
         const float darkenOverlayAlpha = 0.45f;
@@ -138,14 +139,22 @@ namespace Flux {
                     ? 0.8f
                     : minAlpha + (maxAlpha - minAlpha) * pow(relative, 0.9f);
 
-                int relX = tile->x - playerX;
-                int relY = tile->y - playerY;
+                int relX = tile->x - startX;
+                int relY = tile->y - startY;
 
-                float diffX = relX * layerOffsetFactorX * tile->layer;
-                float diffY = relY * layerOffsetFactorY * tile->layer;
+                float cameraOffsetX = static_cast<float>(startX);
+                float cameraOffsetY = static_cast<float>(startY);
 
-                float px = tile->x * m_tileSize + diffX;
-                float py = tile->y * m_tileSize + diffY;
+                float camMidX = startX + viewWidth / 2.0f;
+                float camMidY = startY + viewHeight / 2.0f;
+
+                float parallaxX = (tile->x - camMidX) * layerOffsetFactorX * tile->layer;
+                float parallaxY = (tile->y - camMidY) * layerOffsetFactorY * tile->layer;
+
+                float px = relX * m_tileSize + parallaxX;
+                float py = relY * m_tileSize + parallaxY;
+
+
 
                 int tileIndex = static_cast<int>(tile->tileChar) - 32;
                 int tx = tileIndex % m_tilesPerRow;
@@ -201,9 +210,5 @@ namespace Flux {
 
         return m_fboTexture;
     }
-
-
-
-
 } 
 
