@@ -4,7 +4,7 @@
 #include "../Scripts/ASCIIBlockDictionary.h"
 
 std::vector<Flux::RenderTile> CreateRenderTiles(const std::vector<std::string>& map,
-    ASCIIBlockDictionary& dictionary, std::vector<Entity> _entities)
+    ASCIIBlockDictionary& dictionary, std::vector<Flux::Entity> _entities)
 {
     std::vector<Flux::RenderTile> tiles;
 
@@ -14,8 +14,8 @@ std::vector<Flux::RenderTile> CreateRenderTiles(const std::vector<std::string>& 
 
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
-            Entity* entity = nullptr;
-            for (Entity& e : _entities) {
+            Flux::Entity* entity = nullptr;
+            for (Flux::Entity& e : _entities) {
                 if (e.x == x && e.y == y) {
                     entity = &e;
                     break;

@@ -164,6 +164,7 @@ copy /B /Y "..\bin\Dist-windows-x86_64\Flux\Flux.dll" "..\bin\Dist-windows-x86_6
     <ClInclude Include="src\Flux.h" />
     <ClInclude Include="src\Flux\Application.h" />
     <ClInclude Include="src\Flux\Core.h" />
+    <ClInclude Include="src\Flux\Entity.h" />
     <ClInclude Include="src\Flux\EntryPoint.h" />
     <ClInclude Include="src\Flux\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Flux\Events\Event.h" />
@@ -195,6 +196,7 @@ copy /B /Y "..\bin\Dist-windows-x86_64\Flux\Flux.dll" "..\bin\Dist-windows-x86_6
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flux\Application.cpp" />
+    <ClCompile Include="src\Flux\Entity.cpp" />
     <ClCompile Include="src\Flux\FileLoader.cpp" />
     <ClCompile Include="src\Flux\IScript.cpp" />
     <ClCompile Include="src\Flux\ImGui\ImGuiLayer.cpp" />

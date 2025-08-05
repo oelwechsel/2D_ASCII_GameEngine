@@ -33,6 +33,9 @@
     <ClInclude Include="src\Flux\Core.h">
       <Filter>src\Flux</Filter>
     </ClInclude>
+    <ClInclude Include="src\Flux\Entity.h">
+      <Filter>src\Flux</Filter>
+    </ClInclude>
     <ClInclude Include="src\Flux\EntryPoint.h">
       <Filter>src\Flux</Filter>
     </ClInclude>
@@ -120,6 +123,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flux\Application.cpp">
+      <Filter>src\Flux</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Flux\Entity.cpp">
       <Filter>src\Flux</Filter>
     </ClCompile>
     <ClCompile Include="src\Flux\FileLoader.cpp">

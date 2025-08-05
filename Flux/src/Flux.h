@@ -18,6 +18,7 @@
 
 
 #include "Flux/TileRenderer.h"
+#include "Flux/Entity.h"
 
 #include "stb_image.h"
 #include "Flux/FileLoader.h"

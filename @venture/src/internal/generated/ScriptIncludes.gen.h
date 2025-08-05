@@ -8,5 +8,4 @@
 #include "Scripts/PlayerControllerScript.h"
 #include "Scripts/Template/TemplateScript.h"
 #include "internal/BlockData.h"
-#include "internal/Entity.h"
 #include "internal/MapToRenderTiles.h"
