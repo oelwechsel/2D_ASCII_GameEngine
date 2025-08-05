@@ -7,17 +7,19 @@ class GameManagerScript : public Flux::IScript
 public:
     static GameManagerScript* s_Instance;
 
-    GameManagerScript() = default; // privater Konstruktor
+    GameManagerScript() = default;
+
+    std::vector<Entity> entities;
+
+    bool m_playerIsInteracting = false;
 
 public:
-    std::vector<Entity> entities;
 
     static GameManagerScript* Get()
     {
         return s_Instance;
     }
 
-    // Optional: Zugriff ohne Zeiger
     static GameManagerScript& Instance()
     {
         return *s_Instance;
@@ -25,7 +27,7 @@ public:
 
     void Start() override
     {
-        s_Instance = this; // beim Start einmalig registrieren
+        s_Instance = this;
 
         Entity player(14, 14, '@', "@", true);
         entities.push_back(player);
@@ -42,7 +44,6 @@ public:
     }
 };
 
-// Initialisierung des statischen Members
 GameManagerScript* GameManagerScript::s_Instance = nullptr;
 
 REGISTER_SCRIPT(GameManagerScript);

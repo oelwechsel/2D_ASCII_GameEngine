@@ -11,8 +11,11 @@ class PlayerControllerScript : public Flux::IScript
 private:
 	// define your private Variables here
 
-    double moveCooldown = 0.08; // Sekunden zwischen Bewegungen
-    double moveTimer = 0.0;     // Zeit seit letzter Bewegung
+    double m_moveCooldown = 0.08; // Sekunden zwischen Bewegungen
+    double m_moveTimer = 0.0;     // Zeit seit letzter Bewegung
+
+    bool m_wasEPressedLastFrame = false;
+
 
 public:
 	// define your public Variables here
@@ -38,13 +41,15 @@ private:
 
     void Update(float deltaTime) override
     {
-        moveTimer += deltaTime;
-        if (moveTimer < moveCooldown)
+        m_moveTimer += deltaTime;
+        if (m_moveTimer < m_moveCooldown)
             return;
 
         int dx = 0, dy = 0;
 
-        if (Flux::Input::IsKeyPressed(FX_KEY_E))
+        bool isEPressedNow = Flux::Input::IsKeyPressed(FX_KEY_E);
+
+        if (isEPressedNow && !m_wasEPressedLastFrame)
         {
             auto& entities = GameManagerScript::Instance().entities;
             auto& player = entities[0];
@@ -62,47 +67,61 @@ private:
                 {
                     if (entities[i].x == x && entities[i].y == y)
                     {
-                        FX_INFO("Interaction");
-                        // TODO Always sends multiple events
-                        return;
+                        if (!GameManagerScript::Instance().m_playerIsInteracting)
+                        {
+                            FX_INFO("Interaction");
+                            GameManagerScript::Instance().m_playerIsInteracting = true;
+                        }
+                        else
+                        {
+                            FX_INFO("stop interaction");
+                            GameManagerScript::Instance().m_playerIsInteracting = false;
+                        }
+
+                        break;
                     }
                 }
             }
         }
 
-        if (Flux::Input::IsKeyPressed(FX_KEY_W)) dy = -1;
-        if (Flux::Input::IsKeyPressed(FX_KEY_S)) dy = 1;
-        if (Flux::Input::IsKeyPressed(FX_KEY_A)) dx = -1;
-        if (Flux::Input::IsKeyPressed(FX_KEY_D)) dx = 1;
+        m_wasEPressedLastFrame = isEPressedNow;
 
-        auto& entities = GameManagerScript::Instance().entities;
-        auto& player = entities[0];
-
-        int targetX = player.x + dx;
-        int targetY = player.y + dy;
-
-        // EnitiyCollision
-        for (size_t i = 1; i < entities.size(); ++i)
+        if (!GameManagerScript::Instance().m_playerIsInteracting)
         {
-            if (entities[i].x == targetX && entities[i].y == targetY)
+
+            // Movement 
+            if (Flux::Input::IsKeyPressed(FX_KEY_W)) dy = -1;
+            if (Flux::Input::IsKeyPressed(FX_KEY_S)) dy = 1;
+            if (Flux::Input::IsKeyPressed(FX_KEY_A)) dx = -1;
+            if (Flux::Input::IsKeyPressed(FX_KEY_D)) dx = 1;
+
+            auto& entities = GameManagerScript::Instance().entities;
+            auto& player = entities[0];
+
+            int targetX = player.x + dx;
+            int targetY = player.y + dy;
+
+            for (size_t i = 1; i < entities.size(); ++i)
+            {
+                if (entities[i].x == targetX && entities[i].y == targetY)
+                    return;
+            }
+
+            auto mapScript = MapRendererScript::Get();
+            if (!mapScript)
                 return;
+
+            if (mapScript->IsTileBlocked(targetX, targetY))
+                return;
+
+            player.x = targetX;
+            player.y = targetY;
+            m_moveTimer = 0.0;
+
+            mapScript->UpdateRenderTiles();
         }
-
-        // TileCollision
-        auto mapScript = MapRendererScript::Get();
-        if (!mapScript)
-            return;
-
-        if (mapScript->IsTileBlocked(targetX, targetY))
-            return;
-
-        player.x = targetX;
-        player.y = targetY;
-        moveTimer = 0.0;
-
-        mapScript->UpdateRenderTiles();
-
     }
+
 };
 
 
