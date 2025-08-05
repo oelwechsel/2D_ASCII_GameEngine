@@ -1,5 +1,10 @@
 #include "ASCIIBlockDictionary.h"
 
+ASCIIBlockDictionary& ASCIIBlockDictionary::Instance() {
+    static ASCIIBlockDictionary instance; // Einzige Instanz, thread-safe in C++11+
+    return instance;
+}
+
 ASCIIBlockDictionary::ASCIIBlockDictionary() {
     blocks = {
         { "wall",       { { '#','#','#','#','#','#' }, BlockColor::White } },
@@ -67,3 +72,10 @@ BlockData ASCIIBlockDictionary::getBlockData(char c) {
     }
 }
 
+void ASCIIBlockDictionary::setAllColorsRedExceptPlayer() {
+    for (auto& [key, blockData] : blocks) {
+        if (key != "guy") {
+            blockData.color = BlockColor::Red;
+        }
+    }
+}

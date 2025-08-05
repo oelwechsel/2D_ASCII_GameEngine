@@ -15,7 +15,6 @@ private:
 	Flux::TileRenderer m_renderer;
 	std::vector<std::string> m_map;
 
-	ASCIIBlockDictionary m_asciiDictionary;
 	std::vector<Flux::RenderTile> m_tiles;
 	unsigned int m_texture;
 	bool success;
@@ -49,7 +48,7 @@ public:
 	void UpdateRenderTiles()
 	{
 
-		m_tiles = CreateRenderTiles(m_map, m_asciiDictionary, GameManagerScript::Instance().entities);
+		m_tiles = CreateRenderTiles(m_map, ASCIIBlockDictionary::Instance(), GameManagerScript::Instance().entities);
 		m_needsUpdate = true;
 	}
 
@@ -88,8 +87,6 @@ private:
 	{
 		s_Instance = this;
 
-		m_asciiDictionary = ASCIIBlockDictionary();
-
 		m_map = Flux::FileLoader::LoadTextFile("map.txt", &success);
 		TextureID tex = Flux::FileLoader::LoadTileset("tileset.png", 14);
 		if (tex == 0) 
@@ -102,10 +99,10 @@ private:
 		}
 
 		m_renderer.SetTileset(tex, m_tileSize, m_tileSetWidth, m_tileSetHeight); 
-		m_tiles = CreateRenderTiles(m_map, m_asciiDictionary, GameManagerScript::Instance().entities);
+		m_tiles = CreateRenderTiles(m_map, ASCIIBlockDictionary::Instance(), GameManagerScript::Instance().entities);
 
 
-		// TODO: REMOVE 1,1 WITH PLAYER COORDINATES
+		
 		// POTENTIAL ERROR! GAME MANAGER NOT INITIALIZED BEFORE USED HERE?!
 		m_texture = m_renderer.RenderToTexture(m_tiles, m_mapWidth, m_mapHeight, GameManagerScript::Instance().entities[0].x, GameManagerScript::Instance().entities[0].y);
 
@@ -119,7 +116,7 @@ private:
 
 		if (m_timeAccumulator >= m_updateInterval)
 		{
-			m_tiles = CreateRenderTiles(m_map, m_asciiDictionary, GameManagerScript::Instance().entities);
+			m_tiles = CreateRenderTiles(m_map, ASCIIBlockDictionary::Instance(), GameManagerScript::Instance().entities);
 			m_timeAccumulator = 0.0f;
 		}
 
