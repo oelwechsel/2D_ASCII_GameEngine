@@ -20,6 +20,12 @@ namespace Flux::ImGuiWrapper
 	FLUX_API void End();
 	FLUX_API bool Button(const char* _buttonName);
     FLUX_API void Image(unsigned int textureID, ImVec2 size);
+
+    FLUX_API float GetFontSize();
+
+    FLUX_API ImVec2 GetCursorScreenPos();
+
+    FLUX_API void DrawTextAbsolute(const ImVec2& pos, ImU32 color, const char* text);
 }
 
 

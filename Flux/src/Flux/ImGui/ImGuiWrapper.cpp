@@ -57,4 +57,20 @@ namespace Flux::ImGuiWrapper
 		ImGui::Image((ImTextureID)textureID, size);
 	}
 
+	float ImGuiWrapper::GetFontSize()
+	{
+		return ImGui::GetFontSize();
+	}
+
+	ImVec2 ImGuiWrapper::GetCursorScreenPos()
+	{
+		return ImGui::GetCursorScreenPos();
+	}
+
+	void ImGuiWrapper::DrawTextAbsolute(const ImVec2& pos, ImU32 color, const char* text)
+	{
+		ImGui::GetWindowDrawList()->AddText(pos, color, text);
+	}
+
+
 }
