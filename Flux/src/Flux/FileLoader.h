@@ -7,6 +7,11 @@ using TextureID = unsigned int;
 
 namespace Flux
 {
+    struct FLUX_API LayeredFrame {
+        std::vector<std::string> layers;
+    };
+
+
     class FLUX_API FileLoader
     {
     public:
@@ -17,7 +22,7 @@ namespace Flux
 
         static void FreeImage(unsigned char* data);
 
-        static std::vector<std::vector<std::vector<std::string>>> LoadAsciiFrames(const std::string& filename, bool* success);
+        static std::vector<LayeredFrame> LoadAsciiFrames(const std::string& filename, bool* success);
 
         static TextureID LoadTileset(const std::string& filename, int tileSize);
     };

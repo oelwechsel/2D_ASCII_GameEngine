@@ -91,7 +91,7 @@ namespace Flux
         stbi_image_free(data);
     }
 
-    std::vector<std::vector<std::vector<std::string>>> FileLoader::LoadAsciiFrames(const std::string& filename, bool* success)
+    std::vector<LayeredFrame> FileLoader::LoadAsciiFrames(const std::string& filename, bool* success)
     {
         std::string resolvedPath = filename;
 
@@ -116,33 +116,22 @@ namespace Flux
 
         FX_CORE_INFO("Loading AsciiFrames from: {}", resolvedPath);
 
-        using Frame = std::vector<std::vector<std::string>>;
         using Layer = std::vector<std::string>;
 
-        std::vector<Frame> frames;
-        Frame  currentFrame;
-        Layer  currentLayer;
+        std::vector<LayeredFrame> resultFrames;
+        Layer currentLayer;
 
         std::string line;
         while (std::getline(file, line))
         {
             if (!line.empty() && line.back() == '\r') line.pop_back();
 
-            if (line == "---FRAME---")
+            if (line == "---FRAME---" || line == "---LAYER---")
             {
                 if (!currentLayer.empty()) {
-                    currentFrame.push_back(currentLayer);
-                    currentLayer.clear();
-                }
-                if (!currentFrame.empty()) {
-                    frames.push_back(currentFrame);
-                    currentFrame.clear();
-                }
-            }
-            else if (line == "---LAYER---")
-            {
-                if (!currentLayer.empty()) {
-                    currentFrame.push_back(currentLayer);
+                    LayeredFrame lf;
+                    lf.layers = currentLayer;
+                    resultFrames.push_back(lf);
                     currentLayer.clear();
                 }
             }
@@ -152,12 +141,16 @@ namespace Flux
             }
         }
 
-        if (!currentLayer.empty()) currentFrame.push_back(currentLayer);
-        if (!currentFrame.empty()) frames.push_back(currentFrame);
+        if (!currentLayer.empty()) {
+            LayeredFrame lf;
+            lf.layers = currentLayer;
+            resultFrames.push_back(lf);
+        }
 
         if (success) *success = true;
-        return frames;
+        return resultFrames;
     }
+
 
     TextureID FileLoader::LoadTileset(const std::string& filename, int tileSize) {
         int width, height, channels;
