@@ -1,6 +1,8 @@
 #pragma once
 #include <Flux.h>
 #include "MapRendererScript.h"
+#include "NPCWindow.h"
+
 
 class PlayerControllerScript : public Flux::IScript
 {
@@ -69,12 +71,12 @@ private:
                     {
                         if (!GameManagerScript::Instance().m_playerIsInteracting)
                         {
-                            FX_INFO("Interaction");
+                            NPCWindow::Instance().ShowNPCWindow(entities[i]);
                             GameManagerScript::Instance().m_playerIsInteracting = true;
                         }
                         else
                         {
-                            FX_INFO("stop interaction");
+                            NPCWindow::Instance().HideNPCWindow();
                             GameManagerScript::Instance().m_playerIsInteracting = false;
                         }
 

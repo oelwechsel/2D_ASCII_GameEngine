@@ -9,16 +9,43 @@ class NPCWindow : public Flux::IScript
 
 private:
 
+	inline static NPCWindow* s_Instance = nullptr;
+
 public:
 	bool m_showWindow = false;
 	ImVec2 m_windowSize;
 	ImVec2 m_position;
+	std::string m_name;
+
+
 
 	//-------------------------------------------//
 	//----------------Functions------------------//
 	//-------------------------------------------//
 
 public:
+
+	static NPCWindow* Get()
+	{
+		return s_Instance;
+	}
+
+	static NPCWindow& Instance()
+	{
+		return *s_Instance;
+	}
+
+	void ShowNPCWindow(const Flux::Entity& _entity)
+	{
+		m_name = _entity.ascii;
+		m_windowSize = _entity.windowSize;
+
+		m_showWindow = true;
+	}
+
+	void HideNPCWindow() {
+		m_showWindow = false;
+	}
 
 private:
 
@@ -28,6 +55,7 @@ private:
 
 	void Start() override
 	{
+		s_Instance = this;
 	}
 
 	void Update(float deltaTime) override
@@ -37,19 +65,12 @@ private:
 	void OnImGuiRender() override
 	{
 		if (m_showWindow) {
-			Flux::ImGuiWrapper::Begin("Test-Fenster", m_windowSize, m_position, ImGuiWindowFlags_AlwaysVerticalScrollbar);
-			Flux::ImGuiWrapper::Text("Hello from TextWindowScript!");
+			Flux::ImGuiWrapper::Begin(m_name.c_str(), m_windowSize, ImVec2(200,200), ImGuiWindowFlags_AlwaysVerticalScrollbar);
+			Flux::ImGuiWrapper::Text("Hello from NPCWindow!");
 			Flux::ImGuiWrapper::End();
 		}
 	}
 
-	void ShowNPCWindow() {
-		m_showWindow = true;
-	}
-
-	void HideNPCWindow() {
-		m_showWindow = false;
-	}
 
 	void OnDestroy() override {  }
 };

@@ -91,7 +91,7 @@ namespace Flux
         stbi_image_free(data);
     }
 
-    std::vector<LayeredFrame> FileLoader::LoadAsciiFrames(const std::string& filename, bool* success)
+    std::vector<LayeredFrame> FileLoader::LoadAsciiFrames(const std::string& filename)
     {
         std::string resolvedPath = filename;
 
@@ -101,7 +101,6 @@ namespace Flux
             if (resolvedPath.empty())
             {
                 FX_CORE_WARN("AsciiFrame file not found: {}", filename);
-                if (success) *success = false;
                 return {};
             }
         }
@@ -110,7 +109,6 @@ namespace Flux
         if (!file.is_open())
         {
             FX_CORE_WARN("Failed to open AsciiFrame file: {}", resolvedPath);
-            if (success) *success = false;
             return {};
         }
 
@@ -147,7 +145,6 @@ namespace Flux
             resultFrames.push_back(lf);
         }
 
-        if (success) *success = true;
         return resultFrames;
     }
 

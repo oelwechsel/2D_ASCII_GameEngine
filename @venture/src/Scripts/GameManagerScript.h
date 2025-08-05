@@ -1,7 +1,6 @@
 #pragma once
 #include <Flux.h>
 
-
 class GameManagerScript : public Flux::IScript
 {
 public:
@@ -12,6 +11,7 @@ public:
     std::vector<Flux::Entity> entities;
 
     bool m_playerIsInteracting = false;
+
 
 public:
 
@@ -33,6 +33,7 @@ public:
         entities.push_back(player);
 
         Flux::Entity questionNPC(33, 32, '?', "?", false);
+        questionNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("QUEST_Animation.txt");
         entities.push_back(questionNPC);
     }
 

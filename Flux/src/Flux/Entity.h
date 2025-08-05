@@ -5,6 +5,9 @@
 
 namespace Flux
 {
+    struct FLUX_API LayeredFrame {
+        std::vector<std::string> layers;
+    };
 
     class FLUX_API Entity 
     {
@@ -15,7 +18,7 @@ namespace Flux
         bool isPlayer;
         std::vector<std::string> dialogueLines;
         std::vector<std::string> animationFrames;
-        //std::vector<LayeredFrame> layeredFrames;
+        std::vector<LayeredFrame> layeredFrames;
         float frameDuration;
         ImVec2 windowSize;
 
