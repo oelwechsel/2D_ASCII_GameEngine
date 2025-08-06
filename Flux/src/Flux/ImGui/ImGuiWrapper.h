@@ -2,9 +2,6 @@
 #include "Flux/Core.h"
 #include "../vendor/imgui/imgui.h"
 
-
-
-
 namespace Flux::ImGuiWrapper 
 {
     FLUX_API void Begin(const char* _name,
@@ -25,7 +22,9 @@ namespace Flux::ImGuiWrapper
 
     FLUX_API ImVec2 GetCursorScreenPos();
 
-    FLUX_API void DrawTextAbsolute(const ImVec2& pos, ImU32 color, const char* text);
+    FLUX_API ImDrawList* GetWindowDrawList();
+
+    FLUX_API void AddText(ImDrawList* drawList, const ImVec2& pos, ImU32 color, const char* text);
 }
 
 

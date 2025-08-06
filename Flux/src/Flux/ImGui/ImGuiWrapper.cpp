@@ -67,10 +67,14 @@ namespace Flux::ImGuiWrapper
 		return ImGui::GetCursorScreenPos();
 	}
 
-	void ImGuiWrapper::DrawTextAbsolute(const ImVec2& pos, ImU32 color, const char* text)
+	ImDrawList* ImGuiWrapper::GetWindowDrawList()
 	{
-		ImGui::GetWindowDrawList()->AddText(pos, color, text);
+		return ImGui::GetWindowDrawList();
 	}
 
+	void ImGuiWrapper::AddText(ImDrawList* drawList, const ImVec2& pos, ImU32 color, const char* text)
+	{
+		drawList->AddText(pos, color, text);
+	}
 
 }
