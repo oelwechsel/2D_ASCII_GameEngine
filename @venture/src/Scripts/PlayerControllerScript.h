@@ -39,7 +39,6 @@ private:
 
 	void Start() override
 	{
-        console = TestConsole();
 	}
 
     void Update(float deltaTime) override
