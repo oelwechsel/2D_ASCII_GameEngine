@@ -1,4 +1,4 @@
-#include "fxpch.h"
+﻿#include "fxpch.h"
 #include "ImGuiLayer.h"
 
 #include "imgui.h"
@@ -41,6 +41,15 @@ namespace Flux
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
+		ImFontGlyphRangesBuilder builder;
+		builder.AddRanges(io.Fonts->GetGlyphRangesDefault());
+		builder.AddText("ˉ");
+
+		ImVector<ImWchar> ranges;
+		builder.BuildRanges(&ranges);
+
+		io.FontDefault = io.Fonts->AddFontFromFileTTF("../Flux/src/res/SourceCodePro-Regular.ttf", 16.0f,
+			nullptr, ranges.Data);
 
 		ImGui::StyleColorsDark();
 
