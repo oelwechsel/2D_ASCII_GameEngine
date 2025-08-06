@@ -63,6 +63,9 @@
     <ClInclude Include="src\_internal\customizables\Dictionary\ASCIIBlockDictionary.h">
       <Filter>_internal\customizables\Dictionary</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scripts\NormalConsole.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\_internal\customizables\Consoles\TestConsole.cpp">

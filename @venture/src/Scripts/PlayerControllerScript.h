@@ -2,7 +2,7 @@
 #include <Flux.h>
 #include "MapRendererScript.h"
 #include "NPCWindow.h"
-#include "_internal/customizables/Consoles/TestConsole.h"
+#include "NormalConsole.h"
 
 
 class PlayerControllerScript : public Flux::IScript
@@ -19,7 +19,6 @@ private:
 
     bool m_wasEPressedLastFrame = false;
 
-    TestConsole console;
 public:
 	// define your public Variables here
 
@@ -87,6 +86,14 @@ private:
                         if (entities[i].x == x && entities[i].y == y)
                         {
                             NPCWindow::Instance().ShowNPCWindow(entities[i]);
+
+                            std::string command = "$ cat ./home/" + entities[i].name + "/welcome_message.txt";
+                            NormalConsole::Instance().m_console.AddLog(Flux::ImGuiConsole::LogLevel::Info, "%s", command.c_str());
+
+                            for (const auto& line : entities[i].dialogueLines) {
+                                NormalConsole::Instance().m_console.AddLog(line.c_str());
+                            }
+
                             gm.m_playerIsInteracting = true;
                             break;
                         }
@@ -129,8 +136,6 @@ private:
 
     void OnImGuiRender() override 
     {
-
-        console.Draw("test","welcome", ImVec2(300, 300), ImVec2(300, 300));
 
     }
 

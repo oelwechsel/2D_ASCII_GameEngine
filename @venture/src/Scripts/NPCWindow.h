@@ -130,7 +130,7 @@ private:
 
 
 
-	void OnDestroy() override {  }
+	void OnDestroy() override { s_Instance = nullptr; }
 };
 
 
