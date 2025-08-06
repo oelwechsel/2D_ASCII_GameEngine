@@ -65,30 +65,42 @@ namespace Flux
         return lines;
     }
 
-
-    unsigned char* FileLoader::LoadImageFromFile(const std::string& filename, int* width, int* height, int* channels, int desiredChannels)
+    unsigned int FileLoader::LoadTextureFromFile(const std::string& filename, int desiredChannels)
     {
         std::string resolvedPath = filename;
 
         if (!fs::exists(filename))
         {
             resolvedPath = FindFileInRes(filename);
-
             if (resolvedPath.empty())
             {
                 FX_CORE_WARN("File not found: {}", filename);
-                return nullptr;
+                return 0;
             }
         }
 
-        FX_CORE_INFO("Loading Image: {}", resolvedPath);
-        return stbi_load(resolvedPath.c_str(), width, height, channels, desiredChannels); 
-    }
+        int width, height, channels;
+        unsigned char* data = stbi_load(resolvedPath.c_str(), &width, &height, &channels, desiredChannels);
+        if (!data)
+        {
+            std::cerr << "Failed to load image: " << resolvedPath << std::endl;
+            return 0;
+        }
 
+        GLuint textureID;
+        glGenTextures(1, &textureID);
+        glBindTexture(GL_TEXTURE_2D, textureID);
 
-    void FileLoader::FreeImage(unsigned char* data)
-    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0,
+            desiredChannels == 4 ? GL_RGBA : GL_RGB,
+            GL_UNSIGNED_BYTE, data);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
         stbi_image_free(data);
+
+        return textureID;
     }
 
     std::vector<LayeredFrame> FileLoader::LoadAsciiFrames(const std::string& filename)

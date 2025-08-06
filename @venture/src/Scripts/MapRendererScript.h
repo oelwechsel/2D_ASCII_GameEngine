@@ -38,6 +38,10 @@ private:
 	int m_cameraWidth = 30; 
 	int m_cameraHeight = 20; 
 
+
+	ImVec2 m_position;
+	int m_screenWidthWindows = GetSystemMetrics(SM_CXSCREEN);
+	int m_screenHeightWindows = GetSystemMetrics(SM_CYSCREEN);
 	
 	//-------------------------------------------//
 	//----------------Functions------------------//
@@ -107,6 +111,10 @@ private:
 		m_texture = m_renderer.RenderToTexture(m_tiles, m_mapWidth, m_mapHeight, GameManagerScript::Instance().entities[0].x, GameManagerScript::Instance().entities[0].y);
 
 		m_MapSize = ImVec2(m_mapWidth * m_tileSize, m_mapHeight * m_tileSize);
+
+
+		m_position.x = m_screenWidthWindows * 0.25f;
+		m_position.y = m_screenHeightWindows * 0.3f;
 	}
 
 	void Update(float deltaTime) override
@@ -120,14 +128,12 @@ private:
 			m_timeAccumulator = 0.0f;
 		}
 
-		// --- Kamera berechnen ---
 		int playerX = GameManagerScript::Instance().entities[0].x;
 		int playerY = GameManagerScript::Instance().entities[0].y;
 
 		int startX = playerX - m_cameraWidth / 2;
 		int startY = playerY - m_cameraHeight / 2;
 
-		// --- Nur sichtbare Tiles herausfiltern ---
 		std::vector<Flux::RenderTile> visibleTiles;
 		for (const auto& tile : m_tiles)
 		{
@@ -138,7 +144,6 @@ private:
 			}
 		}
 
-		// --- Texture neu rendern ---
 		m_texture = m_renderer.RenderToTexture(
 			visibleTiles,
 			m_cameraWidth,
@@ -154,7 +159,7 @@ private:
 	void OnImGuiRender() override
 	{
 		// TODO: Add Camera and PLayer Dependencies!
-		Flux::ImGuiWrapper::Begin("@venture", ImVec2(m_MapSize.x+15, m_MapSize.y+35), ImVec2(300, 300), ImGuiWindowFlags_NoCollapse);
+		Flux::ImGuiWrapper::Begin("@venture", ImVec2(m_MapSize.x+15, m_MapSize.y+35), m_position, ImGuiWindowFlags_NoCollapse);
 		Flux::ImGuiWrapper::Image(m_texture, m_MapSize);
 
 		double fps = 1.0 / m_deltaTime;

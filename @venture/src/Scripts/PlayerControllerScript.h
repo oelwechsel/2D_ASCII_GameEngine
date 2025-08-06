@@ -51,37 +51,46 @@ private:
         int dx = 0, dy = 0;
 
         bool isEPressedNow = Flux::Input::IsKeyPressed(FX_KEY_E);
+        bool isW = Flux::Input::IsKeyPressed(FX_KEY_W);
+        bool isS = Flux::Input::IsKeyPressed(FX_KEY_S);
+        bool isA = Flux::Input::IsKeyPressed(FX_KEY_A);
+        bool isD = Flux::Input::IsKeyPressed(FX_KEY_D);
+
+        if (isW) dy = -1;
+        if (isS) dy = 1;
+        if (isA) dx = -1;
+        if (isD) dx = 1;
+
+        auto& gm = GameManagerScript::Instance();
+        auto& entities = gm.entities;
+        auto& player = entities[0];
 
         if (isEPressedNow && !m_wasEPressedLastFrame)
         {
-            auto& entities = GameManagerScript::Instance().entities;
-            auto& player = entities[0];
-
-            std::vector<std::pair<int, int>> adjacentPositions = {
-                {player.x, player.y - 1},
-                {player.x, player.y + 1},
-                {player.x - 1, player.y},
-                {player.x + 1, player.y}
-            };
-
-            for (size_t i = 1; i < entities.size(); ++i)
+            if (gm.m_playerIsInteracting)
             {
-                for (const auto& [x, y] : adjacentPositions)
+                NPCWindow::Instance().HideNPCWindow();
+                gm.m_playerIsInteracting = false;
+            }
+            else
+            {
+                std::vector<std::pair<int, int>> adjacentPositions = {
+                    {player.x, player.y - 1},
+                    {player.x, player.y + 1},
+                    {player.x - 1, player.y},
+                    {player.x + 1, player.y}
+                };
+
+                for (size_t i = 1; i < entities.size(); ++i)
                 {
-                    if (entities[i].x == x && entities[i].y == y)
+                    for (const auto& [x, y] : adjacentPositions)
                     {
-                        if (!GameManagerScript::Instance().m_playerIsInteracting)
+                        if (entities[i].x == x && entities[i].y == y)
                         {
                             NPCWindow::Instance().ShowNPCWindow(entities[i]);
-                            GameManagerScript::Instance().m_playerIsInteracting = true;
+                            gm.m_playerIsInteracting = true;
+                            break;
                         }
-                        else
-                        {
-                            NPCWindow::Instance().HideNPCWindow();
-                            GameManagerScript::Instance().m_playerIsInteracting = false;
-                        }
-
-                        break;
                     }
                 }
             }
@@ -89,18 +98,14 @@ private:
 
         m_wasEPressedLastFrame = isEPressedNow;
 
-        if (!GameManagerScript::Instance().m_playerIsInteracting)
+        if (gm.m_playerIsInteracting && ( isW || isS || isA || isD))
         {
+            NPCWindow::Instance().HideNPCWindow();
+            gm.m_playerIsInteracting = false;
+        }
 
-            // Movement 
-            if (Flux::Input::IsKeyPressed(FX_KEY_W)) dy = -1;
-            if (Flux::Input::IsKeyPressed(FX_KEY_S)) dy = 1;
-            if (Flux::Input::IsKeyPressed(FX_KEY_A)) dx = -1;
-            if (Flux::Input::IsKeyPressed(FX_KEY_D)) dx = 1;
-
-            auto& entities = GameManagerScript::Instance().entities;
-            auto& player = entities[0];
-
+        if ((dx != 0 || dy != 0) && !gm.m_playerIsInteracting)
+        {
             int targetX = player.x + dx;
             int targetY = player.y + dy;
 
@@ -111,19 +116,17 @@ private:
             }
 
             auto mapScript = MapRendererScript::Get();
-            if (!mapScript)
-                return;
-
-            if (mapScript->IsTileBlocked(targetX, targetY))
+            if (!mapScript || mapScript->IsTileBlocked(targetX, targetY))
                 return;
 
             player.x = targetX;
             player.y = targetY;
-            m_moveTimer = 0.0;
+            m_moveTimer = 0.0f;
 
             mapScript->UpdateRenderTiles();
         }
     }
+
 
     void OnImGuiRender() override 
     {
