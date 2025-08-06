@@ -77,4 +77,28 @@ namespace Flux::ImGuiWrapper
 		drawList->AddText(pos, color, text);
 	}
 
+	inline void ImGuiWrapper::AnimateLayers(ImDrawList* drawList, ImVec2 startPos,
+		const std::vector<std::string>& layers,
+		const std::vector<ImU32>& layerColors)
+	{
+		float lineHeight = GetFontSize() + 1.0f;
+
+		for (size_t layerIndex = 0; layerIndex < layers.size(); ++layerIndex)
+		{
+			const std::string& layerText = layers[layerIndex];
+			float y = startPos.y;
+
+			std::istringstream iss(layerText);
+			std::string line;
+			while (std::getline(iss, line))
+			{
+				ImU32 color = layerColors.size() > layerIndex ? layerColors[layerIndex] : layerColors.back();
+
+				AddText(drawList, ImVec2(startPos.x, y), color, line.c_str());
+
+				y += lineHeight;
+			}
+		}
+	}
+
 }

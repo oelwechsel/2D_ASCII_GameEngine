@@ -25,6 +25,12 @@ namespace Flux::ImGuiWrapper
     FLUX_API ImDrawList* GetWindowDrawList();
 
     FLUX_API void AddText(ImDrawList* drawList, const ImVec2& pos, ImU32 color, const char* text);
+
+    FLUX_API void AnimateLayers(ImDrawList* drawList,
+                  ImVec2 startPos,
+                  const std::vector<std::string>& layers,
+                  const std::vector<ImU32>& layerColors); 
+
 }
 
 

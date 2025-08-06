@@ -22,6 +22,22 @@ public:
 
 	const Flux::Entity* m_activeNPC = nullptr;
 
+	std::vector<ImU32> m_layerColors = {
+			IM_COL32(255, 255, 255, 255),
+			IM_COL32(255, 255, 255, 200),
+			IM_COL32(255, 255, 255, 100),
+			IM_COL32(255, 255, 255, 32),
+			IM_COL32(255, 255, 255, 32),
+	};
+
+
+	ImGuiWindowFlags m_windowFlags = 
+		ImGuiWindowFlags_NoResize |
+		ImGuiWindowFlags_NoScrollbar |
+		ImGuiWindowFlags_NoScrollWithMouse |
+		ImGuiWindowFlags_NoCollapse;
+
+
 	//-------------------------------------------//
 	//----------------Functions------------------//
 	//-------------------------------------------//
@@ -90,44 +106,14 @@ private:
 		if (!m_showWindow || !m_activeNPC)
 			return;
 
-		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoResize |
-			ImGuiWindowFlags_NoScrollbar |
-			ImGuiWindowFlags_NoScrollWithMouse |
-			ImGuiWindowFlags_NoCollapse;
-
-		Flux::ImGuiWrapper::Begin(m_name.c_str(), m_windowSize, m_position, windowFlags);
+		Flux::ImGuiWrapper::Begin(m_name.c_str(), m_windowSize, m_position, m_windowFlags);
 
 		auto* drawList = Flux::ImGuiWrapper::GetWindowDrawList();
 		ImVec2 startPos = Flux::ImGuiWrapper::GetCursorScreenPos();
-		const float lineHeight = Flux::ImGuiWrapper::GetFontSize() + 1.0f;
-
-		ImU32 layerColors[] = {
-			IM_COL32(255, 255, 255, 255),
-			IM_COL32(255, 255, 255, 200),
-			IM_COL32(255, 255, 255, 100),
-			IM_COL32(255, 255, 255, 32),
-			IM_COL32(255, 255, 255, 32),
-		};
 
 		const auto& frame = m_activeNPC->layeredFrames[m_currentFrame];
 
-		for (size_t layerIndex = 0; layerIndex < frame.layers.size(); ++layerIndex)
-		{
-			const std::string& layerText = frame.layers[layerIndex];
-			float y = startPos.y;
-
-			std::istringstream iss(layerText);
-			std::string line;
-			while (std::getline(iss, line))
-			{
-				Flux::ImGuiWrapper::AddText(drawList,
-					ImVec2(startPos.x, y),
-					layerColors[min(layerIndex, size_t(4))],
-					line.c_str());
-
-				y += lineHeight;
-			}
-		}
+		Flux::ImGuiWrapper::AnimateLayers(drawList, startPos, frame.layers, m_layerColors);
 
 		Flux::ImGuiWrapper::End();
 
