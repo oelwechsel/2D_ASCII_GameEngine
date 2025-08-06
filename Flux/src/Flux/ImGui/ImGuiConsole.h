@@ -22,6 +22,9 @@ namespace Flux
         virtual void ExecCommand(const std::string& command) {}
         virtual void AutoComplete(const std::string& currentInput, std::vector<std::string>& suggestions) {}
 
+        void AddLog(const char* fmt, ...) IM_FMTARGS(2);
+        void AddLog(LogLevel level, const char* fmt, ...) IM_FMTARGS(3);
+
     protected:
         using CommandFunc = std::function<void(const std::string&)>;
         std::unordered_map<std::string, CommandFunc> CommandMap;
@@ -42,8 +45,6 @@ namespace Flux
         bool UseCustomStyle = false;
         ImVec4 DefaultTextColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 
-        void AddLog(const char* fmt, ...) IM_FMTARGS(2);
-        void AddLog(LogLevel level, const char* fmt, ...) IM_FMTARGS(3);
         void ClearLog();
 
     private:
