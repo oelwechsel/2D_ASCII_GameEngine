@@ -114,36 +114,60 @@ namespace Flux
 
         FX_CORE_INFO("Loading AsciiFrames from: {}", resolvedPath);
 
-        using Layer = std::vector<std::string>;
+        using Frame = std::vector<std::string>;
 
         std::vector<LayeredFrame> resultFrames;
-        Layer currentLayer;
+        Frame currentFrame;
+        std::ostringstream currentLayerStream;
 
         std::string line;
         while (std::getline(file, line))
         {
             if (!line.empty() && line.back() == '\r') line.pop_back();
 
-            if (line == "---FRAME---" || line == "---LAYER---")
+            if (line == "---FRAME---")
             {
-                if (!currentLayer.empty()) {
+                if (!currentLayerStream.str().empty())
+                {
+                    currentFrame.push_back(currentLayerStream.str());
+                    currentLayerStream.str("");
+                    currentLayerStream.clear();
+                }
+
+                if (!currentFrame.empty()) {
                     LayeredFrame lf;
-                    lf.layers = currentLayer;
+                    lf.layers = currentFrame;
                     resultFrames.push_back(lf);
-                    currentLayer.clear();
+                    currentFrame.clear();
+                }
+            }
+            else if (line == "---LAYER---")
+            {
+                if (!currentLayerStream.str().empty())
+                {
+                    currentFrame.push_back(currentLayerStream.str());
+                    currentLayerStream.str("");
+                    currentLayerStream.clear();
                 }
             }
             else
             {
-                currentLayer.push_back(line);
+                currentLayerStream << line << '\n';
             }
         }
 
-        if (!currentLayer.empty()) {
+        if (!currentLayerStream.str().empty())
+        {
+            currentFrame.push_back(currentLayerStream.str());
+        }
+
+        if (!currentFrame.empty())
+        {
             LayeredFrame lf;
-            lf.layers = currentLayer;
+            lf.layers = currentFrame;
             resultFrames.push_back(lf);
         }
+
 
         return resultFrames;
     }
@@ -156,14 +180,14 @@ namespace Flux
         if (!fs::exists(filename)) {
             resolvedPath = FindFileInRes(filename);
             if (resolvedPath.empty()) {
-                std::cerr << "Tileset file not found: " << filename << std::endl;
+                FX_CORE_WARN("Tileset file not found: {}", filename);
                 return 0;
             }
         }
 
         unsigned char* data = stbi_load(resolvedPath.c_str(), &width, &height, &channels, 4);
         if (!data) {
-            std::cerr << "Failed to load tileset image: " << resolvedPath << std::endl;
+            FX_CORE_WARN("Failed to load tileset image: {}", resolvedPath);
             return 0;
         }
 

@@ -32,9 +32,27 @@ public:
         Flux::Entity player(14, 14, '@', "@", true);
         entities.push_back(player);
 
-        Flux::Entity questionNPC(33, 32, '?', "?", false);
+        Flux::Entity questionNPC(33, 32, '?', "?", 0.2f, ImVec2(180, 370), false);
         questionNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("QUEST_Animation.txt");
         entities.push_back(questionNPC);
+
+        Flux::Entity andNPC(11, 9, '&', "&", 0.2f, ImVec2(240, 350), false);
+        andNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("AND_Animation.txt");
+        entities.push_back(andNPC);
+
+        Flux::Entity percentNPC(7, 23, '%', "%%", 0.2f, ImVec2(300, 450), false);
+        percentNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("PERC_Animation.txt");
+        entities.push_back(percentNPC);
+
+        Flux::Entity equalsNPC(20, 20, 'a', "=", 0.2f, ImVec2(230, 350), false);
+        equalsNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("EQUA_Animation.txt");
+        entities.push_back(equalsNPC);
+
+        Flux::Entity exclamationNPC(18, 14, '!', "!", 0.3f, ImVec2(170, 390), false);
+        exclamationNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("EXCL_Animation.txt");
+        entities.push_back(exclamationNPC);
+
+        
     }
 
     void Update(float deltaTime) override {}

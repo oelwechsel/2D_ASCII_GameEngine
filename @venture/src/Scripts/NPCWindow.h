@@ -22,6 +22,22 @@ public:
 
 	const Flux::Entity* m_activeNPC = nullptr;
 
+	std::vector<ImU32> m_layerColors = {
+			IM_COL32(255, 255, 255, 255),
+			IM_COL32(255, 255, 255, 200),
+			IM_COL32(255, 255, 255, 100),
+			IM_COL32(255, 255, 255, 32),
+			IM_COL32(255, 255, 255, 32),
+	};
+
+
+	ImGuiWindowFlags m_windowFlags = 
+		ImGuiWindowFlags_NoResize |
+		ImGuiWindowFlags_NoScrollbar |
+		ImGuiWindowFlags_NoScrollWithMouse |
+		ImGuiWindowFlags_NoCollapse;
+
+
 	//-------------------------------------------//
 	//----------------Functions------------------//
 	//-------------------------------------------//
@@ -46,7 +62,7 @@ public:
 		m_windowSize = _entity.windowSize;
 
 		m_currentFrame = 0;
-		m_AnimationTime = 0.5f; //TODO
+		m_AnimationTime = 0.0f;
 
 		m_showWindow = true;
 	}
@@ -68,57 +84,39 @@ private:
 
 	void Update(float deltaTime) override
 	{
-		if (!m_showWindow || !m_activeNPC) return;
-
-		float deltaSeconds = deltaTime / 1000.0f;
-		m_AnimationTime += deltaSeconds;
-
-		if (m_AnimationTime >= m_activeNPC->frameDuration)
+		if (m_showWindow && m_activeNPC)
 		{
-			m_AnimationTime = 0.0f;
-			m_currentFrame = (m_currentFrame + 1) % m_activeNPC->layeredFrames.size();
+			m_AnimationTime += deltaTime;
+
+			if (m_AnimationTime >= m_activeNPC->frameDuration)
+			{
+				m_AnimationTime = 0.0f;
+				m_currentFrame = (m_currentFrame + 1) % m_activeNPC->layeredFrames.size();
+			}
+		}
+		else
+		{
+			m_currentFrame = 0;
 		}
 	}
 
+
 	void OnImGuiRender() override
 	{
-		if (!m_showWindow || !m_activeNPC) return;
+		if (!m_showWindow || !m_activeNPC)
+			return;
 
-		ImGuiWindowFlags npcWindowFlags = ImGuiWindowFlags_NoResize |
-			ImGuiWindowFlags_NoScrollbar |
-			ImGuiWindowFlags_NoScrollWithMouse |
-			ImGuiWindowFlags_NoCollapse;
+		Flux::ImGuiWrapper::Begin(m_name.c_str(), m_windowSize, m_position, m_windowFlags);
 
-		Flux::ImGuiWrapper::Begin(m_name.c_str(), m_windowSize, m_position, npcWindowFlags);
+		auto* drawList = Flux::ImGuiWrapper::GetWindowDrawList();
+		ImVec2 startPos = Flux::ImGuiWrapper::GetCursorScreenPos();
 
-		const Flux::LayeredFrame& frame = m_activeNPC->layeredFrames[m_currentFrame];
-		const float lineHeight = Flux::ImGuiWrapper::GetFontSize() + 1.0f;
-		ImVec2 cursorPos = Flux::ImGuiWrapper::GetCursorScreenPos();
+		const auto& frame = m_activeNPC->layeredFrames[m_currentFrame];
 
-		ImU32 layerColors[] = {
-			IM_COL32(255, 255, 255, 255),
-			IM_COL32(255, 255, 255, 200),
-			IM_COL32(255, 255, 255, 100),
-			IM_COL32(255, 255, 255, 50)
-		};
-
-		float y = cursorPos.y;
-
-		for (size_t layerIndex = 0; layerIndex < frame.layers.size(); ++layerIndex)
-		{
-			std::istringstream stream(frame.layers[layerIndex]);
-			std::string line;
-
-			while (std::getline(stream, line))
-			{
-				Flux::ImGuiWrapper::DrawTextAbsolute(ImVec2(cursorPos.x, y),
-					layerColors[min(layerIndex, size_t(3))],
-					line.c_str());
-				y += lineHeight;
-			}
-		}
+		Flux::ImGuiWrapper::AnimateLayers(drawList, startPos, frame.layers, m_layerColors);
 
 		Flux::ImGuiWrapper::End();
+
 	}
 
 
