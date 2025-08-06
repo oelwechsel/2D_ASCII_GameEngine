@@ -15,7 +15,7 @@ public:
 	bool m_showWindow = false;
 	ImVec2 m_windowSize;
 
-	ImVec2 m_displaySize;
+	ImVec2 m_position;
 	int m_screenWidthWindows = GetSystemMetrics(SM_CXSCREEN);
 	int m_screenHeightWindows = GetSystemMetrics(SM_CYSCREEN);
 
@@ -85,8 +85,8 @@ private:
 	{
 		s_Instance = this;
 
-		m_displaySize.x = m_screenWidthWindows * 0.15f;
-		m_displaySize.y = m_screenHeightWindows * 0.3f;
+		m_position.x = m_screenWidthWindows * 0.15f;
+		m_position.y = m_screenHeightWindows * 0.3f;
 	}
 
 	void Update(float deltaTime) override
@@ -114,7 +114,7 @@ private:
 			return;
 
 
-		Flux::ImGuiWrapper::Begin(m_name.c_str(), m_windowSize, m_displaySize, m_windowFlags);
+		Flux::ImGuiWrapper::Begin(m_name.c_str(), m_windowSize, m_position, m_windowFlags);
 
 		auto* drawList = Flux::ImGuiWrapper::GetWindowDrawList();
 		ImVec2 startPos = Flux::ImGuiWrapper::GetCursorScreenPos();

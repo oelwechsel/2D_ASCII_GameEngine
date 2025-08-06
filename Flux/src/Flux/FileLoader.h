@@ -12,11 +12,9 @@ namespace Flux
     {
     public:
 
-        static unsigned char* LoadImageFromFile(const std::string& filename, int* width, int* height, int* channels, int desiredChannels = 0);
+        static unsigned int LoadTextureFromFile(const std::string& filename, int desiredChannels = 4);
 
         static std::vector<std::string> LoadTextFile(const std::string& filename, bool* success);
-
-        static void FreeImage(unsigned char* data);
 
         static std::vector<LayeredFrame> LoadAsciiFrames(const std::string& filename);
 
