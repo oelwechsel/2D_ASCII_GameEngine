@@ -1,29 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Generated">
-      <UniqueIdentifier>{3416FE7D-A080-B2F4-E9BE-639A55689049}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scripts">
       <UniqueIdentifier>{4D6F1AE8-B94E-9983-C266-245A2EC5FFE4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scripts\Template">
       <UniqueIdentifier>{F8700BBF-E469-2A11-0D9C-0F96F9F3091D}</UniqueIdentifier>
     </Filter>
-    <Filter Include="internal">
-      <UniqueIdentifier>{222D348C-0EFA-8E97-3713-7D3F233FC425}</UniqueIdentifier>
+    <Filter Include="_generated">
+      <UniqueIdentifier>{336609D1-1F1E-4B1E-8825-247A74FCE50E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="internal\generated">
-      <UniqueIdentifier>{60D0C038-4CB4-818E-B514-7CE1A1176C10}</UniqueIdentifier>
+    <Filter Include="_internal">
+      <UniqueIdentifier>{215DCB3C-8DC7-7FB3-D605-315942AF5D08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_internal\_generated">
+      <UniqueIdentifier>{5E149797-4AA3-2061-F3C1-345CDF2F3107}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_internal\customizables">
+      <UniqueIdentifier>{D52A9BC2-4162-E359-4A6C-477DB6220A53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_internal\customizables\Consoles">
+      <UniqueIdentifier>{4A26209B-3677-0BDD-5FDB-F99E4B8B9E46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_internal\customizables\Dictionary">
+      <UniqueIdentifier>{BAEA4445-A626-48AF-0F39-60A6FB93F0C9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Generated\ScriptIncludes.gen.h">
-      <Filter>Generated</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scripts\ASCIIBlockDictionary.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="src\Scripts\CloseAllWindowsScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
@@ -33,28 +36,43 @@
     <ClInclude Include="src\Scripts\MapRendererScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scripts\NPCWindow.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
     <ClInclude Include="src\Scripts\PlayerControllerScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\Scripts\Template\TemplateScript.h">
       <Filter>Scripts\Template</Filter>
     </ClInclude>
-    <ClInclude Include="src\internal\BlockData.h">
-      <Filter>internal</Filter>
+    <ClInclude Include="src\_generated\ScriptIncludes.gen.h">
+      <Filter>_generated</Filter>
     </ClInclude>
-    <ClInclude Include="src\internal\MapToRenderTiles.h">
-      <Filter>internal</Filter>
+    <ClInclude Include="src\_internal\BlockData.h">
+      <Filter>_internal</Filter>
     </ClInclude>
-    <ClInclude Include="src\internal\generated\ScriptIncludes.gen.h">
-      <Filter>internal\generated</Filter>
+    <ClInclude Include="src\_internal\MapToRenderTiles.h">
+      <Filter>_internal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\_internal\_generated\ScriptIncludes.gen.h">
+      <Filter>_internal\_generated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\_internal\customizables\Consoles\TestConsole.h">
+      <Filter>_internal\customizables\Consoles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\_internal\customizables\Dictionary\ASCIIBlockDictionary.h">
+      <Filter>_internal\customizables\Dictionary</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Scripts\ASCIIBlockDictionary.cpp">
-      <Filter>Scripts</Filter>
+    <ClCompile Include="src\_internal\customizables\Consoles\TestConsole.cpp">
+      <Filter>_internal\customizables\Consoles</Filter>
     </ClCompile>
-    <ClCompile Include="src\internal\main.cpp">
-      <Filter>internal</Filter>
+    <ClCompile Include="src\_internal\customizables\Dictionary\ASCIIBlockDictionary.cpp">
+      <Filter>_internal\customizables\Dictionary</Filter>
+    </ClCompile>
+    <ClCompile Include="src\_internal\main.cpp">
+      <Filter>_internal</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

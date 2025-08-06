@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Flux.h>
-#include "../Scripts/ASCIIBlockDictionary.h"
+#include "customizables/Dictionary/ASCIIBlockDictionary.h"
 
 std::vector<Flux::RenderTile> CreateRenderTiles(const std::vector<std::string>& map,
     ASCIIBlockDictionary& dictionary, std::vector<Flux::Entity> _entities)

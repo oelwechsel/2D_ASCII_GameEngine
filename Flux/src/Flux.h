@@ -12,10 +12,10 @@
 
 #include "Flux/IScript.h"
 #include "Flux/ImGui/ImGuiWrapper.h"
+#include "Flux/ImGui/ImGuiConsole.h"
 
 #include "Flux/ScriptManagerLayer.h"
 #include "Flux/ScriptRegistry.h"
-
 
 #include "Flux/TileRenderer.h"
 #include "Flux/Entity.h"
@@ -25,8 +25,8 @@
 
 
 #ifdef __has_include
-#  if __has_include("Generated/ScriptIncludes.gen.h")
-#    include "Generated/ScriptIncludes.gen.h"
+#  if __has_include("_generated/ScriptIncludes.gen.h")
+#    include "_generated/ScriptIncludes.gen.h"
 #  endif
 #endif
 

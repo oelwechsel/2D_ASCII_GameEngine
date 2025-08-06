@@ -172,6 +172,7 @@ copy /B /Y "..\bin\Dist-windows-x86_64\Flux\Flux.dll" "..\bin\Dist-windows-x86_6
     <ClInclude Include="src\Flux\Events\MouseEvent.h" />
     <ClInclude Include="src\Flux\FileLoader.h" />
     <ClInclude Include="src\Flux\IScript.h" />
+    <ClInclude Include="src\Flux\ImGui\ImGuiConsole.h" />
     <ClInclude Include="src\Flux\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Flux\ImGui\ImGuiWrapper.h" />
     <ClInclude Include="src\Flux\Input.h" />
@@ -199,6 +200,7 @@ copy /B /Y "..\bin\Dist-windows-x86_64\Flux\Flux.dll" "..\bin\Dist-windows-x86_6
     <ClCompile Include="src\Flux\Entity.cpp" />
     <ClCompile Include="src\Flux\FileLoader.cpp" />
     <ClCompile Include="src\Flux\IScript.cpp" />
+    <ClCompile Include="src\Flux\ImGui\ImGuiConsole.cpp" />
     <ClCompile Include="src\Flux\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Flux\ImGui\ImGuiWrapper.cpp" />
     <ClCompile Include="src\Flux\Input.cpp" />

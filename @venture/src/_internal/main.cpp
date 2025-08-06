@@ -3,8 +3,8 @@
 #include <Flux.h>
 
 #ifdef __has_include
-#  if __has_include("generated/ScriptIncludes.gen.h")
-#    include "generated/ScriptIncludes.gen.h"
+#  if __has_include("_generated/ScriptIncludes.gen.h")
+#    include "_generated/ScriptIncludes.gen.h"
 #  endif
 #endif
 

@@ -2,6 +2,7 @@
 #include <Flux.h>
 #include "MapRendererScript.h"
 #include "NPCWindow.h"
+#include "_internal/customizables/Consoles/TestConsole.h"
 
 
 class PlayerControllerScript : public Flux::IScript
@@ -18,7 +19,7 @@ private:
 
     bool m_wasEPressedLastFrame = false;
 
-
+    TestConsole console;
 public:
 	// define your public Variables here
 
@@ -38,7 +39,7 @@ private:
 
 	void Start() override
 	{
-
+        console = TestConsole();
 	}
 
     void Update(float deltaTime) override
@@ -122,6 +123,13 @@ private:
 
             mapScript->UpdateRenderTiles();
         }
+    }
+
+    void OnImGuiRender() override 
+    {
+
+        console.Draw("test","welcome", ImVec2(300, 300), ImVec2(300, 300));
+
     }
 
 };

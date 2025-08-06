@@ -57,6 +57,9 @@
     <ClInclude Include="src\Flux\IScript.h">
       <Filter>src\Flux</Filter>
     </ClInclude>
+    <ClInclude Include="src\Flux\ImGui\ImGuiConsole.h">
+      <Filter>src\Flux\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="src\Flux\ImGui\ImGuiLayer.h">
       <Filter>src\Flux\ImGui</Filter>
     </ClInclude>
@@ -133,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="src\Flux\IScript.cpp">
       <Filter>src\Flux</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Flux\ImGui\ImGuiConsole.cpp">
+      <Filter>src\Flux\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Flux\ImGui\ImGuiLayer.cpp">
       <Filter>src\Flux\ImGui</Filter>

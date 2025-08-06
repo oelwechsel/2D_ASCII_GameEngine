@@ -1,5 +1,5 @@
 #pragma once
-#include "internal/BlockData.h"
+#include "_internal/BlockData.h"
 #include <unordered_map>
 
 class ASCIIBlockDictionary {
