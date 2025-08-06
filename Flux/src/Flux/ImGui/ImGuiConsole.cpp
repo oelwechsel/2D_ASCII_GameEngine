@@ -1,182 +1,221 @@
 #include "fxpch.h"
 #include "ImGuiConsole.h"
+#include <imgui_internal.h>
+#include "../Log.h"
 
 namespace Flux
 {
-    ImGuiConsole::ImGuiConsole() {
-        ClearLog();
-        memset(InputBuf, 0, sizeof(InputBuf));
-        HistoryPos = -1;
-    }
+	ImGuiConsole::ImGuiConsole() {
+		ClearLog();
+		memset(InputBuf, 0, sizeof(InputBuf));
+		HistoryPos = -1;
+	}
 
-    ImGuiConsole::~ImGuiConsole() {
-        ClearLog();
-    }
+	ImGuiConsole::~ImGuiConsole() {
+		ClearLog();
+	}
 
-    void ImGuiConsole::ClearLog() {
-        for (auto& item : Items)
-            free(item);
-        Items.clear();
-    }
+	void ImGuiConsole::ClearLog() {
+		for (auto& item : Items)
+			free(item);
+		Items.clear();
+	}
 
-    void ImGuiConsole::AddItem(const std::string& msg) {
-        Items.push_back(strdup(msg.c_str()));
-        ScrollToBottom = true;
-    }
+	void ImGuiConsole::AddItem(const std::string& msg) {
+		Items.push_back(strdup(msg.c_str()));
+		ScrollToBottom = true;
+	}
 
-    void ImGuiConsole::AddLog(const char* fmt, ...) {
-        va_list args;
-        va_start(args, fmt);
-        char buf[1024];
-        vsnprintf(buf, sizeof(buf), fmt, args);
-        buf[sizeof(buf) - 1] = 0;
-        va_end(args);
-        AddItem(buf);
-    }
+	void ImGuiConsole::AddLog(const char* fmt, ...) {
+		va_list args;
+		va_start(args, fmt);
+		char buf[1024];
+		vsnprintf(buf, sizeof(buf), fmt, args);
+		buf[sizeof(buf) - 1] = 0;
+		va_end(args);
+		AddItem(buf);
+	}
 
-    void ImGuiConsole::AddLog(LogLevel level, const char* fmt, ...) {
-        va_list args;
-        va_start(args, fmt);
-        char buf[1024];
-        vsnprintf(buf, sizeof(buf), fmt, args);
-        buf[sizeof(buf) - 1] = 0;
-        va_end(args);
+	void ImGuiConsole::AddLog(LogLevel level, const char* fmt, ...) {
+		va_list args;
+		va_start(args, fmt);
+		char buf[1024];
+		vsnprintf(buf, sizeof(buf), fmt, args);
+		buf[sizeof(buf) - 1] = 0;
+		va_end(args);
 
-        std::string prefix;
-        switch (level) {
-        case LogLevel::Info:    prefix = "[INFO] "; break;
-        case LogLevel::Warning: prefix = "[WARN] "; break;
-        case LogLevel::Error:   prefix = "[ERROR] "; break;
-        }
+		std::string prefix;
+		switch (level) {
+		case LogLevel::Info:    prefix = "[INFO] "; break;
+		case LogLevel::Warning: prefix = "[WARN] "; break;
+		case LogLevel::Error:   prefix = "[ERROR] "; break;
+		}
 
-        AddItem(prefix + buf);
-    }
+		AddItem(prefix + buf);
+	}
 
-    void ImGuiConsole::WelcomeMessage(const char* _message) {
-        if (!Initialized) 
-        {
-            AddLog(_message);
-            Initialized = true;
-        }
-    }
+	void ImGuiConsole::WelcomeMessage(const char* _message) {
+		if (!Initialized) {
+			AddLog(_message);
+			Initialized = true;
+		}
+	}
 
-    void ImGuiConsole::Draw(const char* title, const char* _welcomeMessage,
-        const ImVec2& windowPos, const ImVec2& windowSize, bool* p_open)
-    {
+	void ImGuiConsole::Draw(const char* title, const char* _welcomeMessage,
+		const ImVec2& windowPos, const ImVec2& windowSize, bool* p_open)
+	{
+		WelcomeMessage(_welcomeMessage);
 
-        WelcomeMessage(_welcomeMessage);
+		if (windowPos.x >= 0 && windowPos.y >= 0)
+			ImGui::SetNextWindowPos(windowPos, ImGuiCond_FirstUseEver);
+		if (windowSize.x >= 0 && windowSize.y >= 0)
+			ImGui::SetNextWindowSize(windowSize, ImGuiCond_FirstUseEver);
 
-        // Setze Fensterposition und -größe nur, wenn gültig (>= 0)
-        if (windowPos.x >= 0 && windowPos.y >= 0)
-            ImGui::SetNextWindowPos(windowPos, ImGuiCond_FirstUseEver);
-        if (windowSize.x >= 0 && windowSize.y >= 0)
-            ImGui::SetNextWindowSize(windowSize, ImGuiCond_FirstUseEver);
+		if (!ImGui::Begin(title, p_open, ImGuiWindowFlags_NoScrollbar)) {
+			ImGui::End();
+			return;
+		}
 
-        if (!ImGui::Begin(title, p_open, ImGuiWindowFlags_NoScrollbar)) {
-            ImGui::End();
-            return;
-        }
+		ImGui::BeginChild("ScrollingRegion", ImVec2(0, -ImGui::GetFrameHeightWithSpacing()), false,
+			ImGuiWindowFlags_HorizontalScrollbar);
 
-        if (UseCustomStyle) {
-            ImGui::PushStyleColor(ImGuiCol_WindowBg, BackgroundColor);
-            ImGui::PushStyleColor(ImGuiCol_Text, DefaultTextColor);
-        }
+		for (const auto& item : Items) {
+			ImVec4 color;
+			bool has_color = false;
+			if (strstr(item, "[ERROR]")) {
+				color = ImVec4(1.0f, 0.4f, 0.4f, 1.0f);
+				has_color = true;
+			}
+			else if (strstr(item, "[WARN]")) {
+				color = ImVec4(1.0f, 1.0f, 0.4f, 1.0f);
+				has_color = true;
+			}
+			else if (strstr(item, "[INFO]")) {
+				color = ImVec4(0.7f, 0.7f, 0.7f, 1.0f);  // Oder DefaultTextColor, je nach Wunsch
+				has_color = true;
+			}
 
-        ImGui::BeginChild("ScrollingRegion", ImVec2(0, -ImGui::GetFrameHeightWithSpacing()), false,
-            ImGuiWindowFlags_HorizontalScrollbar);
+			if (has_color) {
+				ImGui::PushStyleColor(ImGuiCol_Text, color);
+				ImGui::TextUnformatted(item);
+				ImGui::PopStyleColor();
+			}
+			else {
+				// Kein spezieller Farb-Push, einfach DefaultTextColor direkt setzen:
+				ImGui::PushStyleColor(ImGuiCol_Text, DefaultTextColor);
+				ImGui::TextUnformatted(item);
+				ImGui::PopStyleColor();
+			}
+		}
 
-        for (const auto& item : Items) {
-            ImVec4 color;
-            bool has_color = false;
-            if (strstr(item, "[ERROR]")) {
-                color = ImVec4(1.0f, 0.4f, 0.4f, 1.0f);
-                has_color = true;
-            }
-            else if (strstr(item, "[WARN]")) {
-                color = ImVec4(1.0f, 1.0f, 0.4f, 1.0f);
-                has_color = true;
-            }
+		if (ScrollToBottom)
+			ImGui::SetScrollHereY(1.0f);
+		ScrollToBottom = false;
 
-            if (has_color)
-                ImGui::PushStyleColor(ImGuiCol_Text, color);
+		ImGui::EndChild();
+		ImGui::Separator();
 
-            ImGui::TextUnformatted(item);
+		if (UseCustomStyle)
+			ImGui::PushStyleColor(ImGuiCol_Text, DefaultTextColor);
 
-            if (has_color)
-                ImGui::PopStyleColor();
-        }
+		bool reclaim_focus = false;
+		if (ImGui::InputText("Input", InputBuf, sizeof(InputBuf),
+			ImGuiInputTextFlags_EnterReturnsTrue |
+			ImGuiInputTextFlags_CallbackCompletion |
+			ImGuiInputTextFlags_CallbackHistory,
+			[](ImGuiInputTextCallbackData* data) -> int {
+				ImGuiConsole* console = (ImGuiConsole*)data->UserData;
 
-        if (ScrollToBottom)
-            ImGui::SetScrollHereY(1.0f);
-        ScrollToBottom = false;
+				switch (data->EventFlag) {
+				case ImGuiInputTextFlags_CallbackCompletion: {
+					std::vector<std::string> suggestions;
+					console->AutoComplete(data->Buf, suggestions);
+					if (!suggestions.empty()) {
+						ImStrncpy(data->Buf, suggestions[0].c_str(), data->BufSize);
+						data->Buf[data->BufSize - 1] = '\0'; // Sicherheit
+						data->CursorPos = (int)strlen(data->Buf);
+						data->SelectionStart = data->SelectionEnd = data->CursorPos;
 
-        ImGui::EndChild();
+						data->BufTextLen = (int)strlen(data->Buf);  // Wichtig!
+						data->BufDirty = true;
+					}
+					break;
+				}
+				case ImGuiInputTextFlags_CallbackHistory: {
+					if (data->EventKey == ImGuiKey_UpArrow) {
+						if (console->HistoryPos == -1 && !console->History.empty())
+							console->HistoryPos = (int)console->History.size() - 1;
+						else if (console->HistoryPos > 0)
+							console->HistoryPos--;
+					}
+					else if (data->EventKey == ImGuiKey_DownArrow) {
+						if (console->HistoryPos != -1) {
+							console->HistoryPos++;
+							if (console->HistoryPos >= (int)console->History.size())
+								console->HistoryPos = -1;
+						}
+					}
 
-        ImGui::Separator();
+					if (console->HistoryPos >= 0 && console->HistoryPos < (int)console->History.size()) {
+						const std::string& historyItem = console->History[console->HistoryPos];
+						ImStrncpy(data->Buf, historyItem.c_str(), data->BufSize);
+					}
+					else {
+						data->Buf[0] = '\0';
+					}
 
-        bool reclaim_focus = false;
-        if (ImGui::InputText("Input", InputBuf, sizeof(InputBuf),
-            ImGuiInputTextFlags_EnterReturnsTrue |
-            ImGuiInputTextFlags_CallbackCompletion |
-            ImGuiInputTextFlags_CallbackHistory,
-            [](ImGuiInputTextCallbackData* data) -> int {
-                ImGuiConsole* console = (ImGuiConsole*)data->UserData;
+					data->Buf[data->BufSize - 1] = '\0'; // Sicherheit
+					data->CursorPos = (int)strlen(data->Buf);
+					data->SelectionStart = data->SelectionEnd = data->CursorPos;
 
-                if (data->EventFlag == ImGuiInputTextFlags_CallbackCompletion) {
-                    std::vector<std::string> suggestions;
-                    console->AutoComplete(data->Buf, suggestions);
-                    if (!suggestions.empty()) {
-                        strncpy(data->Buf, suggestions[0].c_str(), data->BufTextLen);
-                        data->Buf[data->BufTextLen - 1] = '\0';
-                        data->CursorPos = (int)strlen(data->Buf);
-                        data->SelectionStart = data->SelectionEnd = data->CursorPos;
-                    }
-                }
-                else if (data->EventFlag == ImGuiInputTextFlags_CallbackHistory) {
-                    if (data->EventKey == ImGuiKey_UpArrow) {
-                        if (console->HistoryPos == -1)
-                            console->HistoryPos = static_cast<int>(console->History.size()) - 1;
-                        else if (console->HistoryPos > 0)
-                            console->HistoryPos--;
-                    }
-                    else if (data->EventKey == ImGuiKey_DownArrow) {
-                        if (console->HistoryPos != -1)
-                            if (++console->HistoryPos >= (int)console->History.size())
-                                console->HistoryPos = -1;
-                    }
+					data->BufTextLen = (int)strlen(data->Buf);  // Wichtig!
+					data->BufDirty = true;
+					break;
+				}
+				}
 
-                    if (console->HistoryPos >= 0) {
-                        strncpy(data->Buf, console->History[console->HistoryPos], data->BufTextLen);
-                        data->Buf[data->BufTextLen - 1] = '\0';
-                    }
-                    else {
-                        data->Buf[0] = '\0';
-                    }
+				return 0;
+			}, (void*)this)) {
 
-                    data->BufDirty = true;
-                }
+			std::string cmd(InputBuf);
+			ExecCommand(cmd);
 
-                return 0;
-            }, (void*)this)) {
-            std::string cmd(InputBuf);
-            ExecCommand(cmd);
+			if (History.empty() || History.back() != cmd)
+				History.push_back(cmd);
 
-            if (History.empty() || strcmp(History.back(), cmd.c_str()) != 0)
-                History.push_back(strdup(cmd.c_str()));
+			HistoryPos = -1; // Reset History position
+			strcpy(InputBuf, "");
+			reclaim_focus = true;
+		}
 
-            strcpy(InputBuf, "");
-            reclaim_focus = true;
-        }
+		if (reclaim_focus)
+			ImGui::SetKeyboardFocusHere(-1);
 
-        if (reclaim_focus)
-            ImGui::SetKeyboardFocusHere(-1);
+		if (UseCustomStyle)
+			ImGui::PopStyleColor();
 
-        if (UseCustomStyle)
-            ImGui::PopStyleColor(2); 
+		ImGui::End();
+	}
 
-        ImGui::End();
-    }
+	void ImGuiConsole::RegisterCommand(const std::string& name, CommandFunc func) {
+		CommandMap[name] = func;
+	}
+
+	bool ImGuiConsole::ExecuteCommand(const std::string& input, std::string& outError) {
+		auto spacePos = input.find(' ');
+		std::string cmd = (spacePos == std::string::npos) ? input : input.substr(0, spacePos);
+		std::string args = (spacePos == std::string::npos) ? "" : input.substr(spacePos + 1);
+
+		auto it = CommandMap.find(cmd);
+		if (it != CommandMap.end()) {
+			it->second(args);
+			return true;
+		}
+
+		outError = "Unbekannter Befehl: " + cmd;
+		return false;
+	}
 
 
-    
+
 }
