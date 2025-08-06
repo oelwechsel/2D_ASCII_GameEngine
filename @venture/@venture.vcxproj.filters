@@ -36,7 +36,10 @@
     <ClInclude Include="src\Scripts\MapRendererScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scripts\NPCWindow.h">
+    <ClInclude Include="src\Scripts\NPCWindowScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scripts\ConsoleManagerScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\Scripts\PlayerControllerScript.h">
@@ -62,9 +65,6 @@
     </ClInclude>
     <ClInclude Include="src\_internal\customizables\Dictionary\ASCIIBlockDictionary.h">
       <Filter>_internal\customizables\Dictionary</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scripts\NormalConsole.h">
-      <Filter>Scripts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

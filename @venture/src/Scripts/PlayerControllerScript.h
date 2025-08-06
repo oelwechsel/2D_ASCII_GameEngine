@@ -1,8 +1,8 @@
 #pragma once
 #include <Flux.h>
 #include "MapRendererScript.h"
-#include "NPCWindow.h"
-#include "NormalConsole.h"
+#include "NPCWindowScript.h"
+#include "ConsoleManagerScript.h"
 
 
 class PlayerControllerScript : public Flux::IScript
@@ -67,7 +67,7 @@ private:
         {
             if (gm.m_playerIsInteracting)
             {
-                NPCWindow::Instance().HideNPCWindow();
+                NPCWindowScript::Instance().HideNPCWindow();
                 gm.m_playerIsInteracting = false;
             }
             else
@@ -85,13 +85,13 @@ private:
                     {
                         if (entities[i].x == x && entities[i].y == y)
                         {
-                            NPCWindow::Instance().ShowNPCWindow(entities[i]);
+                            NPCWindowScript::Instance().ShowNPCWindow(entities[i]);
 
                             std::string command = "$ cat ./home/" + entities[i].name + "/welcome_message.txt";
-                            NormalConsole::Instance().m_console.AddLog(Flux::ImGuiConsole::LogLevel::Info, "%s", command.c_str());
+                            ConsoleManagerScript::Instance().m_console.AddLog(Flux::ImGuiConsole::LogLevel::Info, "%s", command.c_str());
 
                             for (const auto& line : entities[i].dialogueLines) {
-                                NormalConsole::Instance().m_console.AddLog(line.c_str());
+                                ConsoleManagerScript::Instance().m_console.AddLog(line.c_str());
                             }
 
                             gm.m_playerIsInteracting = true;
@@ -106,7 +106,7 @@ private:
 
         if (gm.m_playerIsInteracting && ( isW || isS || isA || isD))
         {
-            NPCWindow::Instance().HideNPCWindow();
+            NPCWindowScript::Instance().HideNPCWindow();
             gm.m_playerIsInteracting = false;
         }
 

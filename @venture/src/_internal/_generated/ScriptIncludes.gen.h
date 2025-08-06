@@ -2,9 +2,10 @@
 #pragma once
 
 #include "Scripts/CloseAllWindowsScript.h"
+#include "Scripts/ConsoleManagerScript.h"
 #include "Scripts/GameManagerScript.h"
 #include "Scripts/MapRendererScript.h"
-#include "Scripts/NPCWindow.h"
+#include "Scripts/NPCWindowScript.h"
 #include "Scripts/PlayerControllerScript.h"
 #include "Scripts/Template/TemplateScript.h"
 #include "_internal/BlockData.h"

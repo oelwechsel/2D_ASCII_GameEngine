@@ -1,7 +1,7 @@
 #pragma once
 #include <Flux.h>
 
-class NPCWindow : public Flux::IScript
+class NPCWindowScript : public Flux::IScript
 {
 	//-------------------------------------------//
 	//----------------Variables------------------//
@@ -9,7 +9,7 @@ class NPCWindow : public Flux::IScript
 
 private:
 
-	inline static NPCWindow* s_Instance = nullptr;
+	inline static NPCWindowScript* s_Instance = nullptr;
 
 public:
 	bool m_showWindow = false;
@@ -48,12 +48,12 @@ public:
 
 public:
 
-	static NPCWindow* Get()
+	static NPCWindowScript* Get()
 	{
 		return s_Instance;
 	}
 
-	static NPCWindow& Instance()
+	static NPCWindowScript& Instance()
 	{
 		return *s_Instance;
 	}
@@ -134,4 +134,4 @@ private:
 };
 
 
-REGISTER_SCRIPT(NPCWindow);
+REGISTER_SCRIPT(NPCWindowScript);

@@ -2,7 +2,7 @@
 #include <Flux.h>
 #include "_internal/customizables/Consoles/TestConsole.h"
 
-class NormalConsole : public Flux::IScript
+class ConsoleManagerScript : public Flux::IScript
 {
 	//-------------------------------------------//
 	//----------------Variables------------------//
@@ -10,7 +10,7 @@ class NormalConsole : public Flux::IScript
 
 private:
 
-	static NormalConsole* s_Instance;
+	static ConsoleManagerScript* s_Instance;
 
 public:
 
@@ -21,12 +21,12 @@ public:
 	TestConsole m_console;
 
 public:
-	static NormalConsole* Get()
+	static ConsoleManagerScript* Get()
 	{
 		return s_Instance;
 	}
 
-	static NormalConsole& Instance()
+	static ConsoleManagerScript& Instance()
 	{
 		return *s_Instance;
 	}
@@ -57,7 +57,7 @@ private:
 };
 
 
-NormalConsole* NormalConsole::s_Instance = nullptr;
+ConsoleManagerScript* ConsoleManagerScript::s_Instance = nullptr;
 
 // Uncomment the code line below for your script to be registered by the Engine Script Manager
-REGISTER_SCRIPT(NormalConsole);
+REGISTER_SCRIPT(ConsoleManagerScript);
