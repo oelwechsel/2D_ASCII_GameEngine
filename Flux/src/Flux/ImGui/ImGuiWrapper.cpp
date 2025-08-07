@@ -1,6 +1,7 @@
-#include "fxpch.h"
+﻿#include "fxpch.h"
 #include "ImGuiWrapper.h"
 #include "imgui_internal.h"
+#include "../Log.h"
 
 namespace Flux::ImGuiWrapper 
 {
@@ -104,4 +105,27 @@ namespace Flux::ImGuiWrapper
 	ImVec2 ImGuiWrapper::GetScale() {
 		return ImGui::GetIO().DisplayFramebufferScale;
 	}
+
+	void ImGuiWrapper::LoadCustomFont(const std::string& fontPath, float fontSize, const std::string& extraChars)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+
+		ImFontGlyphRangesBuilder builder;
+		builder.AddRanges(io.Fonts->GetGlyphRangesDefault());
+		builder.AddText(extraChars.c_str());  // ⬅️ Hier fügst du deine eigenen Zeichen hinzu
+
+		ImVector<ImWchar> ranges;
+		builder.BuildRanges(&ranges);
+
+		ImFont* font = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), fontSize, nullptr, ranges.Data);
+		if (!font)
+		{
+			FX_WARN("[ImGuiWrapper] Failed to load font from path: {}", fontPath);
+		}
+		else
+		{
+			FX_INFO("[ImGuiWrapper] Successfully loaded font: {}", fontPath);
+		}
+	}
+
 }
