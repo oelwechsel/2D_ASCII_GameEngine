@@ -117,14 +117,9 @@ private:
                             std::string command = "$ cat ./home/" + entities[i].name + "/welcome_message.txt";
                             ConsoleManagerScript::Instance().m_overworldConsole.AddLog(Flux::ImGuiConsole::LogLevel::Info, "%s", command.c_str());
 
-                            GameManagerScript::Instance().m_isInFight = true;
-
-                            
-
                             for (const auto& line : entities[i].dialogueLines) {
                                 ConsoleManagerScript::Instance().m_overworldConsole.AddLog(line.c_str());
                             }
-
                             gm.m_playerIsInteracting = true;
                             break;
                         }
