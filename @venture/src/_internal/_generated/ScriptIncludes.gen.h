@@ -4,6 +4,7 @@
 #include "Scripts/CloseAllWindowsScript.h"
 #include "Scripts/ConsoleManagerScript.h"
 #include "Scripts/EnemyControllerScript.h"
+#include "Scripts/FightRendererScript.h"
 #include "Scripts/GameManagerScript.h"
 #include "Scripts/MapRendererScript.h"
 #include "Scripts/NPCWindowScript.h"

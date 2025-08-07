@@ -140,6 +140,7 @@
     <ClInclude Include="src\Scripts\CloseAllWindowsScript.h" />
     <ClInclude Include="src\Scripts\ConsoleManagerScript.h" />
     <ClInclude Include="src\Scripts\EnemyControllerScript.h" />
+    <ClInclude Include="src\Scripts\FightRendererScript.h" />
     <ClInclude Include="src\Scripts\GameManagerScript.h" />
     <ClInclude Include="src\Scripts\MapRendererScript.h" />
     <ClInclude Include="src\Scripts\NPCWindowScript.h" />

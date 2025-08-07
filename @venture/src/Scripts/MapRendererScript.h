@@ -7,6 +7,8 @@
 
 class MapRendererScript : public Flux::IScript
 {
+	static MapRendererScript* s_Instance;
+
 	//-------------------------------------------//
 	//----------------Variables------------------//
 	//-------------------------------------------//
@@ -28,8 +30,6 @@ private:
 	int m_mapHeight = 40;
 
 	ImVec2 m_MapSize;
-
-	inline static MapRendererScript* s_Instance = nullptr;
 
 	float m_timeAccumulator = 0.0f;
 	float m_updateInterval = 1.0f / 10.0f;
@@ -90,6 +90,13 @@ private:
 
 	void Start() override
 	{
+		if (s_Instance && s_Instance != this)
+		{
+			// Es gibt bereits eine gültige Instanz – wir ignorieren diese neue
+			FX_WARN("GameManagerScript: Instance already exists. Ignoring this one.");
+			return;
+		}
+
 		s_Instance = this;
 
 		m_map = Flux::FileLoader::LoadTextFile("map.txt", &success);
@@ -159,20 +166,26 @@ private:
 
 	void OnImGuiRender() override
 	{
-		// TODO: Add Camera and PLayer Dependencies!
-		Flux::ImGuiWrapper::Begin("@venture", ImVec2(m_MapSize.x+15, m_MapSize.y+35), m_position, ImGuiWindowFlags_NoCollapse);
-		Flux::ImGuiWrapper::Image(m_texture, m_MapSize);
+		if (!GameManagerScript::Instance().m_isInFight)
+		{
 
-		double fps = 1.0 / m_deltaTime;
-		Flux::ImGuiWrapper::Text("FPS: %.1f", fps);
+			Flux::ImGuiWrapper::Begin("@venture", ImVec2(m_MapSize.x + 15, m_MapSize.y + 35), m_position, ImGuiWindowFlags_NoCollapse);
+			Flux::ImGuiWrapper::Image(m_texture, m_MapSize);
 
-		Flux::ImGuiWrapper::End();
+			double fps = 1.0 / m_deltaTime;
+			Flux::ImGuiWrapper::Text("FPS: %.1f", fps);
+
+			Flux::ImGuiWrapper::End();
+		}
 	}
 
 	void OnDestroy() override
 	{
-		s_Instance = nullptr;
+		if (s_Instance == this)
+			s_Instance = nullptr;
 	}
 };
+
+inline MapRendererScript* MapRendererScript::s_Instance = nullptr;
 
 REGISTER_SCRIPT(MapRendererScript);

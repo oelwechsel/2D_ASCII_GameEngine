@@ -107,23 +107,24 @@ private:
 		}
 	}
 
-
 	void OnImGuiRender() override
 	{
 		if (!m_showWindow || !m_activeNPC)
 			return;
 
+		if (!GameManagerScript::Instance().m_isInFight)
+		{
+			Flux::ImGuiWrapper::Begin(m_name.c_str(), m_windowSize, m_position, m_windowFlags);
 
-		Flux::ImGuiWrapper::Begin(m_name.c_str(), m_windowSize, m_position, m_windowFlags);
+			auto* drawList = Flux::ImGuiWrapper::GetWindowDrawList();
+			ImVec2 startPos = Flux::ImGuiWrapper::GetCursorScreenPos();
 
-		auto* drawList = Flux::ImGuiWrapper::GetWindowDrawList();
-		ImVec2 startPos = Flux::ImGuiWrapper::GetCursorScreenPos();
+			const auto& frame = m_activeNPC->layeredFrames[m_currentFrame];
 
-		const auto& frame = m_activeNPC->layeredFrames[m_currentFrame];
+			Flux::ImGuiWrapper::AnimateLayers(drawList, startPos, frame.layers, m_layerColors);
 
-		Flux::ImGuiWrapper::AnimateLayers(drawList, startPos, frame.layers, m_layerColors);
-
-		Flux::ImGuiWrapper::End();
+			Flux::ImGuiWrapper::End();
+		}
 
 	}
 
