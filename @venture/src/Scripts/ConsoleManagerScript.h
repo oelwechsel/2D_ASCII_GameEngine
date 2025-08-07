@@ -19,8 +19,9 @@ public:
 	//-------------------------------------------//
 
 	TestConsole m_console;
-	bool NormalConsoleOpen = true;
-	bool FightConsoleOpen = false;
+	bool m_NormalConsoleOpen = true;
+	bool m_FightConsoleOpen = false;
+	bool m_ConsoleFocused;
 
 public:
 	static ConsoleManagerScript* Get()
@@ -52,9 +53,9 @@ private:
 
 	void OnImGuiRender() override
 	{
-		if (NormalConsoleOpen) 
+		if (m_NormalConsoleOpen)
 		{
-			m_console.Draw("test", "welcome", ImVec2(300, 300), ImVec2(300, 300));
+			m_console.Draw("test", "welcome", ImVec2(300, 300), ImVec2(300, 300), &m_ConsoleFocused);
 		}
 	}
 

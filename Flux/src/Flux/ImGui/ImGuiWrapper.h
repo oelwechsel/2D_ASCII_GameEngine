@@ -30,8 +30,6 @@ namespace Flux::ImGuiWrapper
                   ImVec2 startPos,
                   const std::vector<std::string>& layers,
                   const std::vector<ImU32>& layerColors); 
-
-    FLUX_API bool IsWindowFocused(const std::string& windowName);
 }
 
 

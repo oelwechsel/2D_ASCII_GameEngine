@@ -42,7 +42,7 @@ private:
 
     void Update(float deltaTime) override
     {
-        if (!Flux::ImGuiWrapper::IsWindowFocused("@venture"))
+        if (ConsoleManagerScript::Instance().m_ConsoleFocused)
             return;
 
         m_moveTimer += deltaTime;
