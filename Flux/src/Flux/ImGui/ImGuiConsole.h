@@ -16,9 +16,7 @@ namespace Flux
         virtual ~ImGuiConsole();
 
         virtual void Draw(const char* title, const char* _welcomeMessage,
-            const ImVec2& windowPos = ImVec2(-1, -1),
-            const ImVec2& windowSize = ImVec2(-1, -1),
-            bool* p_open = nullptr);
+            const ImVec2& windowPos, const ImVec2& windowSize, bool* out_hasFocus = nullptr, bool* p_open = nullptr);
 
         virtual void WelcomeMessage(const char* _message);
         virtual void ExecCommand(const std::string& command) {}
