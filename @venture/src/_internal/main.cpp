@@ -1,4 +1,4 @@
-
+﻿
 #include "fxpch.h"
 #include <Flux.h>
 
@@ -30,6 +30,7 @@ int main(int argc, char** argv)
 	FX_INFO("Initialized Log!");
 
 	auto app = Flux::CreateApplication();
+	Flux::ImGuiWrapper::LoadCustomFont("src/res/SourceCodePro-Regular.ttf", 16.0f, "ˉ");
 	app->Run();
 	delete app;
 }
