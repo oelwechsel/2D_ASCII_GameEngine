@@ -12,6 +12,9 @@ private:
 
 	unsigned int m_MDHLogo;
 
+
+	ImVec2 m_scale;
+
 private:
 
 	void Start() override
@@ -29,11 +32,12 @@ private:
 
 	void OnImGuiRender() override
 	{
-		Flux::ImGuiWrapper::Begin("Window Control", ImVec2(100, 100), m_position, ImGuiWindowFlags_NoCollapse);
+		m_scale = Flux::ImGuiWrapper::GetScale();
+		Flux::ImGuiWrapper::Begin("Window Control", ImVec2(650 * m_scale.x, 300 * m_scale.y), m_position, ImGuiWindowFlags_NoCollapse);
 		if (Flux::ImGuiWrapper::Button("Close All Windows")) {
 			Flux::Application::Get().CloseApplication();
 		}
-		Flux::ImGuiWrapper::Image((ImTextureID)m_MDHLogo, ImVec2(745, 296));
+		Flux::ImGuiWrapper::Image((ImTextureID)m_MDHLogo, ImVec2(559, 222));
 		Flux::ImGuiWrapper::End();
 	}
 
