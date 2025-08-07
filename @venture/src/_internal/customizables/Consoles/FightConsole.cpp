@@ -9,18 +9,18 @@ FightConsole::FightConsole()
     UseCustomStyle = true;
     DefaultTextColor = ImVec4(1.0f, 0.4f, 0.4f, 0.8f);
 
-    RegisterCommand("help", "Zeigt alle Befehle an", [this](const std::string&) {
-        AddLog("=== Verfügbare Befehle ===");
+    RegisterCommand("help", "Shows all available commands", [this](const std::string&) {
+        AddLog("=== Available commands ===");
         for (const auto& [cmd, entry] : CommandMap)
             AddLog("  %-12s - %s", cmd.c_str(), entry.description.c_str());
         AddLog("==========================");
         });
 
-    RegisterCommand("clear", "Konsole leeren", [this](const std::string&) {
+    RegisterCommand("clear", "Clear console", [this](const std::string&) {
         ClearLog();
         });
 
-    RegisterCommand("attack", "Greift den Gegner an", [this](const std::string&) {
+    RegisterCommand("attack", "Attack the ROOT", [this](const std::string&) {
 
         EnemyControllerScript::Instance().m_BossEnemyHP--;
         AddLog("You attack the ROOT!");
@@ -48,7 +48,7 @@ FightConsole::FightConsole()
         }
         });
 
-    RegisterCommand("cd left", "Bewege dich zur linken Plattform", [this](const std::string&)
+    RegisterCommand("cd left", "Move to the LEFT platform", [this](const std::string&)
         {
             if (PlayerControllerScript::Instance().e_PlayerPlatform == PlayerControllerScript::Platform::Left)
             {
@@ -61,7 +61,7 @@ FightConsole::FightConsole()
             }
         });
 
-    RegisterCommand("cd right", "Bewege dich zur rechten Plattform", [this](const std::string&)
+    RegisterCommand("cd right", "Move to the RIGHT platform", [this](const std::string&)
         {
             if (PlayerControllerScript::Instance().e_PlayerPlatform == PlayerControllerScript::Platform::Right)
             {

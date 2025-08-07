@@ -6,14 +6,14 @@ TestConsole::TestConsole()
     UseCustomStyle = true;
     DefaultTextColor = ImVec4(0.4f, 1.0, 0.4f, 0.8f);
 
-    RegisterCommand("help", "Zeigt alle Befehle an", [this](const std::string&) {
-        AddLog("=== Verfügbare Befehle ===");
+    RegisterCommand("help", "Shows all available commands", [this](const std::string&) {
+        AddLog("=== Available commands ===");
         for (const auto& [cmd, entry] : CommandMap)
             AddLog("  %-12s - %s", cmd.c_str(), entry.description.c_str());
         AddLog("==========================");
         });
 
-    RegisterCommand("clear", "Konsole leeren", [this](const std::string&) {
+    RegisterCommand("clear", "Clear console", [this](const std::string&) {
         ClearLog();
         });
 }

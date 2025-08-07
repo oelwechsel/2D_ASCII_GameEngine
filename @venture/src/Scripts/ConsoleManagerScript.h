@@ -63,11 +63,11 @@ private:
 	{
 		if (!GameManagerScript::Instance().m_isInFight)
 		{
-			m_overworldConsole.Draw("test", "welcome", ImVec2(300, 300), ImVec2(300, 300), &m_ConsoleFocused);
+			m_overworldConsole.Draw("console", "welcome", ImVec2(300, 300), ImVec2(300, 300), &m_ConsoleFocused);
 		}
 		else 
 		{
-			m_fightConsole.Draw("fight", "welcome", ImVec2(500, 500), ImVec2(500, 500), &m_ConsoleFocused);
+			m_fightConsole.Draw("fight console", "welcome", ImVec2(500, 500), ImVec2(500, 500), &m_ConsoleFocused);
 		}
 	}
 
