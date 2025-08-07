@@ -119,7 +119,7 @@ namespace Flux
 			ImGui::PushStyleColor(ImGuiCol_Text, DefaultTextColor);
 
 		bool reclaim_focus = false;
-		if (ImGui::InputText("Input", InputBuf, sizeof(InputBuf),
+		if (InputEnabled && ImGui::InputText("Input", InputBuf, sizeof(InputBuf),
 			ImGuiInputTextFlags_EnterReturnsTrue |
 			ImGuiInputTextFlags_CallbackCompletion |
 			ImGuiInputTextFlags_CallbackHistory,
@@ -197,24 +197,25 @@ namespace Flux
 		ImGui::End();
 	}
 
-	void ImGuiConsole::RegisterCommand(const std::string& name, CommandFunc func) {
-		CommandMap[name] = func;
+	void ImGuiConsole::RegisterCommand(const std::string& name, const std::string& description, CommandFunc func) {
+		CommandMap[name] = { func, description };
 	}
 
 	bool ImGuiConsole::ExecuteCommand(const std::string& input, std::string& outError) {
-		auto spacePos = input.find(' ');
-		std::string cmd = (spacePos == std::string::npos) ? input : input.substr(0, spacePos);
-		std::string args = (spacePos == std::string::npos) ? "" : input.substr(spacePos + 1);
-
-		auto it = CommandMap.find(cmd);
-		if (it != CommandMap.end()) {
-			it->second(args);
-			return true;
+		for (size_t i = input.size(); i > 0; --i) {
+			std::string cmd = input.substr(0, i);
+			auto it = CommandMap.find(cmd);
+			if (it != CommandMap.end()) {
+				std::string args = (i < input.size()) ? input.substr(i + 1) : "";
+				it->second.function(args);
+				return true;
+			}
 		}
 
-		outError = "Unbekannter Befehl: " + cmd;
+		outError = "Unbekannter Befehl: " + input;
 		return false;
 	}
+
 
 
 

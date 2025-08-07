@@ -4,21 +4,16 @@
 TestConsole::TestConsole()
 {
     UseCustomStyle = true;
-    DefaultTextColor = ImVec4(0.4f, 1.0, 0.4f, 0.5f);
+    DefaultTextColor = ImVec4(0.4f, 1.0, 0.4f, 0.8f);
 
-    RegisterCommand("help", [this](const std::string&) {
-        AddLog("Verfügbare Befehle:");
-        for (const auto& cmd : CommandMap)
-            AddLog("  %s", cmd.first.c_str());
+    RegisterCommand("help", "Zeigt alle Befehle an", [this](const std::string&) {
+        AddLog("=== Verfügbare Befehle ===");
+        for (const auto& [cmd, entry] : CommandMap)
+            AddLog("  %-12s - %s", cmd.c_str(), entry.description.c_str());
+        AddLog("==========================");
         });
 
-
-    RegisterCommand("echo", [this](const std::string& args) {
-        AddLog("%s", args.c_str());
-        });
-
-
-    RegisterCommand("clear", [this](const std::string&) {
+    RegisterCommand("clear", "Konsole leeren", [this](const std::string&) {
         ClearLog();
         });
 }
@@ -28,7 +23,7 @@ TestConsole::~TestConsole() {}
 
 void TestConsole::ExecCommand(const std::string& command)
 {
-    AddLog(LogLevel::Info, "# %s", command.c_str());
+    AddLog(LogLevel::Info, "$ %s", command.c_str());
 
     std::string error;
     if (!ExecuteCommand(command, error))

@@ -10,6 +10,8 @@ namespace Flux
     public:
         enum class LogLevel { Info, Warning, Error };
 
+        
+
         ImGuiConsole();
         virtual ~ImGuiConsole();
 
@@ -25,19 +27,28 @@ namespace Flux
         void AddLog(const char* fmt, ...) IM_FMTARGS(2);
         void AddLog(LogLevel level, const char* fmt, ...) IM_FMTARGS(3);
 
-    protected:
         using CommandFunc = std::function<void(const std::string&)>;
-        std::unordered_map<std::string, CommandFunc> CommandMap;
 
-        void RegisterCommand(const std::string& name, CommandFunc func);
+        struct CommandEntry {
+            CommandFunc function;
+            std::string description;
+        };
+        std::unordered_map<std::string, CommandEntry> CommandMap;
+
+
+        void RegisterCommand(const std::string& name, const std::string& description, CommandFunc func);
         bool ExecuteCommand(const std::string& input, std::string& outError);
+        bool InputEnabled = true;
 
+    protected:
+        
         char InputBuf[512];
         std::vector<std::string> History;
         std::vector<char*> Items;
         int HistoryPos = -1;
         bool ScrollToBottom = false;
         bool Initialized = false;
+       
 
         ImVec2 WindowPos = ImVec2(-1, -1);
         ImVec2 WindowSize = ImVec2(-1, -1);

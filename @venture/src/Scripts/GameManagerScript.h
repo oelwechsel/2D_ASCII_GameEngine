@@ -12,6 +12,7 @@ public:
 
     bool m_playerIsInteracting = false;
 
+    bool m_isInFight = false;
 
 public:
 
@@ -27,8 +28,16 @@ public:
 
     void Start() override
     {
+        if (s_Instance && s_Instance != this)
+        {
+            // Es gibt bereits eine gültige Instanz – wir ignorieren diese neue
+            FX_WARN("GameManagerScript: Instance already exists. Ignoring this one.");
+            return;
+        }
+
         s_Instance = this;
 
+        // Rest des Codes
         Flux::Entity player(14, 14, '@', "@", true);
         entities.push_back(player);
 
@@ -56,18 +65,17 @@ public:
         exclamationNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("EXCL_Animation.txt");
         exclamationNPC.dialogueLines = { "*sob* *sob* *sob*" };
         entities.push_back(exclamationNPC);
-
-        
     }
 
     void Update(float deltaTime) override {}
 
     void OnDestroy() override
     {
-        s_Instance = nullptr;
+        if (s_Instance == this)
+            s_Instance = nullptr;
     }
 };
 
-GameManagerScript* GameManagerScript::s_Instance = nullptr;
+inline GameManagerScript* GameManagerScript::s_Instance = nullptr;
 
 REGISTER_SCRIPT(GameManagerScript);

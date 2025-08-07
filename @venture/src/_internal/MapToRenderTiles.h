@@ -1,10 +1,11 @@
 #pragma once
-
 #include <Flux.h>
 #include "customizables/Dictionary/ASCIIBlockDictionary.h"
 
-std::vector<Flux::RenderTile> CreateRenderTiles(const std::vector<std::string>& map,
-    ASCIIBlockDictionary& dictionary, std::vector<Flux::Entity> _entities)
+inline std::vector<Flux::RenderTile> CreateRenderTiles(
+    const std::vector<std::string>& map,
+    ASCIIBlockDictionary& dictionary,
+    const std::vector<Flux::Entity>& entities)
 {
     std::vector<Flux::RenderTile> tiles;
 
@@ -14,8 +15,8 @@ std::vector<Flux::RenderTile> CreateRenderTiles(const std::vector<std::string>& 
 
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
-            Flux::Entity* entity = nullptr;
-            for (Flux::Entity& e : _entities) {
+            const Flux::Entity* entity = nullptr;
+            for (const Flux::Entity& e : entities) {
                 if (e.x == x && e.y == y) {
                     entity = &e;
                     break;
@@ -47,5 +48,6 @@ std::vector<Flux::RenderTile> CreateRenderTiles(const std::vector<std::string>& 
             }
         }
     }
+
     return tiles;
 }

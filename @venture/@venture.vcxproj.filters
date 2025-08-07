@@ -33,6 +33,9 @@
     <ClInclude Include="src\Scripts\ConsoleManagerScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scripts\EnemyControllerScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
     <ClInclude Include="src\Scripts\GameManagerScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
@@ -60,6 +63,9 @@
     <ClInclude Include="src\_internal\_generated\ScriptIncludes.gen.h">
       <Filter>_internal\_generated</Filter>
     </ClInclude>
+    <ClInclude Include="src\_internal\customizables\Consoles\FightConsole.h">
+      <Filter>_internal\customizables\Consoles</Filter>
+    </ClInclude>
     <ClInclude Include="src\_internal\customizables\Consoles\TestConsole.h">
       <Filter>_internal\customizables\Consoles</Filter>
     </ClInclude>
@@ -68,6 +74,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\_internal\MapToRenderTiles.cpp">
+      <Filter>_internal</Filter>
+    </ClCompile>
+    <ClCompile Include="src\_internal\customizables\Consoles\FightConsole.cpp">
+      <Filter>_internal\customizables\Consoles</Filter>
+    </ClCompile>
     <ClCompile Include="src\_internal\customizables\Consoles\TestConsole.cpp">
       <Filter>_internal\customizables\Consoles</Filter>
     </ClCompile>

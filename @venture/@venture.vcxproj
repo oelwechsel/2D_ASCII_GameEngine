@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="src\Scripts\CloseAllWindowsScript.h" />
     <ClInclude Include="src\Scripts\ConsoleManagerScript.h" />
+    <ClInclude Include="src\Scripts\EnemyControllerScript.h" />
     <ClInclude Include="src\Scripts\GameManagerScript.h" />
     <ClInclude Include="src\Scripts\MapRendererScript.h" />
     <ClInclude Include="src\Scripts\NPCWindowScript.h" />
@@ -148,10 +149,12 @@
     <ClInclude Include="src\_internal\BlockData.h" />
     <ClInclude Include="src\_internal\MapToRenderTiles.h" />
     <ClInclude Include="src\_internal\_generated\ScriptIncludes.gen.h" />
+    <ClInclude Include="src\_internal\customizables\Consoles\FightConsole.h" />
     <ClInclude Include="src\_internal\customizables\Consoles\TestConsole.h" />
     <ClInclude Include="src\_internal\customizables\Dictionary\ASCIIBlockDictionary.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\_internal\customizables\Consoles\FightConsole.cpp" />
     <ClCompile Include="src\_internal\customizables\Consoles\TestConsole.cpp" />
     <ClCompile Include="src\_internal\customizables\Dictionary\ASCIIBlockDictionary.cpp" />
     <ClCompile Include="src\_internal\main.cpp" />

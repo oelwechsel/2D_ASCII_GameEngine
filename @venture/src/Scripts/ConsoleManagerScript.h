@@ -1,6 +1,8 @@
 #pragma once
 #include <Flux.h>
 #include "_internal/customizables/Consoles/TestConsole.h"
+#include "_internal/customizables/Consoles/FightConsole.h"
+#include "GameManagerScript.h"
 
 class ConsoleManagerScript : public Flux::IScript
 {
@@ -18,9 +20,8 @@ public:
 	//----------------Functions------------------//
 	//-------------------------------------------//
 
-	TestConsole m_console;
-	bool m_NormalConsoleOpen = true;
-	bool m_FightConsoleOpen = false;
+	TestConsole m_overworldConsole;
+	FightConsole m_fightConsole;
 	bool m_ConsoleFocused;
 
 public:
@@ -43,6 +44,13 @@ private:
 
 	void Start() override
 	{
+		if (s_Instance && s_Instance != this)
+		{
+			// Es gibt bereits eine gültige Instanz – wir ignorieren diese neue
+			FX_WARN("GameManagerScript: Instance already exists. Ignoring this one.");
+			return;
+		}
+
 		s_Instance = this;
 	}
 
@@ -53,17 +61,25 @@ private:
 
 	void OnImGuiRender() override
 	{
-		if (m_NormalConsoleOpen)
+		if (!GameManagerScript::Instance().m_isInFight)
 		{
-			m_console.Draw("test", "welcome", ImVec2(300, 300), ImVec2(300, 300), &m_ConsoleFocused);
+			m_overworldConsole.Draw("test", "welcome", ImVec2(300, 300), ImVec2(300, 300), &m_ConsoleFocused);
+		}
+		else 
+		{
+			m_fightConsole.Draw("fight", "welcome", ImVec2(500, 500), ImVec2(500, 500), &m_ConsoleFocused);
 		}
 	}
 
-	void OnDestroy() override { s_Instance = nullptr; }
+	void OnDestroy() override
+	{
+		if (s_Instance == this)
+			s_Instance = nullptr;
+	}
 };
 
 
-ConsoleManagerScript* ConsoleManagerScript::s_Instance = nullptr;
+inline ConsoleManagerScript* ConsoleManagerScript::s_Instance = nullptr;
 
 // Uncomment the code line below for your script to be registered by the Engine Script Manager
 REGISTER_SCRIPT(ConsoleManagerScript);

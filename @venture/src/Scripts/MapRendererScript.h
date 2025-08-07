@@ -1,7 +1,8 @@
 #pragma once
 #include <Flux.h>
-#include "_internal/customizables/Dictionary/ASCIIBlockDictionary.h"
 #include "_internal/MapToRenderTiles.h"
+#include "_internal/customizables/Dictionary/ASCIIBlockDictionary.h"
+
 #include "GameManagerScript.h"
 
 class MapRendererScript : public Flux::IScript

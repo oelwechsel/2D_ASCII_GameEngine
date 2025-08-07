@@ -7,6 +7,9 @@
 
 class PlayerControllerScript : public Flux::IScript
 {
+
+    static PlayerControllerScript* s_Instance;
+
 	//-------------------------------------------//
 	//----------------Variables------------------//
 	//-------------------------------------------//
@@ -22,12 +25,25 @@ private:
 public:
 	// define your public Variables here
 
+    enum class Platform { Left, Right };
+    Platform e_PlayerPlatform;
+
 	//-------------------------------------------//
 	//----------------Functions------------------//
 	//-------------------------------------------//
 
 public:
 	// define your public Functions here
+
+    static PlayerControllerScript* Get()
+    {
+        return s_Instance;
+    }
+
+    static PlayerControllerScript& Instance()
+    {
+        return *s_Instance;
+    }
 
 private:
 	// define your private Functions here
@@ -38,6 +54,14 @@ private:
 
 	void Start() override
 	{
+        if (s_Instance && s_Instance != this)
+        {
+            // Es gibt bereits eine gültige Instanz – wir ignorieren diese neue
+            FX_WARN("GameManagerScript: Instance already exists. Ignoring this one.");
+            return;
+        }
+
+        s_Instance = this;
 	}
 
     void Update(float deltaTime) override
@@ -91,10 +115,14 @@ private:
                             NPCWindowScript::Instance().ShowNPCWindow(entities[i]);
 
                             std::string command = "$ cat ./home/" + entities[i].name + "/welcome_message.txt";
-                            ConsoleManagerScript::Instance().m_console.AddLog(Flux::ImGuiConsole::LogLevel::Info, "%s", command.c_str());
+                            ConsoleManagerScript::Instance().m_overworldConsole.AddLog(Flux::ImGuiConsole::LogLevel::Info, "%s", command.c_str());
+
+                            GameManagerScript::Instance().m_isInFight = true;
+
+                            
 
                             for (const auto& line : entities[i].dialogueLines) {
-                                ConsoleManagerScript::Instance().m_console.AddLog(line.c_str());
+                                ConsoleManagerScript::Instance().m_overworldConsole.AddLog(line.c_str());
                             }
 
                             gm.m_playerIsInteracting = true;
@@ -142,8 +170,14 @@ private:
 
     }
 
+    void OnDestroy() override
+    {
+        if (s_Instance == this)
+            s_Instance = nullptr;
+    }
 };
 
+inline PlayerControllerScript* PlayerControllerScript::s_Instance = nullptr;
 
 // Uncomment the code line below for your script to be registered by the Engine Script Manager
 REGISTER_SCRIPT(PlayerControllerScript);

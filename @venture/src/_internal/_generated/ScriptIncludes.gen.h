@@ -3,6 +3,7 @@
 
 #include "Scripts/CloseAllWindowsScript.h"
 #include "Scripts/ConsoleManagerScript.h"
+#include "Scripts/EnemyControllerScript.h"
 #include "Scripts/GameManagerScript.h"
 #include "Scripts/MapRendererScript.h"
 #include "Scripts/NPCWindowScript.h"
@@ -10,5 +11,6 @@
 #include "Scripts/Template/TemplateScript.h"
 #include "_internal/BlockData.h"
 #include "_internal/MapToRenderTiles.h"
+#include "_internal/customizables/Consoles/FightConsole.h"
 #include "_internal/customizables/Consoles/TestConsole.h"
 #include "_internal/customizables/Dictionary/ASCIIBlockDictionary.h"
