@@ -71,7 +71,7 @@ public:
 	
 	bool MapRendererScript::IsTileBlocked(int x, int y) const
 	{
-		static const std::unordered_set<char> blockedTiles = { '#', '|', '-', '8', 'O', '=', '+' };
+		static const std::unordered_set<char> blockedTiles = { '#', '|', '-', '8', 'S', '=', '+' };
 
 		if (y < 0 || y >= static_cast<int>(m_map.size()) || x < 0 || x >= static_cast<int>(m_map[y].size()))
 			return true;
