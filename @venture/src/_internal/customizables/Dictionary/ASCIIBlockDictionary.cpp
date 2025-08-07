@@ -33,6 +33,10 @@ ASCIIBlockDictionary::ASCIIBlockDictionary() {
         { "percent_NPC",        { { '%' }, BlockColor::Cyan} },
         { "equals_NPC",        { { '=' }, BlockColor::Orange} },
         { "question_NPC",        { { '?' }, BlockColor::Pink} },
+        { "root_path_R",        { { '.' }, BlockColor::White} },
+        { "root_path_o",        { { '.' }, BlockColor::White} },
+        { "root_path_O",        { { '.' }, BlockColor::White} },
+        { "root_path_t",        { { '.' }, BlockColor::White} }
     };
 }
 
@@ -45,8 +49,8 @@ BlockData ASCIIBlockDictionary::getBlockData(char c) {
     switch (c) {
     case '#': return blocks["wall"];
     case '8': return blocks["wall2"];
-    case 'O': return blocks["halfWall"];
-    case 'o': return blocks["smallStep"];
+    case 'S': return blocks["halfWall"];
+    case 's': return blocks["smallStep"];
     case '.': return blocks["floor"];
     case '@': return blocks["guy"];
     case '^': return blocks["lava2"];
@@ -68,14 +72,28 @@ BlockData ASCIIBlockDictionary::getBlockData(char c) {
     case '%': return blocks["percent_NPC"];
     case 'a': return blocks["equals_NPC"];
     case '?': return blocks["question_NPC"];
+    case 'R': return blocks["root_path_R"];
+    case 'o': return blocks["root_path_o"];
+    case 'O': return blocks["root_path_O"];
+    case 't': return blocks["root_path_t"];
     default:  return { { c }, BlockColor::White };
     }
 }
 
-void ASCIIBlockDictionary::setAllColorsRedExceptPlayer() {
+void ASCIIBlockDictionary::setAllColorsRedExceptPlayerAndRootPathway() {
     for (auto& [key, blockData] : blocks) {
-        if (key != "guy") {
+        if (key != "guy" && key!= "root_path_R" && key != "root_path_o" && key != "root_path_O" && key != "root_path_t") {
             blockData.color = BlockColor::Red;
         }
+    }
+}
+
+void ASCIIBlockDictionary::SetBlockPattern(const std::string& name, const std::vector<char>& newPattern) {
+    auto it = blocks.find(name);
+    if (it != blocks.end()) {
+        it->second.chars = newPattern;
+    }
+    else {
+        FX_WARN("Block name '{}' not found in dictionary!", name);
     }
 }

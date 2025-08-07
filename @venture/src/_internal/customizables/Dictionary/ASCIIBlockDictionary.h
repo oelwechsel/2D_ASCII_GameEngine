@@ -1,6 +1,7 @@
 #pragma once
 #include "_internal/BlockData.h"
 #include <unordered_map>
+#include <Flux.h>
 
 class ASCIIBlockDictionary {
 public:
@@ -9,7 +10,9 @@ public:
 
     BlockData getBlockData(char c);
 
-    void setAllColorsRedExceptPlayer();
+    void setAllColorsRedExceptPlayerAndRootPathway();
+
+    void SetBlockPattern(const std::string& name, const std::vector<char>& newPattern);
 
 private:
     ASCIIBlockDictionary();  // Konstruktor private
