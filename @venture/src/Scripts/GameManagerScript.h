@@ -41,9 +41,9 @@ public:
         // Ordner + Textdateien mit Inhalt
         std::vector<std::tuple<std::string, std::string, std::string>> folders = {
             { "@",  "welcome_message.txt",  "What are you doing here?! Get back to the Game!\n" },
-            { "equals",    "welcome_message.txt",    "Oh man, now we've really done it \n *sweating profusely*\n" },
+            { "equals",    "welcome_message.txt",    "Oh man, now we've really done it \n*sweating profusely*\n" },
             { "exclamation_mark", "welcome_message.txt", "*sob* *sob* *sob*\n" },
-            { "question_mark", "welcome_message.txt", "Wanna learn something good, kid ? \n At some point you will need SUDO\n" },
+            { "question_mark", "welcome_message.txt", "Wanna learn something good, kid ? \nAt some point you will need SUDO\n" },
             { "and", "welcome_message.txt", "Everyone is gone... I will be gone too\n" },
             { "percent", "welcome_message.txt", "Pssssssssssst look at what I got\n" } 
         };
