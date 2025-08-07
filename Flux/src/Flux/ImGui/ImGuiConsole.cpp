@@ -62,7 +62,7 @@ namespace Flux
 	}
 
 	void ImGuiConsole::Draw(const char* title, const char* _welcomeMessage,
-		const ImVec2& windowPos, const ImVec2& windowSize, bool* p_open)
+		const ImVec2& windowPos, const ImVec2& windowSize, bool* out_hasFocus, bool* p_open)
 	{
 		WelcomeMessage(_welcomeMessage);
 
@@ -75,6 +75,9 @@ namespace Flux
 			ImGui::End();
 			return;
 		}
+
+		if (out_hasFocus)
+			*out_hasFocus = ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows);
 
 		ImGui::BeginChild("ScrollingRegion", ImVec2(0, -ImGui::GetFrameHeightWithSpacing()), false,
 			ImGuiWindowFlags_HorizontalScrollbar);
