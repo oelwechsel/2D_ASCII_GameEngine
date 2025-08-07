@@ -100,4 +100,8 @@ namespace Flux::ImGuiWrapper
 			}
 		}
 	}
+
+	ImVec2 ImGuiWrapper::GetScale() {
+		return ImGui::GetIO().DisplayFramebufferScale;
+	}
 }
