@@ -158,6 +158,9 @@
     <ClCompile Include="src\Flux\Log.cpp">
       <Filter>src\Flux</Filter>
     </ClCompile>
+    <ClCompile Include="src\Flux\ScriptManagerLayer.cpp">
+      <Filter>src\Flux</Filter>
+    </ClCompile>
     <ClCompile Include="src\Flux\TileRenderer.cpp">
       <Filter>src\Flux</Filter>
     </ClCompile>

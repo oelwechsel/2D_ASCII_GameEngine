@@ -124,8 +124,13 @@ project "Flux"
 
 		postbuildcommands
 		{
-		'{MKDIR} "../bin/' .. outputdir .. '/@venture/"',
-		'{COPYFILE} "%{cfg.buildtarget.relpath}" "../bin/' .. outputdir .. '/@venture/"'
+			'{MKDIR} "../bin/' .. outputdir .. '/@venture/"',
+
+			'{COPYFILE} "%{cfg.buildtarget.relpath}" "../bin/' .. outputdir .. '/@venture/"',
+
+			'{MKDIR} "../bin/' .. outputdir .. '/@venture/src/"',
+
+			'{COPYDIR} "../@venture/src/res" "../bin/' .. outputdir .. '/@venture/src/res"'
 		}
 
 

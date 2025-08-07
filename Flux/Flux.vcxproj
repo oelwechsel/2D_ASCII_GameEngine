@@ -97,7 +97,9 @@
     </Link>
     <PostBuildEvent>
       <Command>IF NOT EXIST "..\bin\Debug-windows-x86_64\@venture\" (mkdir "..\bin\Debug-windows-x86_64\@venture\")
-copy /B /Y "..\bin\Debug-windows-x86_64\Flux\Flux.dll" "..\bin\Debug-windows-x86_64\@venture\"</Command>
+copy /B /Y "..\bin\Debug-windows-x86_64\Flux\Flux.dll" "..\bin\Debug-windows-x86_64\@venture\"
+IF NOT EXIST "..\bin\Debug-windows-x86_64\@venture\src\" (mkdir "..\bin\Debug-windows-x86_64\@venture\src\")
+xcopy /Q /E /Y /I "..\@venture\src\res" "..\bin\Debug-windows-x86_64\@venture\src\res"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -127,7 +129,9 @@ copy /B /Y "..\bin\Debug-windows-x86_64\Flux\Flux.dll" "..\bin\Debug-windows-x86
     </Link>
     <PostBuildEvent>
       <Command>IF NOT EXIST "..\bin\Release-windows-x86_64\@venture\" (mkdir "..\bin\Release-windows-x86_64\@venture\")
-copy /B /Y "..\bin\Release-windows-x86_64\Flux\Flux.dll" "..\bin\Release-windows-x86_64\@venture\"</Command>
+copy /B /Y "..\bin\Release-windows-x86_64\Flux\Flux.dll" "..\bin\Release-windows-x86_64\@venture\"
+IF NOT EXIST "..\bin\Release-windows-x86_64\@venture\src\" (mkdir "..\bin\Release-windows-x86_64\@venture\src\")
+xcopy /Q /E /Y /I "..\@venture\src\res" "..\bin\Release-windows-x86_64\@venture\src\res"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -157,7 +161,9 @@ copy /B /Y "..\bin\Release-windows-x86_64\Flux\Flux.dll" "..\bin\Release-windows
     </Link>
     <PostBuildEvent>
       <Command>IF NOT EXIST "..\bin\Dist-windows-x86_64\@venture\" (mkdir "..\bin\Dist-windows-x86_64\@venture\")
-copy /B /Y "..\bin\Dist-windows-x86_64\Flux\Flux.dll" "..\bin\Dist-windows-x86_64\@venture\"</Command>
+copy /B /Y "..\bin\Dist-windows-x86_64\Flux\Flux.dll" "..\bin\Dist-windows-x86_64\@venture\"
+IF NOT EXIST "..\bin\Dist-windows-x86_64\@venture\src\" (mkdir "..\bin\Dist-windows-x86_64\@venture\src\")
+xcopy /Q /E /Y /I "..\@venture\src\res" "..\bin\Dist-windows-x86_64\@venture\src\res"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -207,6 +213,7 @@ copy /B /Y "..\bin\Dist-windows-x86_64\Flux\Flux.dll" "..\bin\Dist-windows-x86_6
     <ClCompile Include="src\Flux\Layer.cpp" />
     <ClCompile Include="src\Flux\LayerStack.cpp" />
     <ClCompile Include="src\Flux\Log.cpp" />
+    <ClCompile Include="src\Flux\ScriptManagerLayer.cpp" />
     <ClCompile Include="src\Flux\TileRenderer.cpp" />
     <ClCompile Include="src\Flux\Window.cpp" />
     <ClCompile Include="src\fxpch.cpp">
