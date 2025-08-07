@@ -138,10 +138,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Scripts\CloseAllWindowsScript.h" />
+    <ClInclude Include="src\Scripts\ConsoleManagerScript.h" />
     <ClInclude Include="src\Scripts\GameManagerScript.h" />
     <ClInclude Include="src\Scripts\MapRendererScript.h" />
     <ClInclude Include="src\Scripts\NPCWindowScript.h" />
-    <ClInclude Include="src\Scripts\ConsoleManagerScript.h" />
     <ClInclude Include="src\Scripts\PlayerControllerScript.h" />
     <ClInclude Include="src\Scripts\Template\TemplateScript.h" />
     <ClInclude Include="src\_generated\ScriptIncludes.gen.h" />

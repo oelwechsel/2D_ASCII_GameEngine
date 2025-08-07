@@ -42,6 +42,9 @@ private:
 
     void Update(float deltaTime) override
     {
+        if (!Flux::ImGuiWrapper::IsWindowFocused("@venture"))
+            return;
+
         m_moveTimer += deltaTime;
         if (m_moveTimer < m_moveCooldown)
             return;

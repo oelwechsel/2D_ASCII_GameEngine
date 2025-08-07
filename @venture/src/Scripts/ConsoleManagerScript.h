@@ -19,6 +19,8 @@ public:
 	//-------------------------------------------//
 
 	TestConsole m_console;
+	bool NormalConsoleOpen = true;
+	bool FightConsoleOpen = false;
 
 public:
 	static ConsoleManagerScript* Get()
@@ -50,7 +52,10 @@ private:
 
 	void OnImGuiRender() override
 	{
-		m_console.Draw("test", "welcome", ImVec2(300, 300), ImVec2(300, 300));
+		if (NormalConsoleOpen) 
+		{
+			m_console.Draw("test", "welcome", ImVec2(300, 300), ImVec2(300, 300));
+		}
 	}
 
 	void OnDestroy() override { s_Instance = nullptr; }

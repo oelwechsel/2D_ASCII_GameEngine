@@ -30,6 +30,9 @@
     <ClInclude Include="src\Scripts\CloseAllWindowsScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scripts\ConsoleManagerScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
     <ClInclude Include="src\Scripts\GameManagerScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
@@ -37,9 +40,6 @@
       <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\Scripts\NPCWindowScript.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scripts\ConsoleManagerScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\Scripts\PlayerControllerScript.h">

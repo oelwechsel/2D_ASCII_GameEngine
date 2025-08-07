@@ -1,6 +1,6 @@
 #include "fxpch.h"
 #include "ImGuiWrapper.h"
-
+#include "imgui_internal.h"
 
 namespace Flux::ImGuiWrapper 
 {
@@ -99,6 +99,15 @@ namespace Flux::ImGuiWrapper
 				y += lineHeight;
 			}
 		}
+	}
+
+	bool ImGuiWrapper::IsWindowFocused(const std::string& windowName)
+	{
+		ImGuiContext* context = ImGui::GetCurrentContext();
+		if (!context || !context->NavWindow)
+			return false;
+
+		return context->NavWindow->Name == windowName;
 	}
 
 }

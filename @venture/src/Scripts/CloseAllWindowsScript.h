@@ -33,7 +33,7 @@ private:
 		if (Flux::ImGuiWrapper::Button("Close All Windows")) {
 			Flux::Application::Get().CloseApplication();
 		}
-		Flux::ImGuiWrapper::Image((ImTextureID)m_MDHLogo, ImVec2(581, 133));
+		Flux::ImGuiWrapper::Image((ImTextureID)m_MDHLogo, ImVec2(745, 296));
 		Flux::ImGuiWrapper::End();
 	}
 
