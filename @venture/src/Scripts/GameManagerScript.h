@@ -20,6 +20,10 @@ public:
 
     bool m_isInFight = false;
 
+
+    enum class Platform { Left, Right };
+    Platform e_PlayerPlatform;
+
 public:
 
     static GameManagerScript* Get()
@@ -38,7 +42,6 @@ public:
         fs::path homePath = exePath / "home";
         fs::create_directories(homePath);
 
-        // Ordner + Textdateien mit Inhalt
         std::vector<std::tuple<std::string, std::string, std::string>> folders = {
             { "@",  "welcome_message.txt",  "What are you doing here?! Get back to the Game!\n" },
             { "equals",    "welcome_message.txt",    "Oh man, now we've really done it \n*sweating profusely*\n" },
