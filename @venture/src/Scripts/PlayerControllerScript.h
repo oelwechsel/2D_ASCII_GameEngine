@@ -3,6 +3,7 @@
 #include "MapRendererScript.h"
 #include "NPCWindowScript.h"
 #include "ConsoleManagerScript.h"
+#include "EnemyControllerScript.h"
 
 
 class PlayerControllerScript : public Flux::IScript
@@ -17,16 +18,13 @@ class PlayerControllerScript : public Flux::IScript
 private:
 	// define your private Variables here
 
-    double m_moveCooldown = 0.08; // Sekunden zwischen Bewegungen
-    double m_moveTimer = 0.0;     // Zeit seit letzter Bewegung
+    double m_moveCooldown = 0.08;
+    double m_moveTimer = 0.0;
 
     bool m_wasEPressedLastFrame = false;
 
 public:
 	// define your public Variables here
-
-    enum class Platform { Left, Right };
-    Platform e_PlayerPlatform;
 
 	//-------------------------------------------//
 	//----------------Functions------------------//
@@ -117,12 +115,14 @@ private:
                             std::string command = "$ cat ./home/" + entities[i].name + "/welcome_message.txt";
                             ConsoleManagerScript::Instance().m_overworldConsole.AddLog(Flux::ImGuiConsole::LogLevel::Info, "%s", command.c_str());
 
-                            ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_R", std::vector<char>{ 'R','R', 'R', 'R' });
+                            /*ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_R", std::vector<char>{ 'R','R', 'R', 'R' });
                             ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_o", std::vector<char>{ '0', '0', '0', '0' });
                             ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_O", std::vector<char>{ '0', '0', '0', '0' });
-                            ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_t", std::vector<char>{ 'T', 'T', 'T', 'T' });
+                            ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_t", std::vector<char>{ 'T', 'T', 'T', 'T' });*/
+                            //ASCIIBlockDictionary::Instance().setAllColorsRedExceptPlayerAndRootPathway();
 
-                            ASCIIBlockDictionary::Instance().setAllColorsRedExceptPlayerAndRootPathway();
+                            GameManagerScript::Instance().m_isInFight = true;
+                            EnemyControllerScript::Instance().StartFight();
 
                             for (const auto& line : entities[i].dialogueLines) {
                                 ConsoleManagerScript::Instance().m_overworldConsole.AddLog(line.c_str());
