@@ -9,24 +9,23 @@ ASCIIBlockDictionary::ASCIIBlockDictionary() {
     blocks = {
         { "wall",       { { '#','#','#','#','#','#' }, BlockColor::White } },
         { "wall2",      { { '8','8','8','8' }, BlockColor::White } },
-        { "halfWall",   { { ' ', '#' }, BlockColor::White } },
-        { "smallStep",  { { '#' }, BlockColor::White } },
+        { "halfWall",   { { ' ', '=' }, BlockColor::White } },
+        { "smallStep",  { { '-' }, BlockColor::White } },
         { "floor",      { { '.' }, BlockColor::White } },
         { "lava",       { { '~' }, BlockColor::White } },
         { "lava2",      { { '^' }, BlockColor::White } },
         { "guy",        { { '@' }, BlockColor::Green } },
         { "tree",       { { '/','%','/','%' }, BlockColor::White } },
-        { "tree2",      { { '|','%' }, BlockColor::White } },
-        { "grass",      { { ':',':' }, BlockColor::White } },
-        { "tallGrass",  { { ':',':',':' }, BlockColor::White } },
-        { "colon",      { { ':' }, BlockColor::White } },
+        { "tree2",      { { '/','/','X' }, BlockColor::White } },
+        { "grass",      { { ',',',' }, BlockColor::White } },
+        { "tallGrass",  { { '.','"' }, BlockColor::White } },
         { "leftBrack",  { { '[','[','[','[','[','[' }, BlockColor::White } },
         { "rightBrack", { { ']','[',']',']',']',']' }, BlockColor::White } },
         { "tallLine",   { { '|','|','|','|' }, BlockColor::White } },
         { "wideLine",   { { '-','-','-','-' }, BlockColor::White } },
         { "winLine",    { { '-',' ',' ','-' }, BlockColor::White } },
-        { "plus",       { { '+','+','+','+' }, BlockColor::White } },
-        { "pillar1",    { { 'O','O','O','O' }, BlockColor::White } },
+        { "plus",       { { 'i','i','i','i' }, BlockColor::White } },
+        { "pillar1",    { { 'o','o','o' }, BlockColor::White } },
         { "door",       { { ' ',' ','+',' ' }, BlockColor::White } },
         { "exclamation_NPC",        { { '!' }, BlockColor::Magenta } },
         { "and_NPC",        { { '&' }, BlockColor::Yellow} },
@@ -36,7 +35,12 @@ ASCIIBlockDictionary::ASCIIBlockDictionary() {
         { "root_path_R",        { { '.' }, BlockColor::White} },
         { "root_path_o",        { { '.' }, BlockColor::White} },
         { "root_path_O",        { { '.' }, BlockColor::White} },
-        { "root_path_t",        { { '.' }, BlockColor::White} }
+        { "root_path_t",        { { '.' }, BlockColor::White} },
+        { "fence",      { { '-','-' }, BlockColor::White} },
+        { "bigTree",      { { '.','%','.','%' }, BlockColor::White} },
+        { "flower",      { { ':','*' }, BlockColor::White} },
+        { "bigFlower",      { { ':','*','*','*' }, BlockColor::White} },
+        { "bigPillar",      { { 'I','o','o','O' }, BlockColor::White} },
     };
 }
 
@@ -76,6 +80,11 @@ BlockData ASCIIBlockDictionary::getBlockData(char c) {
     case 'o': return blocks["root_path_o"];
     case 'O': return blocks["root_path_O"];
     case 't': return blocks["root_path_t"];
+    case 'f': return blocks["fence"];
+    case 'B': return blocks["bigTree"];
+    case 'F': return blocks["flower"];
+    case 'P': return blocks["bigPillar"];
+    case 'b': return blocks["bigFlower"];
     default:  return { { c }, BlockColor::White };
     }
 }
