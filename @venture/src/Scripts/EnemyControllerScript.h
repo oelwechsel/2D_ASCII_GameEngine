@@ -201,10 +201,7 @@ private:
         case EnemyState::TargetGetHit:
             if (AnimationFinished())
             {
-                if (m_BossEnemyHP <= 0)
-                    e_BossEnemyFightState = EnemyState::CutsceneEnd;
-                else
-                    e_BossEnemyFightState = EnemyState::Attacking;
+               e_BossEnemyFightState = EnemyState::Attacking;
             }
             break;
 
@@ -230,6 +227,11 @@ private:
             break;
 
         case EnemyState::CutsceneEnd:
+            if (AnimationFinished())
+            {
+                Flux::Application::Get().CloseApplication();
+                return;
+            }
             break;
         }
     }

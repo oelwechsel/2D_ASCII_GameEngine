@@ -71,11 +71,11 @@ private:
 		if (GameManagerScript::Instance().m_isInFight) 
 		{
 			Flux::ImGuiWrapper::Begin("Left Platform", ImVec2(200, 100), ImVec2(300, 1000), ImGuiWindowFlags_NoCollapse);
-			Flux::ImGuiWrapper::Text(GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::Left ? "Player is here." : "No player here.");
+			Flux::ImGuiWrapper::Text(GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::Left ? "@" : " ");
 			Flux::ImGuiWrapper::End();
 
 			Flux::ImGuiWrapper::Begin("Right Platform", ImVec2(200, 100), ImVec2(600, 1000), ImGuiWindowFlags_NoCollapse);
-			Flux::ImGuiWrapper::Text(GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::Right ? "Player is here." : "No player here.");
+			Flux::ImGuiWrapper::Text(GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::Right ? "@" : " ");
 			Flux::ImGuiWrapper::End();
 
 			Flux::ImGuiWrapper::Begin("Enemy", ImVec2(400, 400), ImVec2(1000, 100), ImGuiWindowFlags_NoCollapse);
