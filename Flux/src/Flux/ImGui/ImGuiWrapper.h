@@ -34,6 +34,8 @@ namespace Flux::ImGuiWrapper
     FLUX_API ImVec2 GetScale();
 
     FLUX_API void LoadCustomFont(const std::string& fontPath, float fontSize, const std::string& extraChars);
+
+    FLUX_API ImVec2 GetContentRegionAvail();
 }
 
 

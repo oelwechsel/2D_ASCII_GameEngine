@@ -128,4 +128,9 @@ namespace Flux::ImGuiWrapper
 		}
 	}
 
+	ImVec2 ImGuiWrapper::GetContentRegionAvail() {
+		return ImGui::GetContentRegionAvail();
+	}
+	
+
 }

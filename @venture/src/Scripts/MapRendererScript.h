@@ -46,6 +46,8 @@ private:
 	ImVec2 m_position;
 	int m_screenWidthWindows = GetSystemMetrics(SM_CXSCREEN);
 	int m_screenHeightWindows = GetSystemMetrics(SM_CYSCREEN);
+
+	ImVec2 m_scale;
 	
 	//-------------------------------------------//
 	//----------------Functions------------------//
@@ -170,9 +172,22 @@ private:
 	{
 		if (!GameManagerScript::Instance().m_isInFight)
 		{
+			Flux::ImGuiWrapper::Begin("@venture", {}, m_position, ImGuiWindowFlags_NoCollapse);
 
-			Flux::ImGuiWrapper::Begin("@venture", ImVec2(m_MapSize.x + 15, m_MapSize.y + 35), m_position, ImGuiWindowFlags_NoCollapse);
-			Flux::ImGuiWrapper::Image(m_texture, m_MapSize);
+			ImVec2 availSize = Flux::ImGuiWrapper::GetContentRegionAvail();
+
+			float scaleX = availSize.x / m_MapSize.x;
+			float scaleY = availSize.y / m_MapSize.y;
+			float rawScale = min(scaleX, scaleY);
+
+			float snappedScale = std::floor(rawScale * 4.0f) / 4.0f;
+			static float currentScale = 2.0f;
+			if (std::abs(snappedScale - currentScale) > 0.01f)
+				currentScale = snappedScale;
+
+			ImVec2 scaledMapSize = ImVec2(m_MapSize.x * currentScale, m_MapSize.y * currentScale);
+
+			Flux::ImGuiWrapper::Image(m_texture, scaledMapSize);
 
 			double fps = 1.0 / m_deltaTime;
 			Flux::ImGuiWrapper::Text("FPS: %.1f", fps);
@@ -180,6 +195,7 @@ private:
 			Flux::ImGuiWrapper::End();
 		}
 	}
+
 
 	void OnDestroy() override
 	{
