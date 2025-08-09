@@ -9,6 +9,9 @@ class MapRendererScript : public Flux::IScript
 {
 	static MapRendererScript* s_Instance;
 
+	inline static std::unordered_set<char> m_blockedTiles =
+	{ '#', '|', '-', '8', '=', '+', 'f', 'B', 'P', '0', '(', '~' };
+
 	//-------------------------------------------//
 	//----------------Variables------------------//
 	//-------------------------------------------//
@@ -71,13 +74,11 @@ public:
 	
 	bool MapRendererScript::IsTileBlocked(int x, int y) const
 	{
-		static const std::unordered_set<char> blockedTiles = { '#', '|', '-', '8', '=', '+', 'f', 'B', 'P', '0','(', '~' };
-
 		if (y < 0 || y >= static_cast<int>(m_map.size()) || x < 0 || x >= static_cast<int>(m_map[y].size()))
 			return true;
 
 		char tile = m_map[y][x];
-		return blockedTiles.count(tile) > 0;
+		return m_blockedTiles.count(tile) > 0;
 	}
 
 private:
@@ -98,6 +99,7 @@ private:
 		}
 
 		s_Instance = this;
+
 
 		m_map = Flux::FileLoader::LoadTextFile("map.txt", &success);
 		TextureID tex = Flux::FileLoader::LoadTileset("tileset.png", 14);

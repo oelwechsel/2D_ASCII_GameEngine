@@ -115,14 +115,16 @@ private:
                             std::string command = "$ cat ./home/" + entities[i].name + "/welcome_message.txt";
                             ConsoleManagerScript::Instance().m_overworldConsole.AddLog(Flux::ImGuiConsole::LogLevel::Info, "%s", command.c_str());
 
-                            /*ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_R", std::vector<char>{ 'R','R', 'R', 'R' });
+                            /*ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_R", std::vector<char>{ 'R', 'R', 'R', 'R' });
                             ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_o", std::vector<char>{ '0', '0', '0', '0' });
                             ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_O", std::vector<char>{ '0', '0', '0', '0' });
-                            ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_t", std::vector<char>{ 'T', 'T', 'T', 'T' });*/
-                            //ASCIIBlockDictionary::Instance().setAllColorsRedExceptPlayerAndRootPathway();
+                            ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_t", std::vector<char>{ 'T', 'T', 'T', 'T' });
+                            ASCIIBlockDictionary::Instance().setAllColorsRedExceptPlayerAndRootPathway();
 
-                            GameManagerScript::Instance().m_isInFight = true;
-                            EnemyControllerScript::Instance().StartFight();
+                            GameManagerScript::Instance().m_NPCsDead = true;*/
+
+                            //GameManagerScript::Instance().m_isInFight = true;
+                            //EnemyControllerScript::Instance().StartFight();
 
                             for (const auto& line : entities[i].dialogueLines) {
                                 ConsoleManagerScript::Instance().m_overworldConsole.AddLog(line.c_str());
@@ -148,10 +150,12 @@ private:
             int targetX = player.x + dx;
             int targetY = player.y + dy;
 
-            for (size_t i = 1; i < entities.size(); ++i)
-            {
-                if (entities[i].x == targetX && entities[i].y == targetY)
-                    return;
+            if (!gm.m_NPCsDead) {
+                for (size_t i = 1; i < entities.size(); ++i)
+                {
+                    if (entities[i].x == targetX && entities[i].y == targetY)
+                        return;
+                }
             }
 
             auto mapScript = MapRendererScript::Get();

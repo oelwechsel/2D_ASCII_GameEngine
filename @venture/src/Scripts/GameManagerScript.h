@@ -20,6 +20,7 @@ public:
 
     bool m_isInFight = false;
 
+    bool m_NPCsDead = false;
 
     enum class Platform { Left, Right };
     Platform e_PlayerPlatform;

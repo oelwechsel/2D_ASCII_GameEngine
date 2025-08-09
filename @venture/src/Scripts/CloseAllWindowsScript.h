@@ -12,7 +12,7 @@ private:
 
 	unsigned int m_MDHLogo;
 
-	std::vector<std::string> m_Credits = { "Credits", "Programming: Leonhard Thiel, Seraphina Lange", "Art: Gabrielle Sibucao", "Supervising lecturers: Dominik Mieth, Michael Coldewey" };
+	std::vector<std::string> m_Credits = { "Credits", "Three Pebbles", "Programming: Leonhard Thiel, Seraphina Lange", "Art : Gabrielle Sibucao", "Supervising lecturers : Dominik Mieth, Michael Coldewey" };
 
 	ImVec2 m_scale;
 
@@ -34,7 +34,7 @@ private:
 	void OnImGuiRender() override
 	{
 		m_scale = Flux::ImGuiWrapper::GetScale();
-		Flux::ImGuiWrapper::Begin("Window Control", ImVec2(650 * m_scale.x, 375 * m_scale.y), m_position, ImGuiWindowFlags_NoCollapse);
+		Flux::ImGuiWrapper::Begin("Window Control", ImVec2(650 * m_scale.x, 400 * m_scale.y), m_position, ImGuiWindowFlags_NoCollapse);
 		if (Flux::ImGuiWrapper::Button("Close All Windows")) {
 			Flux::Application::Get().CloseApplication();
 		}
