@@ -16,8 +16,6 @@ namespace Flux
 
         static std::vector<std::string> LoadTextFile(const std::string& filename, bool* success);
 
-        static std::vector<std::string> LoadDialogFiles(const std::string& filename);
-
         static std::vector<LayeredFrame> LoadAsciiFrames(const std::string& filename);
 
         static TextureID LoadTileset(const std::string& filename, int tileSize);

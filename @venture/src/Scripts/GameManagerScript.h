@@ -118,7 +118,7 @@ public:
         CreateGameFolderStructure();
 
         // Rest des Codes
-        Flux::Entity player(14, 14, '@', "@", true);
+        Flux::Entity player(20, 14, '@', "@", true);
         entities.push_back(player);
 
         Flux::Entity questionNPC(33, 32, '?', "?", 0.2f, ImVec2(180, 370), false);

@@ -80,40 +80,6 @@ namespace Flux
         return lines;
     }
 
-    std::vector<std::string> FileLoader::LoadDialogFiles(const std::string& filename)
-    {
-        std::string resolvedPath = filename;
-
-        if (!fs::exists(filename))
-        {
-            resolvedPath = FindFileInHome(filename);
-
-            if (resolvedPath.empty())
-            {
-                FX_CORE_WARN("Text file not found: {}", filename);
-                return {};
-            }
-        }
-
-        std::ifstream file(resolvedPath);
-        if (!file.is_open())
-        {
-            FX_CORE_WARN("Failed to open text file: {}", resolvedPath);
-            return {};
-        }
-
-        FX_CORE_INFO("Loading Text File: {}", resolvedPath);
-
-        std::vector<std::string> lines;
-        std::string line;
-        while (std::getline(file, line))
-        {
-            lines.push_back(line);
-        }
-
-        return lines;
-    }
-
     unsigned int FileLoader::LoadTextureFromFile(const std::string& filename, int desiredChannels)
     {
         std::string resolvedPath = filename;

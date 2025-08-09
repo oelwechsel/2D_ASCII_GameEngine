@@ -87,6 +87,8 @@ private:
 
         s_Instance = this;
 
+        srand(static_cast<unsigned>(time(nullptr))); // Initialise randomizer
+
         auto loadAnim = [&](const std::string& key, const std::string& file, float dur) {
             Animation anim;
             anim.frameDuration = dur;

@@ -95,10 +95,7 @@ void FightConsole::ExecCommand(const std::string& command)
 {
     if (m_WaitingForPassword)
     {
-        auto lines = Flux::FileLoader::LoadDialogFiles("passwort.txt");
-        std::string correctPassword = lines.empty() ? "" : lines[0];
-
-        if (command == correctPassword)
+        if (command == m_Password)
         {
             AddLog("Password correct! The ROOT is hit and the fight ends.");
             EnemyControllerScript::Instance().m_BossEnemyHP = 0;
