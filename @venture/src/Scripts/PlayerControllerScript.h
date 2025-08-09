@@ -123,8 +123,8 @@ private:
 
                             GameManagerScript::Instance().m_NPCsDead = true;*/
 
-                            //GameManagerScript::Instance().m_isInFight = true;
-                            //EnemyControllerScript::Instance().StartFight();
+                            GameManagerScript::Instance().m_isInFight = true;
+                            EnemyControllerScript::Instance().StartFight();
 
                             for (const auto& line : entities[i].dialogueLines) {
                                 ConsoleManagerScript::Instance().m_overworldConsole.AddLog(line.c_str());

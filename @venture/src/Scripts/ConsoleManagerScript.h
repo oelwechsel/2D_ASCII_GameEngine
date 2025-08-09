@@ -14,6 +14,11 @@ private:
 
 	static ConsoleManagerScript* s_Instance;
 
+
+	int m_screenWidthWindows = GetSystemMetrics(SM_CXSCREEN);
+	int m_screenHeightWindows = GetSystemMetrics(SM_CYSCREEN);
+
+	ImVec2 m_scale;
 public:
 
 	//-------------------------------------------//
@@ -52,6 +57,7 @@ private:
 		}
 
 		s_Instance = this;
+
 	}
 
 	void Update(float deltaTime) override
@@ -61,13 +67,14 @@ private:
 
 	void OnImGuiRender() override
 	{
+		m_scale = Flux::ImGuiWrapper::GetScale();
 		if (!GameManagerScript::Instance().m_isInFight)
 		{
-			m_overworldConsole.Draw("console", "welcome", ImVec2(300, 300), ImVec2(300, 300), &m_ConsoleFocused);
+			m_overworldConsole.Draw("console", "welcome", ImVec2(m_screenWidthWindows * 0.6f, m_screenHeightWindows * 0.3f), ImVec2(450 * m_scale.x, 600 * m_scale.y), &m_ConsoleFocused);
 		}
 		else 
 		{
-			m_fightConsole.Draw("fight console", "welcome", ImVec2(500, 500), ImVec2(500, 500), &m_ConsoleFocused);
+			m_fightConsole.Draw("fight console", "welcome", ImVec2(m_screenWidthWindows * 0.6f, m_screenHeightWindows * 0.3f), ImVec2(450 * m_scale.x, 600 * m_scale.y), &m_ConsoleFocused);
 		}
 	}
 

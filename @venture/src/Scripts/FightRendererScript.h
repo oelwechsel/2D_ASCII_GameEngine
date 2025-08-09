@@ -22,6 +22,10 @@ class FightRendererScript : public Flux::IScript
 
 private:
 
+	int m_screenWidthWindows = GetSystemMetrics(SM_CXSCREEN);
+	int m_screenHeightWindows = GetSystemMetrics(SM_CYSCREEN);
+
+	ImVec2 m_scale;
 	
 	//-------------------------------------------//
 	//----------------Functions------------------//
@@ -70,15 +74,17 @@ private:
 	{
 		if (GameManagerScript::Instance().m_isInFight) 
 		{
-			Flux::ImGuiWrapper::Begin("Left Platform", ImVec2(200, 100), ImVec2(300, 1000), ImGuiWindowFlags_NoCollapse);
+			m_scale = Flux::ImGuiWrapper::GetScale();
+
+			Flux::ImGuiWrapper::Begin("Left Platform", ImVec2(200 * m_scale.x, 100 * m_scale.y), ImVec2(m_screenWidthWindows * 0.20f, m_screenHeightWindows * 0.65f), ImGuiWindowFlags_NoCollapse);
 			Flux::ImGuiWrapper::Text(GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::Left ? "@" : " ");
 			Flux::ImGuiWrapper::End();
 
-			Flux::ImGuiWrapper::Begin("Right Platform", ImVec2(200, 100), ImVec2(600, 1000), ImGuiWindowFlags_NoCollapse);
+			Flux::ImGuiWrapper::Begin("Right Platform", ImVec2(200 * m_scale.x, 100 * m_scale.y), ImVec2(m_screenWidthWindows * 0.40f, m_screenHeightWindows * 0.65f), ImGuiWindowFlags_NoCollapse);
 			Flux::ImGuiWrapper::Text(GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::Right ? "@" : " ");
 			Flux::ImGuiWrapper::End();
 
-			Flux::ImGuiWrapper::Begin("Enemy", ImVec2(400, 400), ImVec2(1000, 100), ImGuiWindowFlags_NoCollapse);
+			Flux::ImGuiWrapper::Begin("Enemy", ImVec2(1216 * m_scale.x, 684 * m_scale.y), ImVec2(m_screenWidthWindows * 0.10f, m_screenWidthWindows * 0.10f), ImGuiWindowFlags_NoCollapse);
 
 			auto* enemyController = EnemyControllerScript::Get();
 			if (!enemyController)
