@@ -36,6 +36,7 @@ ASCIIBlockDictionary::ASCIIBlockDictionary() {
         { "root_path_o",        { { '.' }, BlockColor::White} },
         { "root_path_O",        { { '.' }, BlockColor::White} },
         { "root_path_t",        { { '.' }, BlockColor::White} },
+        { "root",        { { '.' }, BlockColor::White} },
         { "fence",      { { '-','-' }, BlockColor::White} },
         { "bigTree",      { { '.','%','.','%' }, BlockColor::White} },
         { "flower",      { { ':','*' }, BlockColor::White} },
@@ -80,6 +81,7 @@ BlockData ASCIIBlockDictionary::getBlockData(char c) {
     case 'o': return blocks["root_path_o"];
     case 'O': return blocks["root_path_O"];
     case 't': return blocks["root_path_t"];
+    case 'x': return blocks["root"];
     case 'f': return blocks["fence"];
     case 'B': return blocks["bigTree"];
     case 'F': return blocks["flower"];
@@ -91,7 +93,7 @@ BlockData ASCIIBlockDictionary::getBlockData(char c) {
 
 void ASCIIBlockDictionary::setAllColorsRedExceptPlayerAndRootPathway() {
     for (auto& [key, blockData] : blocks) {
-        if (key != "guy" && key!= "root_path_R" && key != "root_path_o" && key != "root_path_O" && key != "root_path_t") {
+        if (key != "guy" && key!= "root_path_R" && key != "root_path_o" && key != "root_path_O" && key != "root_path_t" && key != "root") {
             blockData.color = BlockColor::Red;
         }
     }

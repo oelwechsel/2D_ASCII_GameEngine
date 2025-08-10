@@ -117,6 +117,7 @@ public:
         ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_o", std::vector<char>{ '0', '0', '0', '0' });
         ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_O", std::vector<char>{ '0', '0', '0', '0' });
         ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_t", std::vector<char>{ 'T', 'T', 'T', 'T' });
+        ASCIIBlockDictionary::Instance().SetBlockPattern("root", std::vector<char>{ '/' });
         ASCIIBlockDictionary::Instance().setAllColorsRedExceptPlayerAndRootPathway();
 
         m_NPCsDead = true;
