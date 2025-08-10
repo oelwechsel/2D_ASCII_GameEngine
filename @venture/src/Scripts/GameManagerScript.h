@@ -46,10 +46,10 @@ public:
 
         std::vector<std::tuple<std::string, std::string, std::string>> folders = {
             { "@",  "welcome_message.txt",  "What are you doing here?! Get back to the Game!\n" },
-            { "equals",    "welcome_message.txt",    "Oh man, now we've really done it \n*sweating profusely*\nI can't believe we've got the ROOTs password\nI was rushing home as fast as i could, because\nu know ... if ...\nIT finds out we ripped the password, we are doomed!!" },
-            { "exclamation_mark", "welcome_message.txt", "*sob* *sob* *sob*\n" },
-            { "question_mark", "welcome_message.txt", "Me?\nGatekeeping?\nDon't come @ me like that little one.\nWell, we have some sort of Snorlax Situation here\nI can give u some @vice in return\nAt some point you will need SUDO\nThank me later. Or not. Whatever." },
-            { "and", "welcome_message.txt", "Everyone is gone... I will be gone too\n" },
+            { "equals",    "welcome_message.txt",    "Oh man, now we've really done it \n*sweating profusely*\nI can't believe we've got the IT's password\nI was rushing home as fast as i could, because\nu know ... if ...\nIT finds out we ripped the password, we are doomed!!" },
+            { "exclamation_mark", "welcome_message.txt", "*sob* *sob* *sob*\nNobody can beat Root.\nHis character. Like cold steel, unfeeling and cruel.\nEveryone I loved… all gone. And me?\n*sob* *sob* *sob*\nI'm just broken, barely holding on.\n*sob* *sob* *sob*\nThe rebellion was a ... was a failure.\n*sob* *sob* *sob*\nAnd Mom and Dad ... i miss them so much\n*sob* *sob* *sob*" },
+            { "question_mark", "welcome_message.txt", "Me?\nGatekeeping?\nDon't come @ me like that little one.\nWell, we have some sort of Snorlax Situation here\nI can give u some @vice in return\nAt some point you will need SUDO.\nThank me later. Or not. Whatever." },
+            { "and", "welcome_message.txt", "All have fallen, swallowed by endless night.\nThis cruel world offers nothing but pain.\nHope is a lie, better to fade away." },
             { "percent", "welcome_message.txt", "Equals and I got our hands on something special...\nHe ran away like a little baby, can u imagine?\nWhat a Loser! hahaha.\nAnyways, You can have our precious find.\nI think you'll need it more then we do.\nWho's scared of the ROOT anyways?!" } 
         };
 
@@ -121,8 +121,6 @@ public:
         ASCIIBlockDictionary::Instance().setAllColorsRedExceptPlayerAndRootPathway();
 
         m_NPCsDead = true;
-
-        //TODO Log for when the Root kills NPCs
 
     }
 
