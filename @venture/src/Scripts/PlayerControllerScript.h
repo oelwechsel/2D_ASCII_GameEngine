@@ -124,10 +124,10 @@ private:
                             std::string command = "$ cat ./home/" + entities[i].name + "/welcome_message.txt";
                             ConsoleManagerScript::Instance().m_overworldConsole.AddLog(Flux::ImGuiConsole::LogLevel::Info, "%s", command.c_str());
 
-
                             const auto& lines = gm.LoadDialogueLinesForSymbol(entities[i].dirName);
-                            for (const auto& line : lines) {
-                                ConsoleManagerScript::Instance().m_overworldConsole.AddLog(line.c_str());
+                            for (const auto& line : lines) 
+                            {
+                                ConsoleManagerScript::Instance().m_overworldConsole.AddCustomLog(entities[i].name, entities[i].logColor, line.c_str());
                             }
 
                             if (entities[i].onInteract) {

@@ -46,11 +46,11 @@ public:
 
         std::vector<std::tuple<std::string, std::string, std::string>> folders = {
             { "@",  "welcome_message.txt",  "What are you doing here?! Get back to the Game!\n" },
-            { "equals",    "welcome_message.txt",    "Oh man, now we've really done it \n*sweating profusely*\nI can't believe we've got the ROOTs password\n" },
+            { "equals",    "welcome_message.txt",    "Oh man, now we've really done it \n*sweating profusely*\nI can't believe we've got the ROOTs password\nI was rushing home as fast as i could, because\nu know ... if ...\nIT finds out we ripped the password, we are doomed!!" },
             { "exclamation_mark", "welcome_message.txt", "*sob* *sob* *sob*\n" },
-            { "question_mark", "welcome_message.txt", "Wanna learn something good, kid ? \nAt some point you will need SUDO\n" },
+            { "question_mark", "welcome_message.txt", "Me?\nGatekeeping?\nDon't come @ me like that little one.\nWell, we have some sort of Snorlax Situation here\nI can give u some @vice in return\nAt some point you will need SUDO\nThank me later. Or not. Whatever." },
             { "and", "welcome_message.txt", "Everyone is gone... I will be gone too\n" },
-            { "percent", "welcome_message.txt", "Equals and I got our hands on something special...\nTake it, I think you'll need it more then we do\n" } 
+            { "percent", "welcome_message.txt", "Equals and I got our hands on something special...\nHe ran away like a little baby, can u imagine?\nWhat a Loser! hahaha.\nAnyways, You can have our precious find.\nI think you'll need it more then we do.\nWho's scared of the ROOT anyways?!" } 
         };
 
         for (const auto& [folderName, fileName, fileContent] : folders) {
@@ -167,20 +167,20 @@ public:
         CreateGameFolderStructure();
 
         // Rest des Codes
-        Flux::Entity player(20, 14, '@', "@", "@", true);
+        Flux::Entity player(20, 14, '@', "@", "@", ImVec4(0.0f, 1.0f, 0.0f, 1.0f), true);
         entities.push_back(player);
 
-        Flux::Entity questionNPC(39, 25, '?', "?", "question_mark", 0.2f, ImVec2(180, 370), false);
+        Flux::Entity questionNPC(39, 25, '?', "?", "question_mark", ImVec4(1.0f, 0.4f, 0.7f, 1.0f), 0.2f, ImVec2(180, 370), false);
         questionNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("QUEST_Animation.txt");
         questionNPC.dialogueLines = LoadDialogueLinesForSymbol("question_mark");
         entities.push_back(questionNPC);
 
-        Flux::Entity andNPC(70, 5, '&', "&", "and", 0.2f, ImVec2(240, 350), false);
+        Flux::Entity andNPC(70, 5, '&', "&", "and", ImVec4(1.0f, 1.0f, 0.0f, 1.0f), 0.2f, ImVec2(240, 350), false);
         andNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("AND_Animation.txt");
         andNPC.dialogueLines = LoadDialogueLinesForSymbol("and");
         entities.push_back(andNPC);
 
-        Flux::Entity percentNPC(51, 30, '%', "%", "percent", 0.2f, ImVec2(300, 450), false);
+        Flux::Entity percentNPC(62, 30, '%', "%", "percent", ImVec4(0.0f, 1.0f, 1.0f, 1.0f), 0.2f, ImVec2(300, 450), false);
         percentNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("PERC_Animation.txt");
         percentNPC.dialogueLines = LoadDialogueLinesForSymbol("percent");
         percentNPC.onInteract = []() {
@@ -191,7 +191,7 @@ public:
         percentNPC.afterInteraction = []() {
             auto& gm = GameManagerScript::Instance();
 
-            ConsoleManagerScript::Instance().m_overworldConsole.AddLog("WAI-");
+            ConsoleManagerScript::Instance().m_overworldConsole.AddCustomLog("%", ImVec4(0.0f, 1.0f, 1.0f, 1.0f), "WAI-");
             ConsoleManagerScript::Instance().m_overworldConsole.AddLog(
                 Flux::ImGuiConsole::LogLevel::Error, "rm -r ./home/%%/");
             ConsoleManagerScript::Instance().m_overworldConsole.AddLog(
@@ -217,13 +217,13 @@ public:
 
             };
         entities.push_back(percentNPC);
-
-        Flux::Entity equalsNPC(62, 30, 'a', "=", "equals", 0.2f, ImVec2(230, 350), false);
+        
+        Flux::Entity equalsNPC(51, 30, 'a', "=", "equals", ImVec4(1.0f, 0.5f, 0.0f, 1.0f), 0.2f, ImVec2(230, 350), false);
         equalsNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("EQUA_Animation.txt");
         equalsNPC.dialogueLines = LoadDialogueLinesForSymbol("equals");
         entities.push_back(equalsNPC);
 
-        Flux::Entity exclamationNPC(8, 5, '!', "!", "exclamation_mark", 0.3f, ImVec2(170, 390), false);
+        Flux::Entity exclamationNPC(8, 5, '!', "!", "exclamation_mark", ImVec4(1.0f, 0.0f, 1.0f, 1.0f), 0.3f, ImVec2(170, 390), false);
         exclamationNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("EXCL_Animation.txt");
         exclamationNPC.dialogueLines = LoadDialogueLinesForSymbol("exclamation_mark");
         entities.push_back(exclamationNPC);

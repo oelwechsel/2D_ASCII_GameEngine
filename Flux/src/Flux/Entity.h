@@ -25,7 +25,8 @@ namespace Flux
         std::function<void()> onInteract;
         bool hasInteractedWith = false;
         std::string dirName;
+        ImVec4 logColor;
 
-        Entity(int x_, int y_, char ascii_, std::string name_, std::string dirName_, float frameDuration_, ImVec2 windowSize_ = ImVec2(230, 350), bool isPlayer_ = false);
+        Entity(int x_, int y_, char ascii_, std::string name_, std::string dirName_, ImVec4 logColor_, float frameDuration_, ImVec2 windowSize_ = ImVec2(230, 350), bool isPlayer_ = false);
     };
 }

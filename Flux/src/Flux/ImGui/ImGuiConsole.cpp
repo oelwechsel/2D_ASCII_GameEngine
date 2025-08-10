@@ -19,7 +19,9 @@ namespace Flux
 		for (auto& item : Items)
 			free(item);
 		Items.clear();
+		CustomColorMap.clear();
 	}
+
 
 	void ImGuiConsole::AddItem(const std::string& msg) {
 		Items.push_back(strdup(msg.c_str()));
@@ -54,6 +56,25 @@ namespace Flux
 		AddItem(prefix + buf);
 	}
 
+	void ImGuiConsole::AddCustomLog(const std::string& customLevel, const ImVec4& color, const char* fmt, ...)
+	{
+		va_list args;
+		va_start(args, fmt);
+		char buf[1024];
+		vsnprintf(buf, sizeof(buf), fmt, args);
+		buf[sizeof(buf) - 1] = 0;
+		va_end(args);
+
+		std::string fullText = "[" + customLevel + "] " + buf;
+
+		// strdup wie bei AddItem(), damit Speicherverwaltung gleich bleibt
+		char* storedText = strdup(fullText.c_str());
+		Items.push_back(storedText);
+		CustomColorMap[storedText] = color; // Farbe nur für dieses Item speichern
+		ScrollToBottom = true;
+	}
+
+
 	void ImGuiConsole::WelcomeMessage(const char* _message) {
 		if (!Initialized) {
 			AddLog(_message);
@@ -83,33 +104,43 @@ namespace Flux
 			ImGuiWindowFlags_HorizontalScrollbar);
 
 		for (const auto& item : Items) {
-			ImVec4 color;
-			bool has_color = false;
-			if (strstr(item, "[ERROR]")) {
-				color = ImVec4(1.0f, 0.4f, 0.4f, 1.0f);
-				has_color = true;
-			}
-			else if (strstr(item, "[WARN]")) {
-				color = ImVec4(1.0f, 1.0f, 0.4f, 1.0f);
-				has_color = true;
-			}
-			else if (strstr(item, "[INFO]")) {
-				color = ImVec4(0.7f, 0.7f, 0.7f, 1.0f);  // Oder DefaultTextColor, je nach Wunsch
-				has_color = true;
-			}
-
-			if (has_color) {
-				ImGui::PushStyleColor(ImGuiCol_Text, color);
+			auto it = CustomColorMap.find(item);
+			if (it != CustomColorMap.end()) {
+				// Custom Farbe setzen
+				ImGui::PushStyleColor(ImGuiCol_Text, it->second);
 				ImGui::TextUnformatted(item);
 				ImGui::PopStyleColor();
 			}
 			else {
-				// Kein spezieller Farb-Push, einfach DefaultTextColor direkt setzen:
-				ImGui::PushStyleColor(ImGuiCol_Text, DefaultTextColor);
-				ImGui::TextUnformatted(item);
-				ImGui::PopStyleColor();
+				// Alte LogLevel-Erkennung
+				ImVec4 color;
+				bool has_color = false;
+				if (strstr(item, "[ERROR]")) {
+					color = ImVec4(1.0f, 0.4f, 0.4f, 1.0f);
+					has_color = true;
+				}
+				else if (strstr(item, "[WARN]")) {
+					color = ImVec4(1.0f, 1.0f, 0.4f, 1.0f);
+					has_color = true;
+				}
+				else if (strstr(item, "[INFO]")) {
+					color = ImVec4(0.7f, 0.7f, 0.7f, 1.0f);
+					has_color = true;
+				}
+
+				if (has_color) {
+					ImGui::PushStyleColor(ImGuiCol_Text, color);
+					ImGui::TextUnformatted(item);
+					ImGui::PopStyleColor();
+				}
+				else {
+					ImGui::PushStyleColor(ImGuiCol_Text, DefaultTextColor);
+					ImGui::TextUnformatted(item);
+					ImGui::PopStyleColor();
+				}
 			}
 		}
+
 
 		if (ScrollToBottom)
 			ImGui::SetScrollHereY(1.0f);
