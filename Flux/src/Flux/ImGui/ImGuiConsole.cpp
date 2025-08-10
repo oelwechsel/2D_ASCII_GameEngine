@@ -215,7 +215,7 @@ namespace Flux
 			}
 		}
 
-		outError = "Unbekannter Befehl: " + input;
+		outError = "unknown command: " + input + "\n" + "Enter the 'help' command for all available commands.";
 		return false;
 	}
 
