@@ -70,7 +70,7 @@ private:
 		m_scale = Flux::ImGuiWrapper::GetScale();
 		if (!GameManagerVariables::Instance().m_isInFight)
 		{
-			m_overworldConsole.Draw("console", "User @ connected...", ImVec2(m_screenWidthWindows * 0.6f, m_screenHeightWindows * 0.3f), ImVec2(450 * m_scale.x, 600 * m_scale.y), &m_ConsoleFocused);
+			m_overworldConsole.Draw("console", "User @ connected...", ImVec2(m_screenWidthWindows * 0.63f, m_screenHeightWindows * 0.3f), ImVec2(450 * m_scale.x, 600 * m_scale.y), &m_ConsoleFocused);
 		}
 		else 
 		{
