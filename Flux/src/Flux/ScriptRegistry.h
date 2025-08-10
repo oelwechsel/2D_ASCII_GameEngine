@@ -14,14 +14,14 @@ namespace Flux
             return instance;
         }
 
-        void Register(const std::string& name, CreateScriptFn func)
+        void Register(const std::string& _name, CreateScriptFn _func)
         {
-            m_FactoryMap[name] = func;
+            m_FactoryMap[_name] = _func;
         }
 
-        std::unique_ptr<IScript> CreateScript(const std::string& name)
+        std::unique_ptr<IScript> CreateScript(const std::string& _name)
         {
-            auto it = m_FactoryMap.find(name);
+            auto it = m_FactoryMap.find(_name);
             if (it != m_FactoryMap.end())
                 return it->second();
             return nullptr;

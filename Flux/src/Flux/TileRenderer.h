@@ -1,7 +1,6 @@
 #pragma once
 #include "Flux/Core.h"
 
-
 namespace Flux {
 
     struct RenderTile {
@@ -17,16 +16,14 @@ namespace Flux {
         TileRenderer();
         ~TileRenderer();
 
-        // Must be called once before rendering
-        void SetTileset(unsigned int textureID, int tileSize, int tilesetWidth, int tilesetHeight);
+        void SetTileset(unsigned int _textureID, int _tileSize, int _tilesetWidth, int _tilesetHeight);
 
-        // Converts a list of RenderTiles into a texture
         unsigned int RenderToTexture(
-            const std::vector<RenderTile>& tiles,
-            int mapWidth,
-            int mapHeight,
-            int playerX,
-            int playerY
+            const std::vector<RenderTile>& _tiles,
+            int _mapWidth,
+            int _mapHeight,
+            int _playerX,
+            int _playerY
         );
 
 
@@ -40,7 +37,7 @@ namespace Flux {
         int m_tilesetHeight = 0;
         int m_tilesPerRow = 0;
 
-        void InitFBO(int width, int height);
+        void InitFBO(int _width, int _height);
     };
 
 } 

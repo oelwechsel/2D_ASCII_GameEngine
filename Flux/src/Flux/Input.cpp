@@ -1,6 +1,5 @@
 #include "fxpch.h"
 #include "Input.h"
-
 #include <imgui.h>
 #include <GLFW/glfw3.h>
 
@@ -63,20 +62,18 @@ namespace Flux
         }
     }
 
-
-    bool Input::IsKeyPressed(int keycode)
+    bool Input::IsKeyPressed(int _keycode)
     {
-        ImGuiKey imguiKey = GLFWKeyToImGuiKey(keycode);
+        ImGuiKey imguiKey = GLFWKeyToImGuiKey(_keycode);
         if (imguiKey == ImGuiKey_None)
             return false;
 
         return ImGui::IsKeyDown(imguiKey);
     }
 
-
-    bool Input::IsMouseButtonPressed(int button)
+    bool Input::IsMouseButtonPressed(int _button)
     {
-        return ImGui::IsMouseDown(button);
+        return ImGui::IsMouseDown(_button);
     }
 
     std::pair<float, float> Input::GetMousePosition()

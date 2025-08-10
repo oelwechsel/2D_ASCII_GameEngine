@@ -19,7 +19,7 @@ namespace Flux
         ScriptManagerLayer& operator=(ScriptManagerLayer&&) = default;
 
         void OnAttach() override;
-        void OnUpdate(float deltaTime) override;
+        void OnUpdate(float _deltaTime) override;
         void OnImGuiRender() override;
 
     private:

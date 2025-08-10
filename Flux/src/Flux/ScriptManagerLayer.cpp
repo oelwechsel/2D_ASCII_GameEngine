@@ -70,13 +70,13 @@ namespace Flux
         }
     }
 
-    void ScriptManagerLayer::OnUpdate(float deltaTime)
+    void ScriptManagerLayer::OnUpdate(float _deltaTime)
     {
         for (auto& script : m_ActiveScripts)
         {
             try
             {
-                script->Update(deltaTime);
+                script->Update(_deltaTime);
             }
             catch (const std::exception& e)
             {

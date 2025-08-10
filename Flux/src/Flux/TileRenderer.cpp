@@ -1,6 +1,5 @@
 #include "fxpch.h"
 #include "TileRenderer.h"
-
 #include <GL/glew.h> 
 
 namespace std {
@@ -12,38 +11,44 @@ namespace std {
     };
 }
 
-
 namespace Flux {
 
     TileRenderer::TileRenderer() {}
 
-    TileRenderer::~TileRenderer() {
-        if (m_fboTexture != 0) {
+    TileRenderer::~TileRenderer() 
+    {
+        if (m_fboTexture != 0) 
+        {
             glDeleteTextures(1, &m_fboTexture);
         }
-        if (m_fbo != 0) {
+        if (m_fbo != 0) 
+        {
             glDeleteFramebuffers(1, &m_fbo);
         }
     }
 
-    void TileRenderer::SetTileset(unsigned int textureID, int tileSize_, int tilesetWidth_, int tilesetHeight_) {
-        m_tilesetTexture = textureID;
-        m_tileSize = tileSize_;
-        m_tilesetWidth = tilesetWidth_;
-        m_tilesetHeight = tilesetHeight_;
+    void TileRenderer::SetTileset(unsigned int _textureID, int _tileSize_, int _tilesetWidth_, int _tilesetHeight_) 
+    {
+        m_tilesetTexture = _textureID;
+        m_tileSize = _tileSize_;
+        m_tilesetWidth = _tilesetWidth_;
+        m_tilesetHeight = _tilesetHeight_;
         m_tilesPerRow = m_tilesetWidth / m_tileSize;
     }
 
-    void TileRenderer::InitFBO(int width, int height) {
-        if (m_fbo == 0) {
+    void TileRenderer::InitFBO(int _width, int _height) 
+    {
+        if (m_fbo == 0) 
+        {
             glGenFramebuffers(1, &m_fbo);
         }
-        if (m_fboTexture == 0) {
+        if (m_fboTexture == 0) 
+        {
             glGenTextures(1, &m_fboTexture);
         }
 
         glBindTexture(GL_TEXTURE_2D, m_fboTexture);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -53,25 +58,23 @@ namespace Flux {
         glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_fboTexture, 0);
 
-        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) 
+        {
             FX_CORE_ASSERT("Framebuffer not complete!");
         }
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
-
-
-    // TODO: add ENTITY dependencies! -> Entities immer Opacity 1.0f!
     unsigned int TileRenderer::RenderToTexture(
-        const std::vector<RenderTile>& tiles,
-        int viewWidth,
-        int viewHeight,
-        int startX,
-        int startY)
+        const std::vector<RenderTile>& _tiles,
+        int _viewWidth,
+        int _viewHeight,
+        int _startX,
+        int _startY)
     {
-        int fboWidth = viewWidth * m_tileSize;
-        int fboHeight = viewHeight * m_tileSize;
+        int fboWidth = _viewWidth * m_tileSize;
+        int fboHeight = _viewHeight * m_tileSize;
 
         InitFBO(fboWidth, fboHeight);
 
@@ -84,7 +87,7 @@ namespace Flux {
         glMatrixMode(GL_PROJECTION);
         glPushMatrix();
         glLoadIdentity();
-        glOrtho(0, fboWidth, 0, fboHeight, -1, 1); // ImGui-kompatible UVs
+        glOrtho(0, fboWidth, 0, fboHeight, -1, 1); 
 
         glMatrixMode(GL_MODELVIEW);
         glPushMatrix();
@@ -96,57 +99,56 @@ namespace Flux {
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, m_tilesetTexture);
 
-        // === Parallax & Fading constants ===
         const float layerOffsetFactorX = 0.8f;
         const float layerOffsetFactorY = 0.8f;
         const float minAlpha = 0.35f;
         const float maxAlpha = 0.9f;
         const float darkenOverlayAlpha = 0.45f;
 
-        // === Gruppiere Tiles nach Layer ===
         std::unordered_map<int, std::vector<const RenderTile*>> layerMap;
         int maxLayer = 0;
 
-        for (const auto& tile : tiles) {
+        for (const auto& tile : _tiles) 
+        {
             layerMap[tile.layer].push_back(&tile);
             if (tile.layer > maxLayer) maxLayer = tile.layer;
         }
 
-        // === Maximaler Layer pro Position (x,y) ermitteln ===
         std::unordered_map<std::pair<int, int>, int, std::hash<std::pair<int, int>>> maxLayerMap;
-        for (const auto& tile : tiles) {
+        for (const auto& tile : _tiles) 
+        {
             std::pair<int, int> key = { tile.x, tile.y };
             auto it = maxLayerMap.find(key);
-            if (it == maxLayerMap.end() || tile.layer > it->second) {
+            if (it == maxLayerMap.end() || tile.layer > it->second) 
+            {
                 maxLayerMap[key] = tile.layer;
             }
         }
 
-        // === Render layerweise (unten -> oben) ===
-        for (int layer = 0; layer <= maxLayer; ++layer) {
+        for (int layer = 0; layer <= maxLayer; ++layer) 
+        {
             auto it = layerMap.find(layer);
             if (it == layerMap.end()) continue;
 
-            for (const RenderTile* tile : it->second) {
+            for (const RenderTile* tile : it->second) 
+            {
                 std::pair<int, int> key = { tile->x, tile->y };
                 int localMaxLayer = maxLayerMap[key];
 
-                // relative Helligkeit je Tile basierend auf seiner Layer im Vergleich zur max Layer an der Position
                 float relative = (localMaxLayer == tile->layer) ? 1.0f : (float)tile->layer / (float)localMaxLayer;
 
-                // Alpha: bei nur einem Layer höher, sonst interpoliert
                 float alpha = (localMaxLayer <= 1)
                     ? 0.8f
                     : minAlpha + (maxAlpha - minAlpha) * pow(relative, 0.9f);
 
-                int relX = tile->x - startX;
-                int relY = tile->y - startY;
+                int relX = tile->x - _startX;
+                int relY = tile->y - _startY;
 
-                float cameraOffsetX = static_cast<float>(startX);
-                float cameraOffsetY = static_cast<float>(startY);
+                float cameraOffsetX = static_cast<float>(_startX);
+                float cameraOffsetY = static_cast<float>(_startY);
 
-                float camMidX = startX + viewWidth / 2.0f;
-                float camMidY = startY + viewHeight / 2.0f;
+                float camMidX = _startX + _viewWidth / 2.0f;
+                float camMidY = _startY + _viewHeight / 2.0f;
 
                 float parallaxX = (tile->x - camMidX) * layerOffsetFactorX * tile->layer;
                 float parallaxY = (tile->y - camMidY) * layerOffsetFactorY * tile->layer;
@@ -174,9 +176,8 @@ namespace Flux {
                 glTexCoord2f(u0, v1); glVertex2f(px, py + m_tileSize);
                 glEnd();
 
-                // === Dunkelheits-Overlay für Tiles unter der höchsten Layer an der Position ===
-                if (tile->layer < localMaxLayer) {
-                    // Je tiefer die Layer, desto stärker die Abdunklung (Alpha proportional zur Layer-Distanz)
+                if (tile->layer < localMaxLayer) 
+                {
                     float overlayAlpha = darkenOverlayAlpha * (1.0f - relative);
 
                     glDisable(GL_TEXTURE_2D);
@@ -192,7 +193,6 @@ namespace Flux {
             }
         }
 
-        // === Cleanup ===
         glDisable(GL_TEXTURE_2D);
         glDisable(GL_BLEND);
 

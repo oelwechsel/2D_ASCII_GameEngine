@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Flux/Core.h"
 #include "Flux/Events/Event.h"
 

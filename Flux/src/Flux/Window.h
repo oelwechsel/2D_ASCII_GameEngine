@@ -1,13 +1,8 @@
 #pragma once
-
 #include <fxpch.h>
-
 #include <Flux/Core.h>
 #include <Flux/Events/Event.h>
-
-
 #include <GLFW/glfw3.h>
-
 
 namespace Flux 
 {
@@ -20,9 +15,7 @@ namespace Flux
 		WindowProps(const std::string& _title = "Flux Engine",
 			unsigned int _width = 1,
 			unsigned int _height = 1)
-			: Title(_title), Width(_width), Height(_height) 
-		{
-		}
+			: Title(_title), Width(_width), Height(_height) {}
 	};
 
 	class FLUX_API Window
@@ -39,7 +32,6 @@ namespace Flux
 
 		void* GetNativeWindow() const { return m_Window; }
 
-		//Window attributes
 		void SetEventCallback(const EventCallbackFn& _callback) { m_Data.EventCallback = _callback; }
 		void SetVSync(bool _enabled);
 		bool IsVSync() const;

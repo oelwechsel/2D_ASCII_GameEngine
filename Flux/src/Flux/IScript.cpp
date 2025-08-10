@@ -10,7 +10,7 @@ namespace Flux {
         OnDestroy();
     }
 
-	void IScript::OnEvent(Event& event) {}
+	void IScript::OnEvent(Event& _event) {}
 
     void IScript::OnDestroy() {}
 }
