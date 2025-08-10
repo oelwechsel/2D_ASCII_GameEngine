@@ -1,10 +1,8 @@
 #pragma once
-
 #include "Event.h"
 
 namespace Flux 
 {
-	
 	class FLUX_API KeyEvent : public Event
 	{
 	public:

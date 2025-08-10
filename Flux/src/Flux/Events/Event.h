@@ -1,17 +1,9 @@
 #pragma once
-
-
 #include "fxpch.h"
 #include "Flux/Core.h"
 
-
 namespace Flux 
 {
-
-	// Events in Flux are handled immediately and block execution.
-    // In the future, buffering events in an event bus for later processing
-    // during the update phase might be better.
-
     enum class EventType
     {
         None = 0, 
@@ -54,7 +46,7 @@ namespace Flux
         bool IsHandled() const { return m_Handled; }
    
     protected:
-        bool m_Handled = false; //Input doesn't need to pass through alle layers (e.g. Button clicked -> Event was handled and Layer underneath it does not need to receive MouseButtonEvent)
+        bool m_Handled = false;
     };
 
     class EventDispatcher

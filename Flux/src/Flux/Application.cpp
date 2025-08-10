@@ -1,14 +1,8 @@
 #include "fxpch.h"
 #include "Application.h"
-
-
 #include "Flux/Log.h"
 #include <GL/glew.h>
-
 #include "imgui.h"
-//#include "backends/imgui_impl_glfw.h"
-//#include "backends/imgui_impl_opengl3.h"
-
 #include "Input.h"
 
 namespace Flux 
@@ -124,8 +118,6 @@ namespace Flux
 		}
 	}
 
-
-
 	void Application::Run()
 	{
 		FX_CORE_INFO("Application loop started.");
@@ -178,5 +170,4 @@ namespace Flux
 		FX_CORE_INFO("Application manually closed via CloseApplication().");
 		m_Running = false;
 	}
-
 }

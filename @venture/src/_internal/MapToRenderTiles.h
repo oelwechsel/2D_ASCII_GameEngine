@@ -17,7 +17,7 @@ inline std::vector<Flux::RenderTile> CreateRenderTiles(
         for (int x = 0; x < width; ++x) {
             const Flux::Entity* entity = nullptr;
             for (const Flux::Entity& e : entities) {
-                if (e.x == x && e.y == y) {
+                if (e.m_xPos == x && e.m_yPos == y) {
                     entity = &e;
                     break;
                 }
@@ -26,7 +26,7 @@ inline std::vector<Flux::RenderTile> CreateRenderTiles(
             BlockData blockData;
 
             if (entity) {
-                blockData = dictionary.getBlockData(entity->ascii);
+                blockData = dictionary.getBlockData(entity->m_AsciiName);
             }
             else {
                 char mapChar = map[y][x];

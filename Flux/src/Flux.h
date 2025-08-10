@@ -29,7 +29,3 @@
 #    include "_generated/ScriptIncludes.gen.h"
 #  endif
 #endif
-
-//-------------------------Entrypoint-------------------------
-#include "Flux/EntryPoint.h"
-//-------------------------Entrypoint-------------------------

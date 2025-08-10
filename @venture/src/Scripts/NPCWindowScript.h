@@ -62,8 +62,8 @@ public:
 	{
 		m_activeNPC = &_entity;
 
-		m_name = _entity.ascii;
-		m_windowSize = _entity.windowSize;
+		m_name = _entity.m_AsciiName;
+		m_windowSize = _entity.m_WindowSize;
 
 		m_currentFrame = 0;
 		m_AnimationTime = 0.0f;
@@ -95,10 +95,10 @@ private:
 		{
 			m_AnimationTime += deltaTime;
 
-			if (m_AnimationTime >= m_activeNPC->frameDuration)
+			if (m_AnimationTime >= m_activeNPC->m_FrameDuration)
 			{
 				m_AnimationTime = 0.0f;
-				m_currentFrame = (m_currentFrame + 1) % m_activeNPC->layeredFrames.size();
+				m_currentFrame = (m_currentFrame + 1) % m_activeNPC->m_LayeredFrames.size();
 			}
 		}
 		else
@@ -119,7 +119,7 @@ private:
 			auto* drawList = Flux::ImGuiWrapper::GetWindowDrawList();
 			ImVec2 startPos = Flux::ImGuiWrapper::GetCursorScreenPos();
 
-			const auto& frame = m_activeNPC->layeredFrames[m_currentFrame];
+			const auto& frame = m_activeNPC->m_LayeredFrames[m_currentFrame];
 
 			Flux::ImGuiWrapper::AnimateLayers(drawList, startPos, frame.layers, m_layerColors);
 

@@ -4,17 +4,16 @@
 
 namespace Flux
 {
-    Entity::Entity(int x_, int y_, char ascii_, std::string name_, std::string dirName_, ImVec4 logColor_, float frameDuration_, ImVec2 windowSize_, bool isPlayer_)
-        : x(x_)
-        , y(y_)
-        , ascii(ascii_)
-        , name(std::move(name_))
-        , dirName(std::move(dirName_))
-        , logColor(logColor_)        
-        , frameDuration(frameDuration_)
-        , windowSize(windowSize_)
-        , isPlayer(isPlayer_)
+    Entity::Entity(int _xPos, int _yPos, char ascii_, std::string _AsciiName, std::string _dirName, ImVec4 _logColor, float _frameDuration, ImVec2 _windowSize, bool _isPlayer)
+        : m_xPos(_xPos)
+        , m_yPos(_yPos)
+        , m_AsciiName(ascii_)
+        , m_Name(std::move(_AsciiName))
+        , m_DirName(std::move(_dirName))
+        , m_LogColor(_logColor)        
+        , m_FrameDuration(_frameDuration)
+        , m_WindowSize(_windowSize)
+        , m_IsPlayer(_isPlayer)
     {
     }
-
 }

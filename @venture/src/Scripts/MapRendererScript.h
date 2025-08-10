@@ -120,7 +120,7 @@ private:
 
 		
 		// POTENTIAL ERROR! GAME MANAGER NOT INITIALIZED BEFORE USED HERE?!
-		m_texture = m_renderer.RenderToTexture(m_tiles, m_mapWidth, m_mapHeight, GameManagerScript::Instance().entities[0].x, GameManagerScript::Instance().entities[0].y);
+		m_texture = m_renderer.RenderToTexture(m_tiles, m_mapWidth, m_mapHeight, GameManagerScript::Instance().entities[0].m_xPos, GameManagerScript::Instance().entities[0].m_yPos);
 
 		m_MapSize = ImVec2(m_mapWidth * m_tileSize, m_mapHeight * m_tileSize);
 
@@ -140,8 +140,8 @@ private:
 			m_timeAccumulator = 0.0f;
 		}
 
-		int playerX = GameManagerScript::Instance().entities[0].x;
-		int playerY = GameManagerScript::Instance().entities[0].y;
+		int playerX = GameManagerScript::Instance().entities[0].m_xPos;
+		int playerY = GameManagerScript::Instance().entities[0].m_yPos;
 
 		int startX = playerX - m_cameraWidth / 2;
 		int startY = playerY - m_cameraHeight / 2;

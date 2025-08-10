@@ -171,7 +171,6 @@ xcopy /Q /E /Y /I "..\@venture\src\res" "..\bin\Dist-windows-x86_64\@venture\src
     <ClInclude Include="src\Flux\Application.h" />
     <ClInclude Include="src\Flux\Core.h" />
     <ClInclude Include="src\Flux\Entity.h" />
-    <ClInclude Include="src\Flux\EntryPoint.h" />
     <ClInclude Include="src\Flux\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Flux\Events\Event.h" />
     <ClInclude Include="src\Flux\Events\KeyEvent.h" />

@@ -5,30 +5,35 @@
 
 namespace Flux
 {
-	ImGuiConsole::ImGuiConsole() {
+	ImGuiConsole::ImGuiConsole() 
+	{
 		ClearLog();
 		memset(InputBuf, 0, sizeof(InputBuf));
-		HistoryPos = -1;
+		m_HistoryPos = -1;
 	}
 
-	ImGuiConsole::~ImGuiConsole() {
+	ImGuiConsole::~ImGuiConsole() 
+	{
 		ClearLog();
 	}
 
-	void ImGuiConsole::ClearLog() {
-		for (auto& item : Items)
+	void ImGuiConsole::ClearLog() 
+	{
+		for (auto& item : m_Items)
 			free(item);
-		Items.clear();
-		CustomColorMap.clear();
+		m_Items.clear();
+		m_CustomColorMap.clear();
 	}
 
 
-	void ImGuiConsole::AddItem(const std::string& msg) {
-		Items.push_back(strdup(msg.c_str()));
-		ScrollToBottom = true;
+	void ImGuiConsole::AddItem(const std::string& _msg) 
+	{
+		m_Items.push_back(strdup(_msg.c_str()));
+		m_ScrollToBottom = true;
 	}
 
-	void ImGuiConsole::AddLog(const char* fmt, ...) {
+	void ImGuiConsole::AddLog(const char* fmt, ...) 
+	{
 		va_list args;
 		va_start(args, fmt);
 		char buf[1024];
@@ -38,7 +43,8 @@ namespace Flux
 		AddItem(buf);
 	}
 
-	void ImGuiConsole::AddLog(LogLevel level, const char* fmt, ...) {
+	void ImGuiConsole::AddLog(LogLevel _level, const char* fmt, ...) 
+	{
 		va_list args;
 		va_start(args, fmt);
 		char buf[1024];
@@ -47,16 +53,17 @@ namespace Flux
 		va_end(args);
 
 		std::string prefix;
-		switch (level) {
-		case LogLevel::Info:    prefix = "[INFO] "; break;
-		case LogLevel::Warning: prefix = "[WARN] "; break;
-		case LogLevel::Error:   prefix = "[ERROR] "; break;
+		switch (_level) 
+		{
+		case LogLevel::e_Info:    prefix = "[INFO] "; break;
+		case LogLevel::e_Warning: prefix = "[WARN] "; break;
+		case LogLevel::e_Error:   prefix = "[ERROR] "; break;
 		}
 
 		AddItem(prefix + buf);
 	}
 
-	void ImGuiConsole::AddCustomLog(const std::string& customLevel, const ImVec4& color, const char* fmt, ...)
+	void ImGuiConsole::AddCustomLog(const std::string& _customLevel, const ImVec4& _color, const char* fmt, ...)
 	{
 		va_list args;
 		va_start(args, fmt);
@@ -65,159 +72,174 @@ namespace Flux
 		buf[sizeof(buf) - 1] = 0;
 		va_end(args);
 
-		std::string fullText = "[" + customLevel + "] " + buf;
+		std::string fullText = "[" + _customLevel + "] " + buf;
 
-		// strdup wie bei AddItem(), damit Speicherverwaltung gleich bleibt
 		char* storedText = strdup(fullText.c_str());
-		Items.push_back(storedText);
-		CustomColorMap[storedText] = color; // Farbe nur für dieses Item speichern
-		ScrollToBottom = true;
+		m_Items.push_back(storedText);
+		m_CustomColorMap[storedText] = _color;
+		m_ScrollToBottom = true;
 	}
 
-
-	void ImGuiConsole::WelcomeMessage(const char* _message) {
-		if (!Initialized) {
+	void ImGuiConsole::WelcomeMessage(const char* _message) 
+	{
+		if (!m_Initialized) {
 			AddLog(_message);
-			Initialized = true;
+			m_Initialized = true;
 		}
 	}
 
-	void ImGuiConsole::Draw(const char* title, const char* _welcomeMessage,
-		const ImVec2& windowPos, const ImVec2& windowSize, bool* out_hasFocus, bool* p_open)
+	void ImGuiConsole::Draw(const char* _title, const char* _welcomeMessage,
+		const ImVec2& _windowPos, const ImVec2& _windowSize, bool* _out_hasFocus, bool* _p_open)
 	{
 		WelcomeMessage(_welcomeMessage);
 
-		if (windowPos.x >= 0 && windowPos.y >= 0)
-			ImGui::SetNextWindowPos(windowPos, ImGuiCond_FirstUseEver);
-		if (windowSize.x >= 0 && windowSize.y >= 0)
-			ImGui::SetNextWindowSize(windowSize, ImGuiCond_FirstUseEver);
+		if (_windowPos.x >= 0 && _windowPos.y >= 0)
+			ImGui::SetNextWindowPos(_windowPos, ImGuiCond_FirstUseEver);
+		if (_windowSize.x >= 0 && _windowSize.y >= 0)
+			ImGui::SetNextWindowSize(_windowSize, ImGuiCond_FirstUseEver);
 
-		if (!ImGui::Begin(title, p_open, ImGuiWindowFlags_NoScrollbar)) {
+		if (!ImGui::Begin(_title, _p_open, ImGuiWindowFlags_NoScrollbar)) 
+		{
 			ImGui::End();
 			return;
 		}
 
-		if (out_hasFocus)
-			*out_hasFocus = ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows);
+		if (_out_hasFocus)
+			*_out_hasFocus = ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows);
 
 		ImGui::BeginChild("ScrollingRegion", ImVec2(0, -ImGui::GetFrameHeightWithSpacing()), false,
 			ImGuiWindowFlags_HorizontalScrollbar);
 
-		for (const auto& item : Items) {
-			auto it = CustomColorMap.find(item);
-			if (it != CustomColorMap.end()) {
-				// Custom Farbe setzen
+		for (const auto& item : m_Items) 
+		{
+			auto it = m_CustomColorMap.find(item);
+			if (it != m_CustomColorMap.end()) 
+			{
 				ImGui::PushStyleColor(ImGuiCol_Text, it->second);
 				ImGui::TextUnformatted(item);
 				ImGui::PopStyleColor();
 			}
-			else {
-				// Alte LogLevel-Erkennung
+			else 
+			{
 				ImVec4 color;
 				bool has_color = false;
-				if (strstr(item, "[ERROR]")) {
+				if (strstr(item, "[ERROR]")) 
+				{
 					color = ImVec4(1.0f, 0.4f, 0.4f, 1.0f);
 					has_color = true;
 				}
-				else if (strstr(item, "[WARN]")) {
+				else if (strstr(item, "[WARN]")) 
+				{
 					color = ImVec4(1.0f, 1.0f, 0.4f, 1.0f);
 					has_color = true;
 				}
-				else if (strstr(item, "[INFO]")) {
+				else if (strstr(item, "[INFO]")) 
+				{
 					color = ImVec4(0.7f, 0.7f, 0.7f, 1.0f);
 					has_color = true;
 				}
 
-				if (has_color) {
+				if (has_color) 
+				{
 					ImGui::PushStyleColor(ImGuiCol_Text, color);
 					ImGui::TextUnformatted(item);
 					ImGui::PopStyleColor();
 				}
-				else {
-					ImGui::PushStyleColor(ImGuiCol_Text, DefaultTextColor);
+				else 
+				{
+					ImGui::PushStyleColor(ImGuiCol_Text, m_DefaultTextColor);
 					ImGui::TextUnformatted(item);
 					ImGui::PopStyleColor();
 				}
 			}
 		}
 
-
-		if (ScrollToBottom)
+		if (m_ScrollToBottom)
 			ImGui::SetScrollHereY(1.0f);
-		ScrollToBottom = false;
+		m_ScrollToBottom = false;
 
 		ImGui::EndChild();
 		ImGui::Separator();
 
-		if (UseCustomStyle)
-			ImGui::PushStyleColor(ImGuiCol_Text, DefaultTextColor);
+		if (m_UseCustomStyle)
+			ImGui::PushStyleColor(ImGuiCol_Text, m_DefaultTextColor);
 
 		bool reclaim_focus = false;
-		if (InputEnabled && ImGui::InputText("Input", InputBuf, sizeof(InputBuf),
+		if (m_InputEnabled && ImGui::InputText("Input", InputBuf, sizeof(InputBuf),
 			ImGuiInputTextFlags_EnterReturnsTrue |
 			ImGuiInputTextFlags_CallbackCompletion |
 			ImGuiInputTextFlags_CallbackHistory,
 			[](ImGuiInputTextCallbackData* data) -> int {
 				ImGuiConsole* console = (ImGuiConsole*)data->UserData;
 
-				switch (data->EventFlag) {
-				case ImGuiInputTextFlags_CallbackCompletion: {
+				switch (data->EventFlag) 
+				{
+				case ImGuiInputTextFlags_CallbackCompletion: 
+				{
 					std::vector<std::string> suggestions;
 					console->AutoComplete(data->Buf, suggestions);
-					if (!suggestions.empty()) {
+					if (!suggestions.empty()) 
+					{
 						ImStrncpy(data->Buf, suggestions[0].c_str(), data->BufSize);
-						data->Buf[data->BufSize - 1] = '\0'; // Sicherheit
+						data->Buf[data->BufSize - 1] = '\0'; 
 						data->CursorPos = (int)strlen(data->Buf);
 						data->SelectionStart = data->SelectionEnd = data->CursorPos;
 
-						data->BufTextLen = (int)strlen(data->Buf);  // Wichtig!
+						data->BufTextLen = (int)strlen(data->Buf);  
 						data->BufDirty = true;
 					}
 					break;
 				}
-				case ImGuiInputTextFlags_CallbackHistory: {
-					if (data->EventKey == ImGuiKey_UpArrow) {
-						if (console->HistoryPos == -1 && !console->History.empty())
-							console->HistoryPos = (int)console->History.size() - 1;
-						else if (console->HistoryPos > 0)
-							console->HistoryPos--;
+				case ImGuiInputTextFlags_CallbackHistory: 
+				{
+					if (data->EventKey == ImGuiKey_UpArrow) 
+					{
+						if (console->m_HistoryPos == -1 && !console->m_History.empty())
+							console->m_HistoryPos = (int)console->m_History.size() - 1;
+						else if (console->m_HistoryPos > 0)
+							console->m_HistoryPos--;
 					}
-					else if (data->EventKey == ImGuiKey_DownArrow) {
-						if (console->HistoryPos != -1) {
-							console->HistoryPos++;
-							if (console->HistoryPos >= (int)console->History.size())
-								console->HistoryPos = -1;
+					else if (data->EventKey == ImGuiKey_DownArrow) 
+					{
+						if (console->m_HistoryPos != -1) 
+						{
+							console->m_HistoryPos++;
+							if (console->m_HistoryPos >= (int)console->m_History.size())
+								console->m_HistoryPos = -1;
 						}
 					}
 
-					if (console->HistoryPos >= 0 && console->HistoryPos < (int)console->History.size()) {
-						const std::string& historyItem = console->History[console->HistoryPos];
+					if (console->m_HistoryPos >= 0 && console->m_HistoryPos < (int)console->m_History.size()) 
+					{
+						const std::string& historyItem = console->m_History[console->m_HistoryPos];
 						ImStrncpy(data->Buf, historyItem.c_str(), data->BufSize);
 					}
-					else {
+					else 
+					{
 						data->Buf[0] = '\0';
 					}
 
-					data->Buf[data->BufSize - 1] = '\0'; // Sicherheit
+					data->Buf[data->BufSize - 1] = '\0'; 
 					data->CursorPos = (int)strlen(data->Buf);
 					data->SelectionStart = data->SelectionEnd = data->CursorPos;
 
-					data->BufTextLen = (int)strlen(data->Buf);  // Wichtig!
+					data->BufTextLen = (int)strlen(data->Buf);  
 					data->BufDirty = true;
 					break;
 				}
 				}
 
 				return 0;
-			}, (void*)this)) {
+			}, (void*)this)) 
+		{
 
 			std::string cmd(InputBuf);
 			ExecCommand(cmd);
 
-			if (History.empty() || History.back() != cmd)
-				History.push_back(cmd);
+			if (m_History.empty() || m_History.back() != cmd)
+				m_History.push_back(cmd);
 
-			HistoryPos = -1; // Reset History position
+			m_HistoryPos = -1;
 			strcpy(InputBuf, "");
 			reclaim_focus = true;
 		}
@@ -225,32 +247,31 @@ namespace Flux
 		if (reclaim_focus)
 			ImGui::SetKeyboardFocusHere(-1);
 
-		if (UseCustomStyle)
+		if (m_UseCustomStyle)
 			ImGui::PopStyleColor();
 
 		ImGui::End();
 	}
 
-	void ImGuiConsole::RegisterCommand(const std::string& name, const std::string& description, CommandFunc func) {
-		CommandMap[name] = { func, description };
+	void ImGuiConsole::RegisterCommand(const std::string& _name, const std::string& _description, CommandFunc _func) 
+	{
+		m_CommandMap[_name] = { _func, _description };
 	}
 
-	bool ImGuiConsole::ExecuteCommand(const std::string& input, std::string& outError) {
-		for (size_t i = input.size(); i > 0; --i) {
-			std::string cmd = input.substr(0, i);
-			auto it = CommandMap.find(cmd);
-			if (it != CommandMap.end()) {
-				std::string args = (i < input.size()) ? input.substr(i + 1) : "";
+	bool ImGuiConsole::ExecuteCommand(const std::string& _input, std::string& _outError) 
+	{
+		for (size_t i = _input.size(); i > 0; --i) {
+			std::string cmd = _input.substr(0, i);
+			auto it = m_CommandMap.find(cmd);
+			if (it != m_CommandMap.end()) 
+			{
+				std::string args = (i < _input.size()) ? _input.substr(i + 1) : "";
 				it->second.function(args);
 				return true;
 			}
 		}
 
-		outError = "unknown command: " + input + "\n" + "Enter the 'help' command for all available commands.";
+		_outError = "unknown command: " + _input + "\n" + "Enter the 'help' command for all available commands.";
 		return false;
 	}
-
-
-
-
 }

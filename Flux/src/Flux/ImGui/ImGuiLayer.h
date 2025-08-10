@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Flux/Layer.h"
-
 #include "Flux/Events/ApplicationEvent.h"
 #include "Flux/Events/KeyEvent.h"
 #include "Flux/Events/MouseEvent.h"
@@ -23,7 +22,5 @@ namespace Flux
 
 	private:
 		float m_Time = 0.0f;
-
-
 	};
 }

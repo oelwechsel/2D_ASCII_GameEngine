@@ -1,11 +1,9 @@
 #pragma once
-
 #include "Core.h"
 #include "Window.h"
 #include "Flux/LayerStack.h"
 #include "Flux/Events/Event.h"
 #include "Flux/Events/ApplicationEvent.h"
-
 #include "Flux/ImGui/ImGuiLayer.h"
 #include "Flux/ScriptManagerLayer.h"
 
@@ -20,7 +18,7 @@ namespace Flux
 
 		void Run();
 
-		void OnEvent(Event& e);
+		void OnEvent(Event& _e);
 
 		void PushLayer(Layer* _layer);
 		void PushOverlay(Layer* _overlay);

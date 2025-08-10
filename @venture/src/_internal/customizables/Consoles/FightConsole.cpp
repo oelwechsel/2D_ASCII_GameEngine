@@ -6,14 +6,14 @@
 
 FightConsole::FightConsole()
 {
-    UseCustomStyle = true;
-    DefaultTextColor = ImVec4(1.0f, 0.4f, 0.4f, 0.8f);
+    m_UseCustomStyle = true;
+    m_DefaultTextColor = ImVec4(1.0f, 0.4f, 0.4f, 0.8f);
 
     m_WaitingForPassword = false;
 
     RegisterCommand("help", "Shows all available commands", [this](const std::string&) {
         AddLog("=== Available commands ===");
-        for (const auto& [cmd, entry] : CommandMap)
+        for (const auto& [cmd, entry] : m_CommandMap)
             AddLog("  %-12s - %s", cmd.c_str(), entry.description.c_str());
         AddLog("==========================");
         });
@@ -122,12 +122,12 @@ void FightConsole::ExecCommand(const std::string& command)
         return;
     }
 
-    AddLog(LogLevel::Info, "$ %s", command.c_str());
+    AddLog(LogLevel::e_Info, "$ %s", command.c_str());
 
     std::string error;
     if (!ExecuteCommand(command, error))
     {
-        AddLog(LogLevel::Warning, "%s", error.c_str());
+        AddLog(LogLevel::e_Warning, "%s", error.c_str());
         return;
     }
 }
@@ -136,7 +136,7 @@ void FightConsole::ExecCommand(const std::string& command)
 
 void FightConsole::AutoComplete(const std::string& currentInput, std::vector<std::string>& suggestions)
 {
-    for (const auto& [cmd, _] : CommandMap)
+    for (const auto& [cmd, _] : m_CommandMap)
     {
         if (cmd.find(currentInput) == 0)
             suggestions.push_back(cmd + " ");

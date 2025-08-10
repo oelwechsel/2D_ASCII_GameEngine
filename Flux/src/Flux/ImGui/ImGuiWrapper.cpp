@@ -27,17 +27,15 @@ namespace Flux::ImGuiWrapper
 		ImGui::TextV(fmt, args);
 		va_end(args);
 	}
-	
-	// String
+
 	void Text(const std::string& str)
 	{
 		ImGui::TextUnformatted(str.c_str());
 	}
 
-	// vector<string>
-	void Text(const std::vector<std::string>& lines)
+	void Text(const std::vector<std::string>& _lines)
 	{
-		for (const auto& line : lines)
+		for (const auto& line : _lines)
 		{
 			ImGui::TextUnformatted(line.c_str());
 		}
@@ -53,9 +51,9 @@ namespace Flux::ImGuiWrapper
 		return ImGui::Button(_buttonName);
 	}
 
-	void Image(unsigned int textureID, ImVec2 size)
+	void Image(unsigned int _textureID, ImVec2 _size)
 	{
-		ImGui::Image((ImTextureID)textureID, size);
+		ImGui::Image((ImTextureID)_textureID, _size);
 	}
 
 	float ImGuiWrapper::GetFontSize()
@@ -73,12 +71,12 @@ namespace Flux::ImGuiWrapper
 		return ImGui::GetWindowDrawList();
 	}
 
-	void ImGuiWrapper::AddText(ImDrawList* drawList, const ImVec2& pos, ImU32 color, const char* text)
+	void ImGuiWrapper::AddText(ImDrawList* _drawList, const ImVec2& _pos, ImU32 _color, const char* _text)
 	{
-		drawList->AddText(pos, color, text);
+		_drawList->AddText(_pos, _color, _text);
 	}
 
-	inline void ImGuiWrapper::AnimateLayers(ImDrawList* drawList, ImVec2 startPos,
+	inline void ImGuiWrapper::AnimateLayers(ImDrawList* _drawList, ImVec2 _startPos,
 		const std::vector<std::string>& layers,
 		const std::vector<ImU32>& layerColors)
 	{
@@ -87,7 +85,7 @@ namespace Flux::ImGuiWrapper
 		for (size_t layerIndex = 0; layerIndex < layers.size(); ++layerIndex)
 		{
 			const std::string& layerText = layers[layerIndex];
-			float y = startPos.y;
+			float y = _startPos.y;
 
 			std::istringstream iss(layerText);
 			std::string line;
@@ -95,7 +93,7 @@ namespace Flux::ImGuiWrapper
 			{
 				ImU32 color = layerColors.size() > layerIndex ? layerColors[layerIndex] : layerColors.back();
 
-				AddText(drawList, ImVec2(startPos.x, y), color, line.c_str());
+				AddText(_drawList, ImVec2(_startPos.x, y), color, line.c_str());
 
 				y += lineHeight;
 			}
@@ -106,31 +104,29 @@ namespace Flux::ImGuiWrapper
 		return ImGui::GetIO().DisplayFramebufferScale;
 	}
 
-	void ImGuiWrapper::LoadCustomFont(const std::string& fontPath, float fontSize, const std::string& extraChars)
+	void ImGuiWrapper::LoadCustomFont(const std::string& _fontPath, float _fontSize, const std::string& _extraChars)
 	{
 		ImGuiIO& io = ImGui::GetIO();
 
 		ImFontGlyphRangesBuilder builder;
 		builder.AddRanges(io.Fonts->GetGlyphRangesDefault());
-		builder.AddText(extraChars.c_str());  // ⬅️ Hier fügst du deine eigenen Zeichen hinzu
+		builder.AddText(_extraChars.c_str()); 
 
 		ImVector<ImWchar> ranges;
 		builder.BuildRanges(&ranges);
 
-		ImFont* font = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), fontSize, nullptr, ranges.Data);
+		ImFont* font = io.Fonts->AddFontFromFileTTF(_fontPath.c_str(), _fontSize, nullptr, ranges.Data);
 		if (!font)
 		{
-			FX_WARN("[ImGuiWrapper] Failed to load font from path: {}", fontPath);
+			FX_WARN("[ImGuiWrapper] Failed to load font from path: {}", _fontPath);
 		}
 		else
 		{
-			FX_INFO("[ImGuiWrapper] Successfully loaded font: {}", fontPath);
+			FX_INFO("[ImGuiWrapper] Successfully loaded font: {}", _fontPath);
 		}
 	}
 
 	ImVec2 ImGuiWrapper::GetContentRegionAvail() {
 		return ImGui::GetContentRegionAvail();
 	}
-	
-
 }

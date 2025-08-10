@@ -97,7 +97,7 @@ private:
                 NPCWindowScript::Instance().HideNPCWindow();
                 gm.m_playerIsInteracting = false;
 
-                entities[lastNPC].hasInteractedWith = true;
+                entities[lastNPC].m_HasInteractedWith = true;
                 if (entities[lastNPC].afterInteraction) {
                     entities[lastNPC].afterInteraction();
                 }
@@ -107,27 +107,27 @@ private:
             else
             {
                 std::vector<std::pair<int, int>> adjacentPositions = {
-                    {player.x, player.y - 1},
-                    {player.x, player.y + 1},
-                    {player.x - 1, player.y},
-                    {player.x + 1, player.y}
+                    {player.m_xPos, player.m_yPos - 1},
+                    {player.m_xPos, player.m_yPos + 1},
+                    {player.m_xPos - 1, player.m_yPos},
+                    {player.m_xPos + 1, player.m_yPos}
                 };
 
                 for (size_t i = 1; i < entities.size(); ++i)
                 {
                     for (const auto& [x, y] : adjacentPositions)
                     {
-                        if (entities[i].x == x && entities[i].y == y)
+                        if (entities[i].m_xPos == x && entities[i].m_yPos == y)
                         {
                             NPCWindowScript::Instance().ShowNPCWindow(entities[i]);
 
-                            std::string command = "$ cat ./home/" + entities[i].name + "/welcome_message.txt";
-                            ConsoleManagerScript::Instance().m_overworldConsole.AddLog(Flux::ImGuiConsole::LogLevel::Info, "%s", command.c_str());
+                            std::string command = "$ cat ./home/" + entities[i].m_Name + "/welcome_message.txt";
+                            ConsoleManagerScript::Instance().m_overworldConsole.AddLog(Flux::ImGuiConsole::LogLevel::e_Info, "%s", command.c_str());
 
-                            const auto& lines = gm.LoadDialogueLinesForSymbol(entities[i].dirName);
+                            const auto& lines = gm.LoadDialogueLinesForSymbol(entities[i].m_DirName);
                             for (const auto& line : lines) 
                             {
-                                ConsoleManagerScript::Instance().m_overworldConsole.AddCustomLog(entities[i].name, entities[i].logColor, line.c_str());
+                                ConsoleManagerScript::Instance().m_overworldConsole.AddCustomLog(entities[i].m_Name, entities[i].m_LogColor, line.c_str());
                             }
 
                             if (entities[i].onInteract) {
@@ -150,7 +150,7 @@ private:
             NPCWindowScript::Instance().HideNPCWindow();
             gm.m_playerIsInteracting = false;
 
-            entities[lastNPC].hasInteractedWith = true;
+            entities[lastNPC].m_HasInteractedWith = true;
             if (entities[lastNPC].afterInteraction) {
                 entities[lastNPC].afterInteraction();
             }
@@ -160,13 +160,13 @@ private:
 
         if ((dx != 0 || dy != 0) && !gm.m_playerIsInteracting)
         {
-            int targetX = player.x + dx;
-            int targetY = player.y + dy;
+            int targetX = player.m_xPos + dx;
+            int targetY = player.m_yPos + dy;
 
             if (!gm.m_NPCsDead) {
                 for (size_t i = 1; i < entities.size(); ++i)
                 {
-                    if (entities[i].x == targetX && entities[i].y == targetY)
+                    if (entities[i].m_xPos == targetX && entities[i].m_yPos == targetY)
                         return;
                 }
             }
@@ -175,13 +175,13 @@ private:
             if (!mapScript || mapScript->IsTileBlocked(targetX, targetY))
                 return;
 
-            player.x = targetX;
-            player.y = targetY;
+            player.m_xPos = targetX;
+            player.m_yPos = targetY;
             m_moveTimer = 0.0f;
 
             mapScript->UpdateRenderTiles();
 
-            if (player.x == 39 && player.y == 16) {
+            if (player.m_xPos == 39 && player.m_yPos == 16) {
                 GameManagerVariables::Instance().m_isInFight = true;
                 EnemyControllerScript::Instance().StartFight();
             }

@@ -36,9 +36,6 @@
     <ClInclude Include="src\Flux\Entity.h">
       <Filter>src\Flux</Filter>
     </ClInclude>
-    <ClInclude Include="src\Flux\EntryPoint.h">
-      <Filter>src\Flux</Filter>
-    </ClInclude>
     <ClInclude Include="src\Flux\Events\ApplicationEvent.h">
       <Filter>src\Flux\Events</Filter>
     </ClInclude>

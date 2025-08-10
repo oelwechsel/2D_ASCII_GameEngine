@@ -12,21 +12,21 @@ namespace Flux
     class FLUX_API Entity 
     {
     public:
-        int x, y;
-        char ascii;
-        std::string name;
-        bool isPlayer;
-        std::vector<std::string> dialogueLines;
-        std::vector<std::string> animationFrames;
-        std::vector<LayeredFrame> layeredFrames;
-        float frameDuration;
-        ImVec2 windowSize;
+        int m_xPos, m_yPos;
+        char m_AsciiName;
+        std::string m_Name;
+        bool m_IsPlayer;
+        std::vector<std::string> m_DialogueLines;
+        std::vector<std::string> m_AnimationFrames;
+        std::vector<LayeredFrame> m_LayeredFrames;
+        float m_FrameDuration;
+        ImVec2 m_WindowSize;
         std::function<void()> afterInteraction;
         std::function<void()> onInteract;
-        bool hasInteractedWith = false;
-        std::string dirName;
-        ImVec4 logColor;
+        bool m_HasInteractedWith = false;
+        std::string m_DirName;
+        ImVec4 m_LogColor;
 
-        Entity(int x_, int y_, char ascii_, std::string name_, std::string dirName_, ImVec4 logColor_, float frameDuration_, ImVec2 windowSize_ = ImVec2(230, 350), bool isPlayer_ = false);
+        Entity(int _xPos, int _yPos, char _AsciiName, std::string _Name, std::string _dirName, ImVec4 _logColor, float _frameDuration, ImVec2 _windowSize = ImVec2(230, 350), bool _isPlayer = false);
     };
 }

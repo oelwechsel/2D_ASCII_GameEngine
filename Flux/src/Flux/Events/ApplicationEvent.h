@@ -1,14 +1,13 @@
 #pragma once
 
-
 namespace Flux {
 
 	class FLUX_API WindowResizeEvent : public Event
 	{
 	public:
 		WindowResizeEvent(unsigned int _width, unsigned int _height)
-			: m_Width(_width), m_Height(_height) {
-		}
+			: m_Width(_width), m_Height(_height) 
+		{}
 
 		inline unsigned int GetWidth() const { return m_Width; }
 		inline unsigned int GetHeight() const { return m_Height; }

@@ -7,7 +7,7 @@
 		#define FLUX_API __declspec(dllimport)
 	#endif 
 #else
-	#error Flux Engine is only Supporting Windows!
+	#error Flux Engine is Windows only for now
 #endif
 
 #ifdef FX_ENABLE_ASSERTS
