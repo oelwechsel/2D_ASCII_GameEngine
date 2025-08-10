@@ -181,7 +181,7 @@ private:
 
             mapScript->UpdateRenderTiles();
 
-            if (player.x == 38 && player.y == 16) {
+            if (player.x == 39 && player.y == 16) {
                 GameManagerVariables::Instance().m_isInFight = true;
                 EnemyControllerScript::Instance().StartFight();
             }
