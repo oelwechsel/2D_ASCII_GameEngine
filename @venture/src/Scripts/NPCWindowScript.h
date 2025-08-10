@@ -112,7 +112,7 @@ private:
 		if (!m_showWindow || !m_activeNPC)
 			return;
 
-		if (!GameManagerScript::Instance().m_isInFight)
+		if (!GameManagerVariables::Instance().m_isInFight)
 		{
 			Flux::ImGuiWrapper::Begin(m_name.c_str(), m_windowSize, m_position, m_windowFlags);
 

@@ -6,6 +6,7 @@
 #include "Scripts/EnemyControllerScript.h"
 #include "Scripts/FightRendererScript.h"
 #include "Scripts/GameManagerScript.h"
+#include "Scripts/GameManagerVariables.h"
 #include "Scripts/MapRendererScript.h"
 #include "Scripts/NPCWindowScript.h"
 #include "Scripts/PlayerControllerScript.h"

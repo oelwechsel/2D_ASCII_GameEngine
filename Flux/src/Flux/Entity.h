@@ -21,6 +21,9 @@ namespace Flux
         std::vector<LayeredFrame> layeredFrames;
         float frameDuration;
         ImVec2 windowSize;
+        std::function<void()> afterInteraction;
+        std::function<void()> onInteract;
+        bool hasInteractedWith = false;
 
         Entity(int x_, int y_, char ascii_, std::string name_, float frameDuration_, ImVec2 windowSize_ = ImVec2(230, 350), bool isPlayer_ = false);
     };

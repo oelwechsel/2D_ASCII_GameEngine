@@ -42,6 +42,9 @@
     <ClInclude Include="src\Scripts\GameManagerScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scripts\GameManagerVariables.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
     <ClInclude Include="src\Scripts\MapRendererScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>

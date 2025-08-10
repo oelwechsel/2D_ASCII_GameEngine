@@ -1,7 +1,7 @@
 #pragma once
 #include <Flux.h>
 #include "EnemyControllerScript.h"
-#include "GameManagerScript.h"
+#include "GameManagerVariables.h"
 
 
 class FightRendererScript : public Flux::IScript
@@ -72,7 +72,7 @@ private:
 
 	void OnImGuiRender() override
 	{
-		if (GameManagerScript::Instance().m_isInFight) 
+		if (GameManagerVariables::Instance().m_isInFight)
 		{
 			m_scale = Flux::ImGuiWrapper::GetScale();
 

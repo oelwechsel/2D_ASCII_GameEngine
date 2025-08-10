@@ -2,7 +2,7 @@
 #include <Flux.h>
 #include "_internal/customizables/Consoles/TestConsole.h"
 #include "_internal/customizables/Consoles/FightConsole.h"
-#include "GameManagerScript.h"
+#include "GameManagerVariables.h"
 
 class ConsoleManagerScript : public Flux::IScript
 {
@@ -68,7 +68,7 @@ private:
 	void OnImGuiRender() override
 	{
 		m_scale = Flux::ImGuiWrapper::GetScale();
-		if (!GameManagerScript::Instance().m_isInFight)
+		if (!GameManagerVariables::Instance().m_isInFight)
 		{
 			m_overworldConsole.Draw("console", "welcome", ImVec2(m_screenWidthWindows * 0.6f, m_screenHeightWindows * 0.3f), ImVec2(450 * m_scale.x, 600 * m_scale.y), &m_ConsoleFocused);
 		}

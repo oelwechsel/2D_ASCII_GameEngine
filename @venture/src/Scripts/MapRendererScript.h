@@ -3,7 +3,7 @@
 #include "_internal/MapToRenderTiles.h"
 #include "_internal/customizables/Dictionary/ASCIIBlockDictionary.h"
 
-#include "GameManagerScript.h"
+#include "GameManagerVariables.h"
 
 class MapRendererScript : public Flux::IScript
 {
@@ -170,7 +170,7 @@ private:
 
 	void OnImGuiRender() override
 	{
-		if (!GameManagerScript::Instance().m_isInFight)
+		if (!GameManagerVariables::Instance().m_isInFight)
 		{
 			Flux::ImGuiWrapper::Begin("@venture", {}, m_position, ImGuiWindowFlags_NoCollapse);
 

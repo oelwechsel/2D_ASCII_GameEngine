@@ -23,6 +23,8 @@ private:
 
     bool m_wasEPressedLastFrame = false;
 
+    int lastNPC;
+
 public:
 	// define your public Variables here
 
@@ -64,7 +66,7 @@ private:
 
     void Update(float deltaTime) override
     {
-        if (ConsoleManagerScript::Instance().m_ConsoleFocused)
+        if (ConsoleManagerScript::Instance().m_ConsoleFocused || GameManagerVariables::Instance().m_isInFight)
             return;
 
         m_moveTimer += deltaTime;
@@ -94,6 +96,12 @@ private:
             {
                 NPCWindowScript::Instance().HideNPCWindow();
                 gm.m_playerIsInteracting = false;
+                gm.HasInteractedWithAllNPCs();
+
+                entities[lastNPC].hasInteractedWith = true;
+                if (entities[lastNPC].afterInteraction) {
+                    entities[lastNPC].afterInteraction();
+                }
             }
             else
             {
@@ -115,21 +123,17 @@ private:
                             std::string command = "$ cat ./home/" + entities[i].name + "/welcome_message.txt";
                             ConsoleManagerScript::Instance().m_overworldConsole.AddLog(Flux::ImGuiConsole::LogLevel::Info, "%s", command.c_str());
 
-                            /*ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_R", std::vector<char>{ 'R', 'R', 'R', 'R' });
-                            ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_o", std::vector<char>{ '0', '0', '0', '0' });
-                            ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_O", std::vector<char>{ '0', '0', '0', '0' });
-                            ASCIIBlockDictionary::Instance().SetBlockPattern("root_path_t", std::vector<char>{ 'T', 'T', 'T', 'T' });
-                            ASCIIBlockDictionary::Instance().setAllColorsRedExceptPlayerAndRootPathway();
-
-                            GameManagerScript::Instance().m_NPCsDead = true;*/
-
-                            GameManagerScript::Instance().m_isInFight = true;
-                            EnemyControllerScript::Instance().StartFight();
 
                             for (const auto& line : entities[i].dialogueLines) {
                                 ConsoleManagerScript::Instance().m_overworldConsole.AddLog(line.c_str());
                             }
+
+                            if (entities[i].onInteract) {
+                                entities[i].onInteract();
+                            }
+
                             gm.m_playerIsInteracting = true;
+                            lastNPC = i;
                             break;
                         }
                     }
@@ -143,6 +147,12 @@ private:
         {
             NPCWindowScript::Instance().HideNPCWindow();
             gm.m_playerIsInteracting = false;
+            gm.HasInteractedWithAllNPCs();
+
+            entities[lastNPC].hasInteractedWith = true;
+            if (entities[lastNPC].afterInteraction) {
+                entities[lastNPC].afterInteraction();
+            }
         }
 
         if ((dx != 0 || dy != 0) && !gm.m_playerIsInteracting)
@@ -167,6 +177,11 @@ private:
             m_moveTimer = 0.0f;
 
             mapScript->UpdateRenderTiles();
+
+            if (player.x == 38 && player.y == 16) {
+                GameManagerVariables::Instance().m_isInFight = true;
+                EnemyControllerScript::Instance().StartFight();
+            }
         }
     }
 
