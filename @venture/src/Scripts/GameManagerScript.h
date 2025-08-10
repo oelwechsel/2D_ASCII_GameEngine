@@ -141,6 +141,17 @@ public:
         }
     }
 
+    void DeleteDirectory(const fs::path& dirPath) 
+    {
+        if (fs::exists(dirPath) && fs::is_directory(dirPath)) {
+            std::error_code ec; 
+            fs::remove_all(dirPath, ec);
+            if (ec) {
+                FX_WARN("Error when deleting directory");
+            }
+        }
+    }
+
     void Start() override
     {
         if (s_Instance && s_Instance != this)
@@ -193,7 +204,15 @@ public:
                 gm.entities.end()
             );
 
-            //TODO Delete directories 
+            for (auto& entity : gm.entities) {
+                if (entity.name == "=") {
+                    entity.hasInteractedWith = true;
+                    break;
+                }
+            }
+
+            gm.DeleteDirectory(fs::current_path() / "home" / "percent");
+            gm.DeleteDirectory(fs::current_path() / "home" / "equals");
 
             };
         entities.push_back(percentNPC);

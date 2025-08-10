@@ -96,12 +96,13 @@ private:
             {
                 NPCWindowScript::Instance().HideNPCWindow();
                 gm.m_playerIsInteracting = false;
-                gm.HasInteractedWithAllNPCs();
 
                 entities[lastNPC].hasInteractedWith = true;
                 if (entities[lastNPC].afterInteraction) {
                     entities[lastNPC].afterInteraction();
                 }
+
+                gm.HasInteractedWithAllNPCs();
             }
             else
             {
@@ -147,12 +148,13 @@ private:
         {
             NPCWindowScript::Instance().HideNPCWindow();
             gm.m_playerIsInteracting = false;
-            gm.HasInteractedWithAllNPCs();
 
             entities[lastNPC].hasInteractedWith = true;
             if (entities[lastNPC].afterInteraction) {
                 entities[lastNPC].afterInteraction();
             }
+
+            gm.HasInteractedWithAllNPCs();
         }
 
         if ((dx != 0 || dy != 0) && !gm.m_playerIsInteracting)
