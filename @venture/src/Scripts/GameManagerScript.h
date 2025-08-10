@@ -175,12 +175,12 @@ public:
         questionNPC.dialogueLines = LoadDialogueLinesForSymbol("question_mark");
         entities.push_back(questionNPC);
 
-        Flux::Entity andNPC(6, 95, '&', "&", 0.2f, ImVec2(240, 350), false);
+        Flux::Entity andNPC(70, 5, '&', "&", 0.2f, ImVec2(240, 350), false);
         andNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("AND_Animation.txt");
         andNPC.dialogueLines = LoadDialogueLinesForSymbol("and");
         entities.push_back(andNPC);
 
-        Flux::Entity percentNPC(1, 38, '%', "%", 0.2f, ImVec2(300, 450), false);
+        Flux::Entity percentNPC(51, 30, '%', "%", 0.2f, ImVec2(300, 450), false);
         percentNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("PERC_Animation.txt");
         percentNPC.dialogueLines = LoadDialogueLinesForSymbol("percent");
         percentNPC.onInteract = []() {
@@ -218,7 +218,7 @@ public:
             };
         entities.push_back(percentNPC);
 
-        Flux::Entity equalsNPC(51, 30, 'a', "=", 0.2f, ImVec2(230, 350), false);
+        Flux::Entity equalsNPC(62, 30, 'a', "=", 0.2f, ImVec2(230, 350), false);
         equalsNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("EQUA_Animation.txt");
         equalsNPC.dialogueLines = LoadDialogueLinesForSymbol("equals");
         entities.push_back(equalsNPC);
