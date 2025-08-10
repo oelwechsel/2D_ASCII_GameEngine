@@ -85,7 +85,7 @@ private:
 	{
 		s_Instance = this;
 
-		m_position.x = m_screenWidthWindows * 0.15f;
+		m_position.x = m_screenWidthWindows * 0.17f;
 		m_position.y = m_screenHeightWindows * 0.3f;
 	}
 

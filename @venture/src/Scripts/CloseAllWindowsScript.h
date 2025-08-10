@@ -20,8 +20,8 @@ private:
 
 	void Start() override
 	{
-		m_position.x = m_screenWidthWindows * 0.6f;
-		m_position.y = m_screenHeightWindows * 0.2f;
+		m_position.x = m_screenWidthWindows * 0.75f;
+		m_position.y = m_screenHeightWindows * 0.0f;
 
 		m_MDHLogo = Flux::FileLoader::LoadTextureFromFile("MDH_Logo.png");
 	}

@@ -125,7 +125,7 @@ private:
 		m_MapSize = ImVec2(m_mapWidth * m_tileSize, m_mapHeight * m_tileSize);
 
 
-		m_position.x = m_screenWidthWindows * 0.25f;
+		m_position.x = m_screenWidthWindows * 0.30f;
 		m_position.y = m_screenHeightWindows * 0.3f;
 	}
 
@@ -172,7 +172,7 @@ private:
 	{
 		if (!GameManagerVariables::Instance().m_isInFight)
 		{
-			Flux::ImGuiWrapper::Begin("@venture", ImVec2(m_MapSize.x + 15, m_MapSize.y + 35), m_position, ImGuiWindowFlags_NoCollapse);
+			Flux::ImGuiWrapper::Begin("@venture", ImVec2(m_MapSize.x * 2 , m_MapSize.y * 2 ), m_position, ImGuiWindowFlags_NoCollapse);
 
 			ImVec2 availSize = Flux::ImGuiWrapper::GetContentRegionAvail();
 
@@ -189,8 +189,7 @@ private:
 
 			Flux::ImGuiWrapper::Image(m_texture, scaledMapSize);
 
-			double fps = 1.0 / m_deltaTime;
-			Flux::ImGuiWrapper::Text("FPS: %.1f", fps);
+
 
 			Flux::ImGuiWrapper::End();
 		}
