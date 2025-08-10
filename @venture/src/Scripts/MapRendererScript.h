@@ -172,7 +172,7 @@ private:
 	{
 		if (!GameManagerVariables::Instance().m_isInFight)
 		{
-			Flux::ImGuiWrapper::Begin("@venture", {}, m_position, ImGuiWindowFlags_NoCollapse);
+			Flux::ImGuiWrapper::Begin("@venture", ImVec2(m_MapSize.x + 15, m_MapSize.y + 35), m_position, ImGuiWindowFlags_NoCollapse);
 
 			ImVec2 availSize = Flux::ImGuiWrapper::GetContentRegionAvail();
 

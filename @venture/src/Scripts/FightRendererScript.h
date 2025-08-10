@@ -84,7 +84,7 @@ private:
 			Flux::ImGuiWrapper::Text(GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::Right ? "@" : " ");
 			Flux::ImGuiWrapper::End();
 
-			Flux::ImGuiWrapper::Begin("Enemy", ImVec2(1216 * m_scale.x, 684 * m_scale.y), ImVec2(m_screenWidthWindows * 0.10f, m_screenWidthWindows * 0.10f), ImGuiWindowFlags_NoCollapse);
+			Flux::ImGuiWrapper::Begin("ROOT", ImVec2(1216 * m_scale.x, 684 * m_scale.y), ImVec2(m_screenWidthWindows * 0.10f, m_screenWidthWindows * 0.10f), ImGuiWindowFlags_NoCollapse);
 
 			auto* enemyController = EnemyControllerScript::Get();
 			if (!enemyController)

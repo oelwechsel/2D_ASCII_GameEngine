@@ -97,7 +97,11 @@ void FightConsole::ExecCommand(const std::string& command)
     {
         if (command == m_Password)
         {
-            AddLog("Password correct! The ROOT is hit and the fight ends.");
+            AddLog("Password correct!");
+            AddLog("...");
+            AddLog("...");
+            AddLog("User @ disconnected");
+            AddLog("Now executing as ROOT");
             EnemyControllerScript::Instance().m_BossEnemyHP = 0;
             EnemyControllerScript::Instance().e_BossEnemyFightState = EnemyControllerScript::EnemyState::TargetGetHit;
             EnemyControllerScript::Instance().e_BossEnemyFightState = EnemyControllerScript::EnemyState::CutsceneEnd;
