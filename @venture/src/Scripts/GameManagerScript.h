@@ -167,20 +167,20 @@ public:
         CreateGameFolderStructure();
 
         // Rest des Codes
-        Flux::Entity player(20, 14, '@', "@", true);
+        Flux::Entity player(20, 14, '@', "@", "@", true);
         entities.push_back(player);
 
-        Flux::Entity questionNPC(39, 25, '?', "?", 0.2f, ImVec2(180, 370), false);
+        Flux::Entity questionNPC(39, 25, '?', "?", "question_mark", 0.2f, ImVec2(180, 370), false);
         questionNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("QUEST_Animation.txt");
         questionNPC.dialogueLines = LoadDialogueLinesForSymbol("question_mark");
         entities.push_back(questionNPC);
 
-        Flux::Entity andNPC(70, 5, '&', "&", 0.2f, ImVec2(240, 350), false);
+        Flux::Entity andNPC(70, 5, '&', "&", "and", 0.2f, ImVec2(240, 350), false);
         andNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("AND_Animation.txt");
         andNPC.dialogueLines = LoadDialogueLinesForSymbol("and");
         entities.push_back(andNPC);
 
-        Flux::Entity percentNPC(51, 30, '%', "%", 0.2f, ImVec2(300, 450), false);
+        Flux::Entity percentNPC(51, 30, '%', "%", "percent", 0.2f, ImVec2(300, 450), false);
         percentNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("PERC_Animation.txt");
         percentNPC.dialogueLines = LoadDialogueLinesForSymbol("percent");
         percentNPC.onInteract = []() {
@@ -218,12 +218,12 @@ public:
             };
         entities.push_back(percentNPC);
 
-        Flux::Entity equalsNPC(62, 30, 'a', "=", 0.2f, ImVec2(230, 350), false);
+        Flux::Entity equalsNPC(62, 30, 'a', "=", "equals", 0.2f, ImVec2(230, 350), false);
         equalsNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("EQUA_Animation.txt");
         equalsNPC.dialogueLines = LoadDialogueLinesForSymbol("equals");
         entities.push_back(equalsNPC);
 
-        Flux::Entity exclamationNPC(8, 5, '!', "!", 0.3f, ImVec2(170, 390), false);
+        Flux::Entity exclamationNPC(8, 5, '!', "!", "exclamation_mark", 0.3f, ImVec2(170, 390), false);
         exclamationNPC.layeredFrames = Flux::FileLoader::LoadAsciiFrames("EXCL_Animation.txt");
         exclamationNPC.dialogueLines = LoadDialogueLinesForSymbol("exclamation_mark");
         entities.push_back(exclamationNPC);

@@ -90,7 +90,7 @@ private:
         auto& entities = gm.entities;
         auto& player = entities[0];
 
-        if (isEPressedNow && !m_wasEPressedLastFrame)
+        if (isEPressedNow && !m_wasEPressedLastFrame && !gm.m_NPCsDead)
         {
             if (gm.m_playerIsInteracting)
             {
@@ -125,7 +125,8 @@ private:
                             ConsoleManagerScript::Instance().m_overworldConsole.AddLog(Flux::ImGuiConsole::LogLevel::Info, "%s", command.c_str());
 
 
-                            for (const auto& line : entities[i].dialogueLines) {
+                            const auto& lines = gm.LoadDialogueLinesForSymbol(entities[i].dirName);
+                            for (const auto& line : lines) {
                                 ConsoleManagerScript::Instance().m_overworldConsole.AddLog(line.c_str());
                             }
 
