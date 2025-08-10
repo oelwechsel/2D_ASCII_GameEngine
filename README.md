@@ -33,15 +33,17 @@ student project:
 For further documentation, please refer to our [📚Wiki](https://github.com/oelwechsel/2D_ASCII_GameEngine/wiki),
 
 Enjoy!
+Three Pebbles Team ;p
 
 ```
-	       /\   /\            .-´‾‾)
-	      / ´‾‾‾` \          / /´‾‾
-	     =  o x o  =         ) )
-	     (`-------´\________( (
-	     (                  `\,\
-              ;___          (‾‾\   ))
-	     (____`,   ,-´‾‾    \./´
+      \|/                                   
+    .---._        .---._        .---._      
+   /      `.     /      `.     /      `.  ^ 
+ o-| @  @  |7  o-| @  @  |7  o-| @  @  |7/  
+   :       :o    :       :o    :       :o   
+    `-----´       `-----´       `-----´/    
+     _| |_         _| |_         _| |_/     
+                                            
 ```
 
 
