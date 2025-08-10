@@ -105,7 +105,8 @@ private:
         loadAnim("attack_right", "BOSS_Attack_Right.txt", 0.15f);
         loadAnim("fight_start", "CUTSCENE_1.txt", 0.15f);
         loadAnim("fight_end", "CUTSCENE_2.txt", 0.15f);
-        loadAnim("target_getHit", "AND_Animation.txt", 0.15f);
+        loadAnim("target_getHit_left", "BOSS_GetHit_Left.txt", 0.15f);
+        loadAnim("target_getHit_right", "BOSS_GetHit_Right.txt", 0.15f);
 
     }
 
@@ -175,7 +176,7 @@ private:
                 break;
 
             case EnemyState::TargetGetHit: 
-                PlayAnimation("target_getHit");
+                PlayAnimation(m_LastTargetDirection == Direction::Left ? "target_getHit_left" : "target_getHit_right");
                 break;
 
             case EnemyState::Attacking:
