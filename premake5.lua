@@ -120,11 +120,6 @@ project "Flux"
             '{COPYFILE} "%{cfg.buildtarget.relpath}" "../bin/' .. outputdir .. '/@venture/"',
             '{MKDIR} "../bin/' .. outputdir .. '/@venture/src/"',
             '{COPYDIR} "../@venture/src/res" "../bin/' .. outputdir .. '/@venture/src/res"',
-
-            '{MKDIR} "../bin/' .. outputdir .. '/@secondgame/"',
-            '{COPYFILE} "%{cfg.buildtarget.relpath}" "../bin/' .. outputdir .. '/@secondgame/"',
-            '{MKDIR} "../bin/' .. outputdir .. '/@secondgame/src/"',
-            '{COPYDIR} "../@secondgame/src/res" "../bin/' .. outputdir .. '/@secondgame/src/res"'
         }
 
     filter "configurations:Debug"

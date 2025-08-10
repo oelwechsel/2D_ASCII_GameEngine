@@ -99,11 +99,7 @@
       <Command>IF NOT EXIST "..\bin\Debug-windows-x86_64\@venture\" (mkdir "..\bin\Debug-windows-x86_64\@venture\")
 copy /B /Y "..\bin\Debug-windows-x86_64\Flux\Flux.dll" "..\bin\Debug-windows-x86_64\@venture\"
 IF NOT EXIST "..\bin\Debug-windows-x86_64\@venture\src\" (mkdir "..\bin\Debug-windows-x86_64\@venture\src\")
-xcopy /Q /E /Y /I "..\@venture\src\res" "..\bin\Debug-windows-x86_64\@venture\src\res"
-IF NOT EXIST "..\bin\Debug-windows-x86_64\@secondgame\" (mkdir "..\bin\Debug-windows-x86_64\@secondgame\")
-copy /B /Y "..\bin\Debug-windows-x86_64\Flux\Flux.dll" "..\bin\Debug-windows-x86_64\@secondgame\"
-IF NOT EXIST "..\bin\Debug-windows-x86_64\@secondgame\src\" (mkdir "..\bin\Debug-windows-x86_64\@secondgame\src\")
-xcopy /Q /E /Y /I "..\@secondgame\src\res" "..\bin\Debug-windows-x86_64\@secondgame\src\res"</Command>
+xcopy /Q /E /Y /I "..\@venture\src\res" "..\bin\Debug-windows-x86_64\@venture\src\res"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -135,11 +131,7 @@ xcopy /Q /E /Y /I "..\@secondgame\src\res" "..\bin\Debug-windows-x86_64\@secondg
       <Command>IF NOT EXIST "..\bin\Release-windows-x86_64\@venture\" (mkdir "..\bin\Release-windows-x86_64\@venture\")
 copy /B /Y "..\bin\Release-windows-x86_64\Flux\Flux.dll" "..\bin\Release-windows-x86_64\@venture\"
 IF NOT EXIST "..\bin\Release-windows-x86_64\@venture\src\" (mkdir "..\bin\Release-windows-x86_64\@venture\src\")
-xcopy /Q /E /Y /I "..\@venture\src\res" "..\bin\Release-windows-x86_64\@venture\src\res"
-IF NOT EXIST "..\bin\Release-windows-x86_64\@secondgame\" (mkdir "..\bin\Release-windows-x86_64\@secondgame\")
-copy /B /Y "..\bin\Release-windows-x86_64\Flux\Flux.dll" "..\bin\Release-windows-x86_64\@secondgame\"
-IF NOT EXIST "..\bin\Release-windows-x86_64\@secondgame\src\" (mkdir "..\bin\Release-windows-x86_64\@secondgame\src\")
-xcopy /Q /E /Y /I "..\@secondgame\src\res" "..\bin\Release-windows-x86_64\@secondgame\src\res"</Command>
+xcopy /Q /E /Y /I "..\@venture\src\res" "..\bin\Release-windows-x86_64\@venture\src\res"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -171,11 +163,7 @@ xcopy /Q /E /Y /I "..\@secondgame\src\res" "..\bin\Release-windows-x86_64\@secon
       <Command>IF NOT EXIST "..\bin\Dist-windows-x86_64\@venture\" (mkdir "..\bin\Dist-windows-x86_64\@venture\")
 copy /B /Y "..\bin\Dist-windows-x86_64\Flux\Flux.dll" "..\bin\Dist-windows-x86_64\@venture\"
 IF NOT EXIST "..\bin\Dist-windows-x86_64\@venture\src\" (mkdir "..\bin\Dist-windows-x86_64\@venture\src\")
-xcopy /Q /E /Y /I "..\@venture\src\res" "..\bin\Dist-windows-x86_64\@venture\src\res"
-IF NOT EXIST "..\bin\Dist-windows-x86_64\@secondgame\" (mkdir "..\bin\Dist-windows-x86_64\@secondgame\")
-copy /B /Y "..\bin\Dist-windows-x86_64\Flux\Flux.dll" "..\bin\Dist-windows-x86_64\@secondgame\"
-IF NOT EXIST "..\bin\Dist-windows-x86_64\@secondgame\src\" (mkdir "..\bin\Dist-windows-x86_64\@secondgame\src\")
-xcopy /Q /E /Y /I "..\@secondgame\src\res" "..\bin\Dist-windows-x86_64\@secondgame\src\res"</Command>
+xcopy /Q /E /Y /I "..\@venture\src\res" "..\bin\Dist-windows-x86_64\@venture\src\res"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
