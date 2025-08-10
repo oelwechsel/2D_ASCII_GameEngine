@@ -12,36 +12,38 @@ class EnemyControllerScript : public Flux::IScript
 
 private:
     
-    enum class Direction { Left, Right };
+    enum class Direction { e_Left, e_Right };
 
     float m_AnimationTime = 0.0f;
-    int m_currentFrame = 0;
-    Direction m_LastTargetDirection = Direction::Left;
+    int m_CurrentFrame = 0;
+    Direction m_LastTargetDirection = Direction::e_Left;
 
-    struct Animation {
+    struct Animation 
+    {
         std::vector<Flux::LayeredFrame> frames;
         float frameDuration;
     };
 
     std::unordered_map<std::string, Animation> m_Animations;
-    Animation* m_activeAnimation = nullptr;
+    Animation* m_ActiveAnimation = nullptr;
 
 public:
 
-    enum class EnemyState {
-        CutsceneStart,
-        Targeting,
-        WaitingForPlayer,
-        TargetGetHit,
-        Attacking,
-        CutsceneEnd
+    enum class EnemyState 
+    {
+        e_CutsceneStart,
+        e_Targeting,
+        e_WaitingForPlayer,
+        e_TargetGetHit,
+        e_Attacking,
+        e_CutsceneEnd
     };
     EnemyState e_BossEnemyFightState;
 
     int m_BossEnemyHP = 4;
     int m_BossEnemyPhase = 1;
 
-    EnemyState e_PreviousState = EnemyState::CutsceneStart;
+    EnemyState e_PreviousState = EnemyState::e_CutsceneStart;
 
     //-------------------------------------------//
     //----------------Functions------------------//
@@ -59,15 +61,15 @@ public:
         return *s_Instance;
     }
 
-    const Animation* GetActiveAnimation() const { return m_activeAnimation; }
-    int GetCurrentFrame() const { return m_currentFrame; }
+    const Animation* GetActiveAnimation() const { return m_ActiveAnimation; }
+    int GetCurrentFrame() const { return m_CurrentFrame; }
 
 
     void StartFight()
     {
-        e_BossEnemyFightState = EnemyState::CutsceneStart;
-        PlayAnimation("fight_start");  // start cutscene when fight begins
-        m_currentFrame = 0;
+        e_BossEnemyFightState = EnemyState::e_CutsceneStart;
+        PlayAnimation("fight_start");  
+        m_CurrentFrame = 0;
         m_AnimationTime = 0.0f;
     }
 
@@ -89,11 +91,13 @@ private:
 
         srand(static_cast<unsigned>(time(nullptr))); // Initialise randomizer
 
-        auto loadAnim = [&](const std::string& key, const std::string& file, float dur) {
+        auto loadAnim = [&](const std::string& key, const std::string& file, float dur) 
+            {
             Animation anim;
             anim.frameDuration = dur;
             anim.frames = Flux::FileLoader::LoadAsciiFrames(file);
-            if (anim.frames.empty()) {
+            if (anim.frames.empty()) 
+            {
                 FX_ERROR("Animation '{}' from file '{}' has no frames!", key.c_str(), file.c_str());
             }
             m_Animations[key] = std::move(anim);
@@ -110,80 +114,80 @@ private:
 
     }
 
-    void PlayAnimation(const std::string& name)
+    void PlayAnimation(const std::string& _name)
     {
-        auto it = m_Animations.find(name);
+        auto it = m_Animations.find(_name);
         if (it != m_Animations.end() && !it->second.frames.empty())
         {
-            m_activeAnimation = &it->second;
-            m_currentFrame = 0;
+            m_ActiveAnimation = &it->second;
+            m_CurrentFrame = 0;
             m_AnimationTime = 0.0f;
         }
         else
         {
-            FX_ERROR("Animation '{}' not found or has no frames!", name.c_str());
-            m_activeAnimation = nullptr;
+            FX_ERROR("Animation '{}' not found or has no frames!", _name.c_str());
+            m_ActiveAnimation = nullptr;
         }
     }
 
 
     bool AnimationFinished() const
     {
-        return m_activeAnimation && m_currentFrame >= (int)m_activeAnimation->frames.size() - 1;
+        return m_ActiveAnimation && m_CurrentFrame >= (int)m_ActiveAnimation->frames.size() - 1;
     }
 
 
 
-    void Update(float deltaTime) override
+    void Update(float _deltaTime) override
     {
-        if (m_activeAnimation)
+        if (m_ActiveAnimation)
         {
-            m_AnimationTime += deltaTime;
+            m_AnimationTime += _deltaTime;
 
-            if (m_AnimationTime >= m_activeAnimation->frameDuration)
+            if (m_AnimationTime >= m_ActiveAnimation->frameDuration)
             {
                 m_AnimationTime = 0.0f;
 
-                if (e_BossEnemyFightState == EnemyState::WaitingForPlayer)
+                if (e_BossEnemyFightState == EnemyState::e_WaitingForPlayer)
                 {
-                    m_currentFrame = (m_currentFrame + 1) % (int)m_activeAnimation->frames.size();
+                    m_CurrentFrame = (m_CurrentFrame + 1) % (int)m_ActiveAnimation->frames.size();
                 }
                 else
                 {
-                    if (m_currentFrame < (int)m_activeAnimation->frames.size() - 1)
-                        m_currentFrame++;
+                    if (m_CurrentFrame < (int)m_ActiveAnimation->frames.size() - 1)
+                        m_CurrentFrame++;
                 }
             }
         }
 
-        static EnemyState e_PreviousState = EnemyState::CutsceneStart;
+        static EnemyState e_PreviousState = EnemyState::e_CutsceneStart;
 
         if (e_BossEnemyFightState != e_PreviousState)
         {
             switch (e_BossEnemyFightState)
             {
-            case EnemyState::CutsceneStart:
+            case EnemyState::e_CutsceneStart:
                 PlayAnimation("fight_start");
                 break;
 
-            case EnemyState::Targeting:
-                m_LastTargetDirection = (rand() % 2 == 0) ? Direction::Left : Direction::Right;
-                PlayAnimation(m_LastTargetDirection == Direction::Left ? "target_left" : "target_right");
-                e_BossEnemyFightState = EnemyState::WaitingForPlayer;
+            case EnemyState::e_Targeting:
+                m_LastTargetDirection = (rand() % 2 == 0) ? Direction::e_Left : Direction::e_Right;
+                PlayAnimation(m_LastTargetDirection == Direction::e_Left ? "target_left" : "target_right");
+                e_BossEnemyFightState = EnemyState::e_WaitingForPlayer;
                 break;
 
-            case EnemyState::WaitingForPlayer:
+            case EnemyState::e_WaitingForPlayer:
                 break;
 
-            case EnemyState::TargetGetHit: 
-                PlayAnimation(m_LastTargetDirection == Direction::Left ? "target_getHit_left" : "target_getHit_right");
+            case EnemyState::e_TargetGetHit: 
+                PlayAnimation(m_LastTargetDirection == Direction::e_Left ? "target_getHit_left" : "target_getHit_right");
                 break;
 
-            case EnemyState::Attacking:
-                PlayAnimation(m_LastTargetDirection == Direction::Left ? "attack_left" : "attack_right");
+            case EnemyState::e_Attacking:
+                PlayAnimation(m_LastTargetDirection == Direction::e_Left ? "attack_left" : "attack_right");
                 break;
 
-            case EnemyState::CutsceneEnd:
+            case EnemyState::e_CutsceneEnd:
                 PlayAnimation("fight_end");
                 break;
             }
@@ -193,30 +197,30 @@ private:
 
         switch (e_BossEnemyFightState)
         {
-        case EnemyState::CutsceneStart:
+        case EnemyState::e_CutsceneStart:
             if (AnimationFinished())
-                e_BossEnemyFightState = EnemyState::Targeting;
+                e_BossEnemyFightState = EnemyState::e_Targeting;
             break;
 
-        case EnemyState::WaitingForPlayer:
+        case EnemyState::e_WaitingForPlayer:
             break;
 
-        case EnemyState::TargetGetHit:
+        case EnemyState::e_TargetGetHit:
             if (AnimationFinished())
             {
-               e_BossEnemyFightState = EnemyState::Attacking;
+               e_BossEnemyFightState = EnemyState::e_Attacking;
             }
             break;
 
-        case EnemyState::Attacking:
+        case EnemyState::e_Attacking:
             if (AnimationFinished())
             {
                 bool playerHit = false;
-                if (m_LastTargetDirection == Direction::Left &&
-                    GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::Left)
+                if (m_LastTargetDirection == Direction::e_Left &&
+                    GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::e_Left)
                     playerHit = true;
-                else if (m_LastTargetDirection == Direction::Right &&
-                    GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::Right)
+                else if (m_LastTargetDirection == Direction::e_Right &&
+                    GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::e_Right)
                     playerHit = true;
 
                 if (playerHit)
@@ -225,11 +229,11 @@ private:
                     return;
                 }
 
-                e_BossEnemyFightState = EnemyState::Targeting;
+                e_BossEnemyFightState = EnemyState::e_Targeting;
             }
             break;
 
-        case EnemyState::CutsceneEnd:
+        case EnemyState::e_CutsceneEnd:
             if (AnimationFinished())
             {
                 Flux::Application::Get().CloseApplication();
@@ -239,20 +243,11 @@ private:
         }
     }
 
-
-
-
-    void OnImGuiRender() override
-    {
-
-    }
-
     void OnDestroy() override
     {
         if (s_Instance == this)
             s_Instance = nullptr;
     }
-
 };
 
 inline EnemyControllerScript* EnemyControllerScript::s_Instance = nullptr;

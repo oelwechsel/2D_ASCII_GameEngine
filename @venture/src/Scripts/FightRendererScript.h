@@ -8,7 +8,7 @@ class FightRendererScript : public Flux::IScript
 {
 	static FightRendererScript* s_Instance;
 
-	std::vector<ImU32> m_layerColors = {
+	std::vector<ImU32> m_LayerColors = {
 		IM_COL32(255, 255, 255, 255),
 		IM_COL32(255, 255, 255, 200),
 		IM_COL32(255, 255, 255, 100),
@@ -22,10 +22,10 @@ class FightRendererScript : public Flux::IScript
 
 private:
 
-	int m_screenWidthWindows = GetSystemMetrics(SM_CXSCREEN);
-	int m_screenHeightWindows = GetSystemMetrics(SM_CYSCREEN);
+	int m_ScreenWidthWindows = GetSystemMetrics(SM_CXSCREEN);
+	int m_ScreenHeightWindows = GetSystemMetrics(SM_CYSCREEN);
 
-	ImVec2 m_scale;
+	ImVec2 m_Scale;
 	
 	//-------------------------------------------//
 	//----------------Functions------------------//
@@ -34,7 +34,6 @@ private:
 public:
 
 	
-
 	static FightRendererScript* Get()
 	{
 		return s_Instance;
@@ -47,7 +46,6 @@ public:
 
 private:
 
-
 	//---------------------------------------------------------------//
 	//----------------predefined override functions------------------//
 	//---------------------------------------------------------------//
@@ -56,7 +54,6 @@ private:
 	{
 		if (s_Instance && s_Instance != this)
 		{
-			// Es gibt bereits eine gültige Instanz – wir ignorieren diese neue
 			FX_WARN("GameManagerScript: Instance already exists. Ignoring this one.");
 			return;
 		}
@@ -64,27 +61,23 @@ private:
 		s_Instance = this;
 	}
 
-	void Update(float deltaTime) override
-	{
-		
-	}
-
+	void Update(float _deltaTime) override {}
 
 	void OnImGuiRender() override
 	{
-		if (GameManagerVariables::Instance().m_isInFight)
+		if (GameManagerVariables::Instance().m_IsInFight)
 		{
-			m_scale = Flux::ImGuiWrapper::GetScale();
+			m_Scale = Flux::ImGuiWrapper::GetScale();
 
-			Flux::ImGuiWrapper::Begin("Left Platform", ImVec2(200 * m_scale.x, 100 * m_scale.y), ImVec2(m_screenWidthWindows * 0.20f, m_screenHeightWindows * 0.65f), ImGuiWindowFlags_NoCollapse);
-			Flux::ImGuiWrapper::Text(GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::Left ? "@" : " ");
+			Flux::ImGuiWrapper::Begin("Left Platform", ImVec2(200 * m_Scale.x, 100 * m_Scale.y), ImVec2(m_ScreenWidthWindows * 0.20f, m_ScreenHeightWindows * 0.65f), ImGuiWindowFlags_NoCollapse);
+			Flux::ImGuiWrapper::Text(GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::e_Left ? "@" : " ");
 			Flux::ImGuiWrapper::End();
 
-			Flux::ImGuiWrapper::Begin("Right Platform", ImVec2(200 * m_scale.x, 100 * m_scale.y), ImVec2(m_screenWidthWindows * 0.40f, m_screenHeightWindows * 0.65f), ImGuiWindowFlags_NoCollapse);
-			Flux::ImGuiWrapper::Text(GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::Right ? "@" : " ");
+			Flux::ImGuiWrapper::Begin("Right Platform", ImVec2(200 * m_Scale.x, 100 * m_Scale.y), ImVec2(m_ScreenWidthWindows * 0.40f, m_ScreenHeightWindows * 0.65f), ImGuiWindowFlags_NoCollapse);
+			Flux::ImGuiWrapper::Text(GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::e_Right ? "@" : " ");
 			Flux::ImGuiWrapper::End();
 
-			Flux::ImGuiWrapper::Begin("ROOT", ImVec2(1216 * m_scale.x, 684 * m_scale.y), ImVec2(m_screenWidthWindows * 0.10f, m_screenWidthWindows * 0.10f), ImGuiWindowFlags_NoCollapse);
+			Flux::ImGuiWrapper::Begin("ROOT", ImVec2(1216 * m_Scale.x, 684 * m_Scale.y), ImVec2(m_ScreenWidthWindows * 0.10f, m_ScreenWidthWindows * 0.10f), ImGuiWindowFlags_NoCollapse);
 
 			auto* enemyController = EnemyControllerScript::Get();
 			if (!enemyController)
@@ -122,14 +115,12 @@ private:
 			const auto& frame = anim->frames[frameIndex];
 			if (!frame.layers.empty())
 			{
-				Flux::ImGuiWrapper::AnimateLayers(drawList, startPos, frame.layers, m_layerColors);
+				Flux::ImGuiWrapper::AnimateLayers(drawList, startPos, frame.layers, m_LayerColors);
 			}
 			else
 			{
 				FX_WARN("Current frame has no layers!");
 			}
-
-
 
 			Flux::ImGuiWrapper::End();
 		}

@@ -9,7 +9,7 @@ class MapRendererScript : public Flux::IScript
 {
 	static MapRendererScript* s_Instance;
 
-	inline static std::unordered_set<char> m_blockedTiles =
+	inline static std::unordered_set<char> m_BlockedTiles =
 	{ '#', '|', '-', '8', '=', '+', 'f', 'B', 'P', '0', '(', '~' };
 
 	//-------------------------------------------//
@@ -18,36 +18,36 @@ class MapRendererScript : public Flux::IScript
 
 private:
 	
-	Flux::TileRenderer m_renderer;
-	std::vector<std::string> m_map;
+	Flux::TileRenderer m_Renderer;
+	std::vector<std::string> m_Map;
 
-	std::vector<Flux::RenderTile> m_tiles;
-	unsigned int m_texture;
-	bool success;
+	std::vector<Flux::RenderTile> m_Tiles;
+	unsigned int m_Texture;
+	bool m_Success;
 
-	int m_tileSize = 14;
-	int m_tileSetWidth = 224;
-	int m_tileSetHeight = 84;
+	int m_TileSize = 14;
+	int m_TileSetWidth = 224;
+	int m_TileSetHeight = 84;
 
-	int m_mapWidth = 80;
-	int m_mapHeight = 40;
+	int m_MapWidth = 80;
+	int m_MapHeight = 40;
 
 	ImVec2 m_MapSize;
 
-	float m_timeAccumulator = 0.0f;
-	float m_updateInterval = 1.0f / 10.0f;
+	float m_TimeAccumulator = 0.0f;
+	float m_UpdateInterval = 1.0f / 10.0f;
 
-	float m_deltaTime;
+	float m_DeltaTime;
 
-	int m_cameraWidth = 30; 
-	int m_cameraHeight = 20; 
+	int m_CameraWidth = 30; 
+	int m_CameraHeight = 20; 
 
 
-	ImVec2 m_position;
-	int m_screenWidthWindows = GetSystemMetrics(SM_CXSCREEN);
-	int m_screenHeightWindows = GetSystemMetrics(SM_CYSCREEN);
+	ImVec2 m_Position;
+	int m_ScreenWidthWindows = GetSystemMetrics(SM_CXSCREEN);
+	int m_ScreenHeightWindows = GetSystemMetrics(SM_CYSCREEN);
 
-	ImVec2 m_scale;
+	ImVec2 m_Scale;
 	
 	//-------------------------------------------//
 	//----------------Functions------------------//
@@ -57,9 +57,8 @@ public:
 	
 	void UpdateRenderTiles()
 	{
-
-		m_tiles = CreateRenderTiles(m_map, ASCIIBlockDictionary::Instance(), GameManagerScript::Instance().entities);
-		m_needsUpdate = true;
+		m_Tiles = CreateRenderTiles(m_Map, ASCIIBlockDictionary::Instance(), GameManagerScript::Instance().m_Entities);
+		m_NeedsUpdate = true;
 	}
 
 	static MapRendererScript* Get()
@@ -72,20 +71,20 @@ public:
 		return *s_Instance;
 	}
 
-	const std::vector<std::string>& GetMap() const { return m_map; }
+	const std::vector<std::string>& GetMap() const { return m_Map; }
 	
 	bool MapRendererScript::IsTileBlocked(int x, int y) const
 	{
-		if (y < 0 || y >= static_cast<int>(m_map.size()) || x < 0 || x >= static_cast<int>(m_map[y].size()))
+		if (y < 0 || y >= static_cast<int>(m_Map.size()) || x < 0 || x >= static_cast<int>(m_Map[y].size()))
 			return true;
 
-		char tile = m_map[y][x];
-		return m_blockedTiles.count(tile) > 0;
+		char tile = m_Map[y][x];
+		return m_BlockedTiles.count(tile) > 0;
 	}
 
 private:
 	// define your private Functions here
-	bool m_needsUpdate = true;
+	bool m_NeedsUpdate = true;
 
 	//---------------------------------------------------------------//
 	//----------------predefined override functions------------------//
@@ -95,15 +94,13 @@ private:
 	{
 		if (s_Instance && s_Instance != this)
 		{
-			// Es gibt bereits eine gültige Instanz – wir ignorieren diese neue
 			FX_WARN("GameManagerScript: Instance already exists. Ignoring this one.");
 			return;
 		}
 
 		s_Instance = this;
 
-
-		m_map = Flux::FileLoader::LoadTextFile("map.txt", &success);
+		m_Map = Flux::FileLoader::LoadTextFile("map.txt", &m_Success);
 		TextureID tex = Flux::FileLoader::LoadTileset("tileset.png", 14);
 		if (tex == 0) 
 		{
@@ -114,65 +111,60 @@ private:
 			FX_INFO("Texture loaded, TextureID: {0}", tex);
 		}
 
-		m_renderer.SetTileset(tex, m_tileSize, m_tileSetWidth, m_tileSetHeight); 
-		m_tiles = CreateRenderTiles(m_map, ASCIIBlockDictionary::Instance(), GameManagerScript::Instance().entities);
+		m_Renderer.SetTileset(tex, m_TileSize, m_TileSetWidth, m_TileSetHeight); 
+		m_Tiles = CreateRenderTiles(m_Map, ASCIIBlockDictionary::Instance(), GameManagerScript::Instance().m_Entities);
 
+		m_Texture = m_Renderer.RenderToTexture(m_Tiles, m_MapWidth, m_MapHeight, GameManagerScript::Instance().m_Entities[0].m_xPos, GameManagerScript::Instance().m_Entities[0].m_yPos);
+		m_MapSize = ImVec2(m_MapWidth * m_TileSize, m_MapHeight * m_TileSize);
 
-		
-		// POTENTIAL ERROR! GAME MANAGER NOT INITIALIZED BEFORE USED HERE?!
-		m_texture = m_renderer.RenderToTexture(m_tiles, m_mapWidth, m_mapHeight, GameManagerScript::Instance().entities[0].m_xPos, GameManagerScript::Instance().entities[0].m_yPos);
-
-		m_MapSize = ImVec2(m_mapWidth * m_tileSize, m_mapHeight * m_tileSize);
-
-
-		m_position.x = m_screenWidthWindows * 0.30f;
-		m_position.y = m_screenHeightWindows * 0.3f;
+		m_Position.x = m_ScreenWidthWindows * 0.30f;
+		m_Position.y = m_ScreenHeightWindows * 0.3f;
 	}
 
-	void Update(float deltaTime) override
+	void Update(float _deltaTime) override
 	{
-		m_deltaTime = deltaTime;
-		m_timeAccumulator += deltaTime;
+		m_DeltaTime = _deltaTime;
+		m_TimeAccumulator += _deltaTime;
 
-		if (m_timeAccumulator >= m_updateInterval)
+		if (m_TimeAccumulator >= m_UpdateInterval)
 		{
-			m_tiles = CreateRenderTiles(m_map, ASCIIBlockDictionary::Instance(), GameManagerScript::Instance().entities);
-			m_timeAccumulator = 0.0f;
+			m_Tiles = CreateRenderTiles(m_Map, ASCIIBlockDictionary::Instance(), GameManagerScript::Instance().m_Entities);
+			m_TimeAccumulator = 0.0f;
 		}
 
-		int playerX = GameManagerScript::Instance().entities[0].m_xPos;
-		int playerY = GameManagerScript::Instance().entities[0].m_yPos;
+		int playerX = GameManagerScript::Instance().m_Entities[0].m_xPos;
+		int playerY = GameManagerScript::Instance().m_Entities[0].m_yPos;
 
-		int startX = playerX - m_cameraWidth / 2;
-		int startY = playerY - m_cameraHeight / 2;
+		int startX = playerX - m_CameraWidth / 2;
+		int startY = playerY - m_CameraHeight / 2;
 
 		std::vector<Flux::RenderTile> visibleTiles;
-		for (const auto& tile : m_tiles)
+		for (const auto& tile : m_Tiles)
 		{
-			if (tile.x >= startX && tile.x < startX + m_cameraWidth &&
-				tile.y >= startY && tile.y < startY + m_cameraHeight)
+			if (tile.x >= startX && tile.x < startX + m_CameraWidth &&
+				tile.y >= startY && tile.y < startY + m_CameraHeight)
 			{
 				visibleTiles.push_back(tile);
 			}
 		}
 
-		m_texture = m_renderer.RenderToTexture(
+		m_Texture = m_Renderer.RenderToTexture(
 			visibleTiles,
-			m_cameraWidth,
-			m_cameraHeight,
+			m_CameraWidth,
+			m_CameraHeight,
 			startX,
 			startY
 		);
 
-		m_MapSize = ImVec2(m_cameraWidth * m_tileSize, m_cameraHeight * m_tileSize);
+		m_MapSize = ImVec2(m_CameraWidth * m_TileSize, m_CameraHeight * m_TileSize);
 	}
 
 
 	void OnImGuiRender() override
 	{
-		if (!GameManagerVariables::Instance().m_isInFight)
+		if (!GameManagerVariables::Instance().m_IsInFight)
 		{
-			Flux::ImGuiWrapper::Begin("@venture", ImVec2(m_MapSize.x * 2 , m_MapSize.y * 2 ), m_position, ImGuiWindowFlags_NoCollapse);
+			Flux::ImGuiWrapper::Begin("@venture", ImVec2(m_MapSize.x * 2 , m_MapSize.y * 2 ), m_Position, ImGuiWindowFlags_NoCollapse);
 
 			ImVec2 availSize = Flux::ImGuiWrapper::GetContentRegionAvail();
 
@@ -187,9 +179,7 @@ private:
 
 			ImVec2 scaledMapSize = ImVec2(m_MapSize.x * currentScale, m_MapSize.y * currentScale);
 
-			Flux::ImGuiWrapper::Image(m_texture, scaledMapSize);
-
-
+			Flux::ImGuiWrapper::Image(m_Texture, scaledMapSize);
 
 			Flux::ImGuiWrapper::End();
 		}

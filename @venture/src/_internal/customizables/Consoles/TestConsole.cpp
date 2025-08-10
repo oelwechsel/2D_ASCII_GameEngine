@@ -21,21 +21,21 @@ TestConsole::TestConsole()
 TestConsole::~TestConsole() {}
 
 
-void TestConsole::ExecCommand(const std::string& command)
+void TestConsole::ExecCommand(const std::string& _command)
 {
-    AddLog(LogLevel::e_Info, "$ %s", command.c_str());
+    AddLog(LogLevel::e_Info, "$ %s", _command.c_str());
 
     std::string error;
-    if (!ExecuteCommand(command, error))
+    if (!ExecuteCommand(_command, error))
         AddLog(LogLevel::e_Warning, "%s", error.c_str());
 }
 
-void TestConsole::AutoComplete(const std::string& currentInput, std::vector<std::string>& suggestions)
+void TestConsole::AutoComplete(const std::string& _currentInput, std::vector<std::string>& _suggestions)
 {
     for (const auto& [cmd, _] : m_CommandMap)
     {
-        if (cmd.find(currentInput) == 0)
-            suggestions.push_back(cmd + " ");
+        if (cmd.find(_currentInput) == 0)
+            _suggestions.push_back(cmd + " ");
     }
 }
 

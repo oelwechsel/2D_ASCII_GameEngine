@@ -10,7 +10,7 @@ public:
 
     GameManagerVariables() = default;
 
-    bool m_isInFight = false;
+    bool m_IsInFight = false;
 
 public:
 

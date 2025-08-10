@@ -9,11 +9,11 @@ class TemplateScript : public Flux::IScript
 
 private:
 	// define your private Variables here
-	std::string templatePrivateVariable;
+	std::string m_TemplatePrivateVariable;
 
 public: 
 	// define your public Variables here
-	std::string templatePublicVariable;
+	std::string m_TemplatePublicVariable;
 	
 	//-------------------------------------------//
 	//----------------Functions------------------//
@@ -23,14 +23,14 @@ public:
 	// define your public Functions here
 	void PublicTestFunction()
 	{
-		FX_INFO("Value of templatePublicVariable: {0}", templatePublicVariable);
+		FX_INFO("Value of templatePublicVariable: {0}", m_TemplatePublicVariable);
 	}
 
 private:
 	// define your private Functions here
 	void PrivateTestFunction()
 	{
-		FX_INFO("Value of templatePrivateVariable: {0}", templatePrivateVariable);
+		FX_INFO("Value of templatePrivateVariable: {0}", m_TemplatePrivateVariable);
 	}
 
 	//---------------------------------------------------------------//
@@ -43,7 +43,7 @@ private:
 		PublicTestFunction();
 	}
 
-	void Update(float deltaTime) override
+	void Update(float _deltaTime) override
 	{
 		if (Flux::Input::IsKeyPressed(FX_KEY_TAB))
 			FX_INFO("Tab pressed");

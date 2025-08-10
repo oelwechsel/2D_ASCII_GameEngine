@@ -6,35 +6,32 @@ class CloseAllWindowsScript : public Flux::IScript
 
 private:
 
-	ImVec2 m_position;
-	int m_screenWidthWindows = GetSystemMetrics(SM_CXSCREEN);
-	int m_screenHeightWindows = GetSystemMetrics(SM_CYSCREEN);
+	ImVec2 m_Position;
+	int m_ScreenWidthWindows = GetSystemMetrics(SM_CXSCREEN);
+	int m_ScreenHeightWindows = GetSystemMetrics(SM_CYSCREEN);
 
 	unsigned int m_MDHLogo;
 
 	std::vector<std::string> m_Credits = { "Credits", "Three Pebbles", "Programming: Leonhard Thiel, Seraphina Lange", "Art : Gabrielle Sibucao", "Supervising lecturers : Dominik Mieth, Michael Coldewey" };
 
-	ImVec2 m_scale;
+	ImVec2 m_Scale;
 
 private:
 
 	void Start() override
 	{
-		m_position.x = m_screenWidthWindows * 0.75f;
-		m_position.y = m_screenHeightWindows * 0.0f;
+		m_Position.x = m_ScreenWidthWindows * 0.75f;
+		m_Position.y = m_ScreenHeightWindows * 0.0f;
 
 		m_MDHLogo = Flux::FileLoader::LoadTextureFromFile("MDH_Logo.png");
 	}
 
-	void Update(float deltaTime) override
-	{
-		
-	}
+	void Update(float _deltaTime) override {}
 
 	void OnImGuiRender() override
 	{
-		m_scale = Flux::ImGuiWrapper::GetScale();
-		Flux::ImGuiWrapper::Begin("Window Control", ImVec2(650 * m_scale.x, 400 * m_scale.y), m_position, ImGuiWindowFlags_NoCollapse);
+		m_Scale = Flux::ImGuiWrapper::GetScale();
+		Flux::ImGuiWrapper::Begin("Window Control", ImVec2(650 * m_Scale.x, 400 * m_Scale.y), m_Position, ImGuiWindowFlags_NoCollapse);
 		if (Flux::ImGuiWrapper::Button("Close All Windows")) {
 			Flux::Application::Get().CloseApplication();
 		}

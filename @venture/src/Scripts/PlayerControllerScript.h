@@ -8,7 +8,6 @@
 
 class PlayerControllerScript : public Flux::IScript
 {
-
     static PlayerControllerScript* s_Instance;
 
 	//-------------------------------------------//
@@ -18,12 +17,12 @@ class PlayerControllerScript : public Flux::IScript
 private:
 	// define your private Variables here
 
-    double m_moveCooldown = 0.08;
-    double m_moveTimer = 0.0;
+    double m_MoveCooldown = 0.08;
+    double m_MoveTimer = 0.0;
 
-    bool m_wasEPressedLastFrame = false;
+    bool m_WasEPressedLastFrame = false;
 
-    int lastNPC;
+    int LastNPC;
 
 public:
 	// define your public Variables here
@@ -56,7 +55,6 @@ private:
 	{
         if (s_Instance && s_Instance != this)
         {
-            // Es gibt bereits eine gültige Instanz – wir ignorieren diese neue
             FX_WARN("GameManagerScript: Instance already exists. Ignoring this one.");
             return;
         }
@@ -64,13 +62,13 @@ private:
         s_Instance = this;
 	}
 
-    void Update(float deltaTime) override
+    void Update(float _deltaTime) override
     {
-        if (ConsoleManagerScript::Instance().m_ConsoleFocused || GameManagerVariables::Instance().m_isInFight)
+        if (ConsoleManagerScript::Instance().m_ConsoleFocused || GameManagerVariables::Instance().m_IsInFight)
             return;
 
-        m_moveTimer += deltaTime;
-        if (m_moveTimer < m_moveCooldown)
+        m_MoveTimer += _deltaTime;
+        if (m_MoveTimer < m_MoveCooldown)
             return;
 
         int dx = 0, dy = 0;
@@ -87,26 +85,27 @@ private:
         if (isD) dx = 1;
 
         auto& gm = GameManagerScript::Instance();
-        auto& entities = gm.entities;
+        auto& entities = gm.m_Entities;
         auto& player = entities[0];
 
-        if (isEPressedNow && !m_wasEPressedLastFrame && !gm.m_NPCsDead)
+        if (isEPressedNow && !m_WasEPressedLastFrame && !gm.m_NPCsDead)
         {
-            if (gm.m_playerIsInteracting)
+            if (gm.m_PlayerIsInteracting)
             {
                 NPCWindowScript::Instance().HideNPCWindow();
-                gm.m_playerIsInteracting = false;
+                gm.m_PlayerIsInteracting = false;
 
-                entities[lastNPC].m_HasInteractedWith = true;
-                if (entities[lastNPC].afterInteraction) {
-                    entities[lastNPC].afterInteraction();
+                entities[LastNPC].m_HasInteractedWith = true;
+                if (entities[LastNPC].afterInteraction) 
+                {
+                    entities[LastNPC].afterInteraction();
                 }
-
                 gm.HasInteractedWithAllNPCs();
             }
             else
             {
-                std::vector<std::pair<int, int>> adjacentPositions = {
+                std::vector<std::pair<int, int>> adjacentPositions = 
+                {
                     {player.m_xPos, player.m_yPos - 1},
                     {player.m_xPos, player.m_yPos + 1},
                     {player.m_xPos - 1, player.m_yPos},
@@ -122,20 +121,21 @@ private:
                             NPCWindowScript::Instance().ShowNPCWindow(entities[i]);
 
                             std::string command = "$ cat ./home/" + entities[i].m_Name + "/welcome_message.txt";
-                            ConsoleManagerScript::Instance().m_overworldConsole.AddLog(Flux::ImGuiConsole::LogLevel::e_Info, "%s", command.c_str());
+                            ConsoleManagerScript::Instance().m_OverworldConsole.AddLog(Flux::ImGuiConsole::LogLevel::e_Info, "%s", command.c_str());
 
                             const auto& lines = gm.LoadDialogueLinesForSymbol(entities[i].m_DirName);
                             for (const auto& line : lines) 
                             {
-                                ConsoleManagerScript::Instance().m_overworldConsole.AddCustomLog(entities[i].m_Name, entities[i].m_LogColor, line.c_str());
+                                ConsoleManagerScript::Instance().m_OverworldConsole.AddCustomLog(entities[i].m_Name, entities[i].m_LogColor, line.c_str());
                             }
 
-                            if (entities[i].onInteract) {
+                            if (entities[i].onInteract) 
+                            {
                                 entities[i].onInteract();
                             }
 
-                            gm.m_playerIsInteracting = true;
-                            lastNPC = i;
+                            gm.m_PlayerIsInteracting = true;
+                            LastNPC = i;
                             break;
                         }
                     }
@@ -143,22 +143,22 @@ private:
             }
         }
 
-        m_wasEPressedLastFrame = isEPressedNow;
+        m_WasEPressedLastFrame = isEPressedNow;
 
-        if (gm.m_playerIsInteracting && ( isW || isS || isA || isD))
+        if (gm.m_PlayerIsInteracting && ( isW || isS || isA || isD))
         {
             NPCWindowScript::Instance().HideNPCWindow();
-            gm.m_playerIsInteracting = false;
+            gm.m_PlayerIsInteracting = false;
 
-            entities[lastNPC].m_HasInteractedWith = true;
-            if (entities[lastNPC].afterInteraction) {
-                entities[lastNPC].afterInteraction();
+            entities[LastNPC].m_HasInteractedWith = true;
+            if (entities[LastNPC].afterInteraction) {
+                entities[LastNPC].afterInteraction();
             }
 
             gm.HasInteractedWithAllNPCs();
         }
 
-        if ((dx != 0 || dy != 0) && !gm.m_playerIsInteracting)
+        if ((dx != 0 || dy != 0) && !gm.m_PlayerIsInteracting)
         {
             int targetX = player.m_xPos + dx;
             int targetY = player.m_yPos + dy;
@@ -177,22 +177,19 @@ private:
 
             player.m_xPos = targetX;
             player.m_yPos = targetY;
-            m_moveTimer = 0.0f;
+            m_MoveTimer = 0.0f;
 
             mapScript->UpdateRenderTiles();
 
             if (player.m_xPos == 39 && player.m_yPos == 16) {
-                GameManagerVariables::Instance().m_isInFight = true;
+                GameManagerVariables::Instance().m_IsInFight = true;
                 EnemyControllerScript::Instance().StartFight();
             }
         }
     }
 
 
-    void OnImGuiRender() override 
-    {
-
-    }
+    void OnImGuiRender() override {}
 
     void OnDestroy() override
     {

@@ -26,7 +26,7 @@ FightConsole::FightConsole()
         EnemyControllerScript::Instance().m_BossEnemyHP--;
         AddLog("You attack the ROOT!");
         AddLog("ROOT HP: %d", EnemyControllerScript::Instance().m_BossEnemyHP);
-        EnemyControllerScript::Instance().e_BossEnemyFightState = EnemyControllerScript::EnemyState::TargetGetHit;
+        EnemyControllerScript::Instance().e_BossEnemyFightState = EnemyControllerScript::EnemyState::e_TargetGetHit;
 
         if (EnemyControllerScript::Instance().m_BossEnemyHP <= 0) {
             if (EnemyControllerScript::Instance().m_BossEnemyPhase == 1) {
@@ -35,7 +35,7 @@ FightConsole::FightConsole()
                 AddLog("HP restored to %d.", EnemyControllerScript::Instance().m_BossEnemyHP);
                 AddLog("Seems like a rough enemy... Maybe you should seek some help");
 
-                // Ab Phase 2 Command sudo remove registrieren
+                // register sudo remove when in phase 2
                 RegisterCommand("sudo remove", "Try to remove the ROOT (password required)", [this](const std::string&) {
                     if (m_WaitingForPassword) {
                         AddLog("Password input already in progress.");
@@ -58,30 +58,30 @@ FightConsole::FightConsole()
 
     RegisterCommand("cd left", "Move to the LEFT platform", [this](const std::string&)
         {
-            if (GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::Left)
+            if (GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::e_Left)
                 AddLog("You keep standing on the LEFT platform.");
             else
             {
-                GameManagerScript::Instance().e_PlayerPlatform = GameManagerScript::Platform::Left;
+                GameManagerScript::Instance().e_PlayerPlatform = GameManagerScript::Platform::e_Left;
                 AddLog("You moved to LEFT platform.");
             }
 
-            if (EnemyControllerScript::Instance().e_BossEnemyFightState == EnemyControllerScript::EnemyState::WaitingForPlayer)
-                EnemyControllerScript::Instance().e_BossEnemyFightState = EnemyControllerScript::EnemyState::Attacking;
+            if (EnemyControllerScript::Instance().e_BossEnemyFightState == EnemyControllerScript::EnemyState::e_WaitingForPlayer)
+                EnemyControllerScript::Instance().e_BossEnemyFightState = EnemyControllerScript::EnemyState::e_Attacking;
         });
 
     RegisterCommand("cd right", "Move to the RIGHT platform", [this](const std::string&)
         {
-            if (GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::Right)
+            if (GameManagerScript::Instance().e_PlayerPlatform == GameManagerScript::Platform::e_Right)
                 AddLog("You keep standing on the RIGHT platform.");
             else
             {
-                GameManagerScript::Instance().e_PlayerPlatform = GameManagerScript::Platform::Right;
+                GameManagerScript::Instance().e_PlayerPlatform = GameManagerScript::Platform::e_Right;
                 AddLog("You moved to RIGHT platform.");
             }
 
-            if (EnemyControllerScript::Instance().e_BossEnemyFightState == EnemyControllerScript::EnemyState::WaitingForPlayer)
-                EnemyControllerScript::Instance().e_BossEnemyFightState = EnemyControllerScript::EnemyState::Attacking;
+            if (EnemyControllerScript::Instance().e_BossEnemyFightState == EnemyControllerScript::EnemyState::e_WaitingForPlayer)
+                EnemyControllerScript::Instance().e_BossEnemyFightState = EnemyControllerScript::EnemyState::e_Attacking;
         });
 
     m_WaitingForPassword = false;
@@ -91,11 +91,11 @@ FightConsole::FightConsole()
 FightConsole::~FightConsole() {}
 
 
-void FightConsole::ExecCommand(const std::string& command)
+void FightConsole::ExecCommand(const std::string& _command)
 {
     if (m_WaitingForPassword)
     {
-        if (command == m_Password)
+        if (_command == m_Password)
         {
             AddLog("Password correct!");
             AddLog("...");
@@ -103,8 +103,8 @@ void FightConsole::ExecCommand(const std::string& command)
             AddLog("User @ disconnected");
             AddLog("Now executing as ROOT");
             EnemyControllerScript::Instance().m_BossEnemyHP = 0;
-            EnemyControllerScript::Instance().e_BossEnemyFightState = EnemyControllerScript::EnemyState::TargetGetHit;
-            EnemyControllerScript::Instance().e_BossEnemyFightState = EnemyControllerScript::EnemyState::CutsceneEnd;
+            EnemyControllerScript::Instance().e_BossEnemyFightState = EnemyControllerScript::EnemyState::e_TargetGetHit;
+            EnemyControllerScript::Instance().e_BossEnemyFightState = EnemyControllerScript::EnemyState::e_CutsceneEnd;
         }
         else
         {
@@ -116,16 +116,16 @@ void FightConsole::ExecCommand(const std::string& command)
         return;
     }
 
-    if (EnemyControllerScript::Instance().e_BossEnemyFightState != EnemyControllerScript::EnemyState::WaitingForPlayer)
+    if (EnemyControllerScript::Instance().e_BossEnemyFightState != EnemyControllerScript::EnemyState::e_WaitingForPlayer)
     {
         AddLog("You cannot act right now!");
         return;
     }
 
-    AddLog(LogLevel::e_Info, "$ %s", command.c_str());
+    AddLog(LogLevel::e_Info, "$ %s", _command.c_str());
 
     std::string error;
-    if (!ExecuteCommand(command, error))
+    if (!ExecuteCommand(_command, error))
     {
         AddLog(LogLevel::e_Warning, "%s", error.c_str());
         return;
@@ -134,12 +134,12 @@ void FightConsole::ExecCommand(const std::string& command)
 
 
 
-void FightConsole::AutoComplete(const std::string& currentInput, std::vector<std::string>& suggestions)
+void FightConsole::AutoComplete(const std::string& _currentInput, std::vector<std::string>& _suggestions)
 {
     for (const auto& [cmd, _] : m_CommandMap)
     {
-        if (cmd.find(currentInput) == 0)
-            suggestions.push_back(cmd + " ");
+        if (cmd.find(_currentInput) == 0)
+            _suggestions.push_back(cmd + " ");
     }
 }
 

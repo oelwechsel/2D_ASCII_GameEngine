@@ -15,18 +15,18 @@ private:
 	static ConsoleManagerScript* s_Instance;
 
 
-	int m_screenWidthWindows = GetSystemMetrics(SM_CXSCREEN);
-	int m_screenHeightWindows = GetSystemMetrics(SM_CYSCREEN);
+	int m_ScreenWidthWindows = GetSystemMetrics(SM_CXSCREEN);
+	int m_ScreenHeightWindows = GetSystemMetrics(SM_CYSCREEN);
 
-	ImVec2 m_scale;
+	ImVec2 m_Scale;
 public:
 
 	//-------------------------------------------//
 	//----------------Functions------------------//
 	//-------------------------------------------//
 
-	TestConsole m_overworldConsole;
-	FightConsole m_fightConsole;
+	TestConsole m_OverworldConsole;
+	FightConsole m_FightConsole;
 	bool m_ConsoleFocused;
 
 public:
@@ -51,30 +51,25 @@ private:
 	{
 		if (s_Instance && s_Instance != this)
 		{
-			// Es gibt bereits eine gültige Instanz – wir ignorieren diese neue
 			FX_WARN("GameManagerScript: Instance already exists. Ignoring this one.");
 			return;
 		}
 
 		s_Instance = this;
-
 	}
 
-	void Update(float deltaTime) override
-	{
-
-	}
+	void Update(float _deltaTime) override {}
 
 	void OnImGuiRender() override
 	{
-		m_scale = Flux::ImGuiWrapper::GetScale();
-		if (!GameManagerVariables::Instance().m_isInFight)
+		m_Scale = Flux::ImGuiWrapper::GetScale();
+		if (!GameManagerVariables::Instance().m_IsInFight)
 		{
-			m_overworldConsole.Draw("console", "User @ connected...", ImVec2(m_screenWidthWindows * 0.63f, m_screenHeightWindows * 0.3f), ImVec2(450 * m_scale.x, 600 * m_scale.y), &m_ConsoleFocused);
+			m_OverworldConsole.Draw("console", "User @ connected...", ImVec2(m_ScreenWidthWindows * 0.63f, m_ScreenHeightWindows * 0.3f), ImVec2(450 * m_Scale.x, 600 * m_Scale.y), &m_ConsoleFocused);
 		}
 		else 
 		{
-			m_fightConsole.Draw("fight console", "Type help to display a list of available commands", ImVec2(m_screenWidthWindows * 0.6f, m_screenHeightWindows * 0.3f), ImVec2(450 * m_scale.x, 600 * m_scale.y), &m_ConsoleFocused);
+			m_FightConsole.Draw("fight console", "Type help to display a list of available commands", ImVec2(m_ScreenWidthWindows * 0.6f, m_ScreenHeightWindows * 0.3f), ImVec2(450 * m_Scale.x, 600 * m_Scale.y), &m_ConsoleFocused);
 		}
 	}
 

@@ -12,6 +12,6 @@ public:
     std::string m_PasswordInput;
     std::string m_Password = "cGFzc3dvcnQ=";
 
-    virtual void ExecCommand(const std::string& command) override;
-    virtual void AutoComplete(const std::string& currentInput, std::vector<std::string>& suggestions) override;
+    virtual void ExecCommand(const std::string& _command) override;
+    virtual void AutoComplete(const std::string& _currentInput, std::vector<std::string>& _suggestions) override;
 };

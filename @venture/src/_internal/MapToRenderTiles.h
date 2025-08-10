@@ -3,20 +3,20 @@
 #include "customizables/Dictionary/ASCIIBlockDictionary.h"
 
 inline std::vector<Flux::RenderTile> CreateRenderTiles(
-    const std::vector<std::string>& map,
-    ASCIIBlockDictionary& dictionary,
-    const std::vector<Flux::Entity>& entities)
+    const std::vector<std::string>& _map,
+    ASCIIBlockDictionary& _dictionary,
+    const std::vector<Flux::Entity>& _entities)
 {
     std::vector<Flux::RenderTile> tiles;
 
-    int height = (int)map.size();
+    int height = (int)_map.size();
     if (height == 0) return tiles;
-    int width = (int)map[0].size();
+    int width = (int)_map[0].size();
 
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
             const Flux::Entity* entity = nullptr;
-            for (const Flux::Entity& e : entities) {
+            for (const Flux::Entity& e : _entities) {
                 if (e.m_xPos == x && e.m_yPos == y) {
                     entity = &e;
                     break;
@@ -26,11 +26,11 @@ inline std::vector<Flux::RenderTile> CreateRenderTiles(
             BlockData blockData;
 
             if (entity) {
-                blockData = dictionary.getBlockData(entity->m_AsciiName);
+                blockData = _dictionary.getBlockData(entity->m_AsciiName);
             }
             else {
-                char mapChar = map[y][x];
-                blockData = dictionary.getBlockData(mapChar);
+                char mapChar = _map[y][x];
+                blockData = _dictionary.getBlockData(mapChar);
             }
 
             for (size_t layer = 0; layer < blockData.chars.size(); ++layer) {
@@ -48,6 +48,5 @@ inline std::vector<Flux::RenderTile> CreateRenderTiles(
             }
         }
     }
-
     return tiles;
 }

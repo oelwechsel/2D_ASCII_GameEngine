@@ -5,20 +5,19 @@
 
 class ASCIIBlockDictionary {
 public:
-    // Singleton Zugriff
     static ASCIIBlockDictionary& Instance();
 
-    BlockData getBlockData(char c);
+    BlockData getBlockData(char _c);
 
     void setAllColorsRedExceptPlayerAndRootPathway();
 
-    void SetBlockPattern(const std::string& name, const std::vector<char>& newPattern);
+    void SetBlockPattern(const std::string& _name, const std::vector<char>& _newPattern);
 
 private:
-    ASCIIBlockDictionary();  // Konstruktor private
-    ASCIIBlockDictionary(const ASCIIBlockDictionary&) = delete;            // Kopieren verbieten
-    ASCIIBlockDictionary& operator=(const ASCIIBlockDictionary&) = delete; // Zuweisung verbieten
+    ASCIIBlockDictionary();  
+    ASCIIBlockDictionary(const ASCIIBlockDictionary&) = delete;         
+    ASCIIBlockDictionary& operator=(const ASCIIBlockDictionary&) = delete; 
 
-    std::unordered_map<std::string, BlockData> blocks;
-    int lavaVar = 0;
+    std::unordered_map<std::string, BlockData> m_Blocks;
+    int m_LavaVar = 0;
 };
