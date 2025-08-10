@@ -7,9 +7,6 @@
     <Filter Include="Scripts\Template">
       <UniqueIdentifier>{F8700BBF-E469-2A11-0D9C-0F96F9F3091D}</UniqueIdentifier>
     </Filter>
-    <Filter Include="_generated">
-      <UniqueIdentifier>{336609D1-1F1E-4B1E-8825-247A74FCE50E}</UniqueIdentifier>
-    </Filter>
     <Filter Include="_internal">
       <UniqueIdentifier>{215DCB3C-8DC7-7FB3-D605-315942AF5D08}</UniqueIdentifier>
     </Filter>
@@ -56,9 +53,6 @@
     </ClInclude>
     <ClInclude Include="src\Scripts\Template\TemplateScript.h">
       <Filter>Scripts\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="src\_generated\ScriptIncludes.gen.h">
-      <Filter>_generated</Filter>
     </ClInclude>
     <ClInclude Include="src\_internal\BlockData.h">
       <Filter>_internal</Filter>
