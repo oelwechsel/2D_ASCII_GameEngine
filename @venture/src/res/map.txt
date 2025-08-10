@@ -17,24 +17,24 @@
 ##BB.......B#####B.......BB###|.......x........|######BB~~~~~|.W.B######B|..|BB#
 ##BBB......BBBBBBB....BBBB####|................|########BBBBBBB..B######B|.W.|B#
 ####B..................BBBB###+................+#############BB..BBB####BBB|w|B#
-####BF....................B###P+---S----------+P##########BBB...W..B#####BB|w|B#
-####B.....................BBB####.|R|B#B#B###########BBBBBB....W.W...BBBB|..W|B#
-####BB......................B.##BB|O|##B##BBB#######BB.....W...W.W...W....W..|B#
-#BBBBF.......................B..BB|o|B.....BBBBB#BBBBB.......W.W.W..BBBBB|F.F|B#
-##~~~~~FW....Ww.W........ .......B|t|....................BBB.WFWFWF.B###B|W.W|B#
-##~~~~FBB....W.WWw.wW..w.Ww.......+.+..w...............BB###BF0WbW0WB###B|0b0|B#
-#~~~~WWBB....BBBBBBBBBBBBBw........w...................B####BW0PPP0WB###B|---|B#
-#BBBBBBBBB...BBBBW.W..BBBB.....wwW...................BB#########################
-#########(.W.BBBBwwww(BBBB(.w.BBBB..............BBBBBBBBBBBB.wwwWW.....F..~~~~B#
-#BBB((B##((..BBBBwww.(BBBB(wWw(BBBW............0~~~~~~~~~~~~0wWWWwwWW..WW.~~~~B#
-#W...(BBB((....BB.ww.((BBB(www(BBB..............ssSSSSSSSSss..Www.W..w....F.~~B#
-#W((..w...W.w..BB....(BBBB(W..((BB..............-------~~~~~....F..w..W.FW..~~##
-#WB(..((BB((...BB.W..(BBBB(...~~~B.............F|.....|~~~~~.......FwwFW.W.w~~##
-#WB(F.(BBBB(...BB.wwwWw.....w..~~BWW............S.....|~~~~~...F.ww..F..WwWw~~##
-#WB(..BBBB..W.W..wwWWWwWWwWww....BWW............|.....|~~~~~.....w.....Ww.Fw~~##
-#WB(..BBBB...wwwWwwWWwWWww.....w.B.......s....FF-------~~~~~.....w..FwFwwFwW~~##
-#WB(w.....w..w..wwwwWww...Ww..w..ww.....0S0....F~~~~~~~~~~~~.............~~~~(##
-#.BBBBB((.w.((BB((.W.Www...(((BBBB.....sSbSs....ssSSSSSSSSss.ww..(((((BB.~~~~###
-#FBBBBBB(...(BBBB(.WW.....W(BBBBBB......0S0....0~~~~~~~~~~~~0....#####((B~~~((##
+####BF....................B###P+-------S------+P##########BBB...W..B#####BB|w|B#
+####B.....................BBB#########|R|B###########BBBBBB....W.W...BBBB|..W|B#
+####BB......................B.######BB|O|#BBB#######BB.....W...W.W...W....W..|B#
+#BBBBF.......................B..BBB BB|o|B.BBBBB#BBBBB.......W.W.W..BBBBB|F.F|B#
+##~~~~~FW....Ww.W........ .......B    |t|................BBB.WFWFWF.B###B|W.W|B#
+##~~~~FBB....W.WWw.wW..w.Ww...........+.+..............BB###BF0WbW0WB###B|0b0|B#
+#~~~~WWBB....BBBBBBBBBBBBBw............w...............B####BW0PPP0WB###B|---|B#
+#BBBBBBBBB...BBBBW.W..BBBB.....wwW..............BBBBBBBBBBBB.###################
+#########(.W.BBBBwwww(BBBB(.w.BBBB..............ssSSSSSSSSss wwwWW.....F..~~~~B#
+#BBB((B##((..BBBBwww.(BBBB(wWw(BBBW............0-------~~~~~0wWWWwwWW..WW.~~~~B#
+#W...(BBB((....BB.ww.((BBB(www(BBB.............F|.....|~~~~~|.Www.W..w....F.~~B#
+#W((..w...W.w..BB....(BBBB(W..((BB..............S.....|~~~~~|...F..w..W.FW..~~##
+#WB(..((BB((...BB.W..(BBBB(...~~~B..............|.....|~~~~~|......FwwFW.W.w~~##
+#WB(F.(BBBB(...BB.wwwWw.....w..~~BWW...........F-------~~~~~|..F.ww..F..WwWw~~##
+#WB(..BBBB..W.W..wwWWWwWWwWww....BWW..........FF~~~~~~~~~~~~|....w.....Ww.Fw~~##
+#WB(..BBBB...wwwWwwWWwWWww.....w.B.......s.....|~~~~~~~~~~~~|....w..FwFwwFwW~~##
+#WB(w.....w..w..wwwwWww...Ww..w..ww.....0S0.....ssSSSSSSSSss.............~~~~(##
+#.BBBBB((.w.((BB((.W.Www...(((BBBB.....sSbSs...0~~~~~~~~~~~~0ww..(((((BB.~~~~###
+#FBBBBBB(...(BBBB(.WW.....W(BBBBBB......0S0......................#####((B~~~((##
 #.F..WWWWb.FBBBBB(....(((BBBBBBBBB.......s.....############################(((##
 ################################################################################

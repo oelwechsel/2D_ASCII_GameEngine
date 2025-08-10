@@ -9,7 +9,7 @@ ASCIIBlockDictionary::ASCIIBlockDictionary() {
     blocks = {
         { "wall",       { { '#','#','#','#','#','#' }, BlockColor::White } },
         { "wall2",      { { '8','8','8','8' }, BlockColor::White } },
-        { "halfWall",   { { ' ', '=' }, BlockColor::White } },
+        { "halfWall",   { { ' ', '-' }, BlockColor::White } },
         { "smallStep",  { { '-' }, BlockColor::White } },
         { "floor",      { { '.' }, BlockColor::White } },
         { "lava",       { { '~' }, BlockColor::White } },
